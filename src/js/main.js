@@ -1,0 +1,1 @@
+const placeholderText = 'Coming soon...';

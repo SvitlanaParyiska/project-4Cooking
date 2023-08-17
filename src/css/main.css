@@ -1,1 +1,94 @@
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  src: local('Inter'), url('../fonts/Inter-Regular.woff2') format('woff2'),
+    url('../fonts/Inter-Regular.woff') format('woff'),
+    url('../fonts/Inter-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  src: local('Inter'), url('../fonts/Inter-Medium.woff2') format('woff2'),
+    url('../fonts/Inter-Medium.woff') format('woff'),
+    url('../fonts/Inter-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 600;
+  src: local('Inter'), url('../fonts/Inter-SemiBold.woff2') format('woff2'),
+    url('../fonts/Inter-SemiBold.woff') format('woff'),
+    url('../fonts/Inter-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Inter'), url('../fonts/Inter-Italic.woff2') format('woff2'),
+    url('../fonts/Inter-Italic.woff') format('woff'),
+    url('../fonts/Inter-Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 500;
+  src: local('DM Sans'), url('../fonts/DMSans-Medium.woff2') format('woff2'),
+    url('../fonts/DMSans-Medium.woff') format('woff'),
+    url('../fonts/DMSans-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 600;
+  src: local('Poppins'), url('../fonts/Poppins-SemiBold.woff2') format('woff2'),
+    url('../fonts/Poppins-SemiBold.woff') format('woff'),
+    url('../fonts/Poppins-SemiBold.ttf') format('truetype');
+}
 
+:root {
+  /* background colors */
+  --primary-bg-light-theme: #f8f8f8;
+  --primary-bg-dark-theme: #161616;
+  --mobile-menu-bg-light-theme: #9bb537;
+  --mobile-menu-bg-dark-theme: #050505;
+
+  /* text colors light theme*/
+  --primary-text-color-light-theme: #050505;
+  --white-text-color: #f8f8f8;
+  --categories-text-color-light-theme: rgba(5, 5, 5, 0.3);
+  --search-text-color: rgba(5, 5, 5, 0.5);
+  --recipe-text-color: rgba(5, 5, 5, 0.8);
+
+  /* text colors dark theme*/
+  --primary-text-color-dark-theme: #ffffff;
+  --secondary-text-color-dark-theme: rgba(255, 255, 255, 0.3);
+  --categories-text-color-dark-theme: rgba(5, 5, 5, 0.5);
+  --search-text-color-dark-theme: rgba(255, 255, 255, 0.5);
+  --recipe-text-color-dark-theme: rgba(255, 255, 255, 0.8);
+
+  --accent--text-color: #9bb537;
+  --hero-text-color: rgba(248, 248, 248, 0.6);
+  --hero-secondary-text-color: rgba(248, 248, 248, 0.2);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--primary-text-color-light-theme);
+  background-color: var(--primary-bg-light-theme);
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    min-width: 375px;
+    padding: 0 20px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    width: 768px;
+    padding: 0 32px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .container {
+    width: 1280px;
+    padding: 0 100px;
+  }
+}
