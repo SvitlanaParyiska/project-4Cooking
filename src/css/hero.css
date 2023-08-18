@@ -1,0 +1,110 @@
+.container-hero {
+    width: 100%;
+    padding-left: 20px;
+    position: relative;
+}
+.hero {
+    background-color: var(--primary-bg-light-theme);
+    padding-top: 42px;
+    padding-bottom: 40px;
+}
+.hero-title {
+    color: var(--primary-text-color-light-theme);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+.hero-title-span {
+    color: #9BB537;
+    font-style: italic;
+    font-weight: 400;
+}
+.hero-text {
+    color: #050505;
+    font-size: 14px;
+    line-height: 1.28;
+    margin-bottom: 28px;
+}
+.hero-btn {
+    border-radius: 12px;
+    border: 1px solid #9BB537;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    color: #050505;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    background-color: var(--primary-bg-light-theme);
+    margin-bottom: 48px;
+}
+.hero-btn:hover,
+.hero-btn:focus {
+    background-color: #9BB537;
+    color: #F8F8F8;
+}
+.hero-slider {
+    background-color: black;
+    width: 496px;
+    height: 302px;
+}
+
+@media screen and (min-width: 375px) {
+  .container-hero {
+    max-width: 355px;
+  }
+  .hero-left-part {
+    max-width: 335px;
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .container-hero {
+    max-width: 736px;
+    padding-left: 32px;
+  }
+  .hero {
+    padding-top: 44px;
+    padding-bottom: 40px;
+  }
+  .hero-title {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+  .hero-left-part {
+    max-width: 446px;
+  }
+  .hero-text {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    max-width: 408px;
+  }
+  .hero-btn {
+    padding: 14px 28px;
+    border-radius: 15px;
+    margin-bottom: 64px;
+  }
+  .hero-slider {
+    width: 871px;
+    height: 468px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .container-hero {
+    max-width: 1500px;
+    padding-left: 100px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .hero {
+    padding-top: 47px;
+    padding-bottom: 50px;
+  }
+}
