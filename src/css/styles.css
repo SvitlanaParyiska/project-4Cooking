@@ -1,2 +1,13 @@
-@import url('./reset.css');
 @import url('./main.css');
+@import url('./header.css');
+@import url('./hero.css');
+@import url('./favorites-hero.css');
+@import url('./favorites.css');
+@import url('./all_categories.css');
+@import url('./popular_recipes.css');
+@import url('./search.css');
+@import url('./dishes_list.css');
+@import url('./pagination.css');
+@import url('./recipe.css');
+@import url('./create_order.css');
+@import url('./rating.css');

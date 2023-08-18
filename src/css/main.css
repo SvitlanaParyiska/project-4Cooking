@@ -1,3 +1,5 @@
+@import url('../../node_modules/modern-normalize/modern-normalize.css');
+
 @font-face {
   font-family: 'Inter';
   font-weight: 400;
@@ -68,10 +70,52 @@
   --hero-secondary-text-color: rgba(248, 248, 248, 0.2);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: currentColor;
+  list-style: none;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   color: var(--primary-text-color-light-theme);
   background-color: var(--primary-bg-light-theme);
+}
+
+.container {
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 767px) {
