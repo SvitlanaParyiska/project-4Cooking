@@ -1,1 +1,1 @@
-const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api';
+export const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api';

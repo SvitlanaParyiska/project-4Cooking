@@ -1,1 +1,1 @@
-const placeholderText = 'Coming soon...';
+export const placeholderText = 'Coming soon...';

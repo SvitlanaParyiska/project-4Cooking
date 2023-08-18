@@ -1,1 +1,10 @@
-
+import './js/header';
+import './js/hero';
+import './js/all_categories';
+import './js/popular_recipes';
+import './js/search';
+import './js/dishes_list';
+import './js/pagination';
+import './js/rating';
+import './js/recipe';
+import './js/create_order';
