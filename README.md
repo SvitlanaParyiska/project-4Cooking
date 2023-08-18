@@ -1,3 +1,1 @@
-# Project layout
-
-![GitHub ReadMe](./assets/readme.png)
+![GitHub ReadMe](./assets/readmenew.png)
