@@ -1,1 +1,1 @@
-![GitHub ReadMe](./assets/readmenew.PNG)
+![GitHub ReadMe](./assets/readmenew.png)
