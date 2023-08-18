@@ -1,3 +1,3 @@
 # Project
 
-![GitHub ReadMe](./assets/readmenew.png)
+![GitHub ReadMe](./assets/readme.png)
