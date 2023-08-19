@@ -16,7 +16,7 @@ async function fetchImgForSlider() {
         console.warn(err)
     }
 };
-console.log('hello');
+alert('hello');
 
 fetchImgForSlider();
 
