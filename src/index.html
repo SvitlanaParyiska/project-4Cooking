@@ -31,23 +31,27 @@
     <include src="./partials/header.html"></include>
     <main>
       <!-- --------------------- HERO ----------------------- -->
-
+      <!-- <include src="./partials/test.html"></include> -->
       <include src="./partials/hero.html"></include>
       <!-- --------------------- CATEGORIES ----------------------- -->
-      <section class="categories">
+      <section class="recipes">
         <div class="container">
-          <include src="./partials/all_categories.html"></include>
-          <include src="./partials/popular_recipes.html"></include>
-          <include src="./partials/search.html"></include>
-          <include src="./partials/dishes_list.html"></include>
-          <include src="./partials/pagination.html"></include>
+          <div class="sidebar">
+            <include src="./partials/all_categories.html"></include>
+            <include src="./partials/popular_recipes.html"></include>
+          </div>
+          <div class="dishes-list">
+            <include src="./partials/search.html"></include>
+            <include src="./partials/dishes_list.html"></include>
+            <include src="./partials/pagination.html"></include>
+          </div>
         </div>
       </section>
-      <!-- --------------------- MODAL WINDOWS ----------------------- -->
-      <include src="./partials/recipe.html"></include>
-      <include src="./partials/create_order.html"></include>
-      <include src="./partials/rating.html"></include>
     </main>
+    <!-- --------------------- MODAL WINDOWS ----------------------- -->
+    <include src="./partials/recipe.html"></include>
+    <include src="./partials/create_order.html"></include>
+    <include src="./partials/rating.html"></include>
     <script type="module" src="./index.js"></script>
   </body>
 </html>
