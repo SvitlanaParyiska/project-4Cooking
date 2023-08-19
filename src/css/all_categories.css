@@ -1,0 +1,113 @@
+.sidebar {
+    width: 326px;
+    background-color: #F8F8F8;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 198px;
+    top: 0;
+    left: 0;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: rgba(5, 5, 5, 0.18);
+    border-radius: 12px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+}
+
+.all-categories-button {
+    margin-top: 126px;
+    width: 176px;
+    height: 50px;
+    color: rgba(5, 5, 5, 0.50);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+    border-radius: 15px;
+    border: 1px solid rgba(5, 5, 5, 0.20);
+    padding: 14px 29px;
+    transition: background-color 0.3s;
+}
+
+.all-categories-button:hover,
+.all-categories-button:focus {
+    color: #F8F8F8;
+    background-color: #9BB537;
+    border-color: #9BB537;
+}
+
+.wrap {
+    margin-top: 24px;
+}
+
+.buttons-nav {
+    background-color: transparent;
+    display: block;
+    color: rgba(5, 5, 5, 0.30);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.2;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 18px;
+    transition: color 0.3s;
+}
+
+.buttons-nav:last-child {
+    margin-bottom: 0;
+}
+
+.buttons-nav:hover,
+.buttons-nav:focus {
+    color: #9BB537;
+}
+
+/* *****************************ADAPTIVE*************************** */
+
+@media screen and (min-width: 768px) {
+    .sidebar {
+        width: 176px;
+        max-height: 416px;
+    }
+
+    .all-categories-button {
+        margin-top: 106px;
+    }
+
+    .wrap {
+        margin-top: 30px;
+    }
+
+    .buttons-nav {
+        font-size: 16px;
+        line-height: 1.25;
+        margin-bottom: 24px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .sidebar {
+        width: 235px;
+    }
+
+    .all-categories-button {
+        margin-top: 126px;
+        width: 174px;
+        padding: 14px 28px;
+    }
+
+    .wrap {
+        margin-top: 42px;
+    }
+}
