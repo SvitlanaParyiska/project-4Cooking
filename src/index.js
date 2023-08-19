@@ -1,4 +1,5 @@
 import './js/header';
+import './js/sliderHero';
 import './js/hero';
 import './js/all_categories';
 import './js/popular_recipes';
