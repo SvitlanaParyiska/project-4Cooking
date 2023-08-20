@@ -1,0 +1,245 @@
+.swiper {
+    width: 496px;
+}
+.swiper-slide {
+  display: flex !important;
+  gap: 8px;
+
+
+}
+
+.swiper-img-wrapper {
+  background-color: #050505;
+  border-radius: 15px;
+  height: 280px;
+
+
+}
+.swiper-img-dish {
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 56px 25px 14px;
+}
+.master-class {
+color: rgba(248, 248, 248, 0.60);
+text-align: center;
+font-size: 10px;
+font-weight: 500;
+line-height: 1.4;
+text-transform: uppercase;
+margin-bottom: 8px;
+}
+.master-class-country {
+  color: rgba(248, 248, 248, 0.20);
+  text-align: center;
+  font-size: 8px;
+  line-height: 1.5;
+}
+.swiper-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+.food-center-card {
+  margin-bottom: 20px;
+  width: 150px;
+  height: 150px;
+}
+
+.swiper-img-dish{
+width: 280px;
+}
+.swiper-img-second-dish {
+width: 222px;
+}
+.cook-card {
+  border-radius: 15px;
+}
+.swiper-img-human {
+  width: 80px;
+}
+
+
+
+.container-hero {
+    width: 100%;
+    padding-left: 20px;
+    position: relative;
+}
+.hero {
+    background-color: var(--primary-bg-light-theme);
+    padding-top: 42px;
+    padding-bottom: 40px;
+}
+.hero-title {
+    color: var(--primary-text-color-light-theme);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+.hero-title-span {
+    color: #9BB537;
+    font-style: italic;
+    font-weight: 400;
+}
+.hero-text {
+    color: #050505;
+    font-size: 14px;
+    line-height: 1.28;
+    margin-bottom: 28px;
+}
+.hero-btn {
+    border-radius: 12px;
+    border: 1px solid #9BB537;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    color: #050505;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    background-color: var(--primary-bg-light-theme);
+    margin-bottom: 48px;
+}
+.hero-btn:hover,
+.hero-btn:focus {
+    background-color: #9BB537;
+    color: #F8F8F8;
+}
+/* .hero-slider {
+    width: 496px;
+    height: 302px;
+} 
+
+.img-human {
+ width: 182px;
+ height: 456px;
+}
+.img-dish {
+  width: 262px;
+  height: 262px;
+}
+.swiper-slide {
+  display: flex;
+  gap: 16px;
+  flex-wrap: nowrap;
+}
+.swiper-img {
+  height: 442px;
+  background-color: #050505;
+}
+.swiper-img-human {
+ width: 137px;
+ height: 442px;
+}
+.swiper-img-dish {
+  width: 352px;
+  height: 442px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.swiper-img-second-dish {
+  width: 351px;
+  height: 442px;
+}
+.img-swiper {
+  position: absolute;
+} */
+
+
+@media screen and (min-width: 375px) {
+  .container-hero {
+    max-width: 355px;
+  }
+  .hero-left-part {
+    max-width: 335px;
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .swiper {
+    width: 871px;
+  }
+  .swiper-slide {
+  gap: 16px;
+  }
+  .swiper-img-wrapper {
+  height: 442px;
+  }
+  .swiper-img-human {
+  width: 137px;
+}
+.swiper-img-dish{
+width: 351px;
+}
+.swiper-img-second-dish {
+width: 351px;
+}
+.food-center-card {
+  width: 262px;
+  height: 262px;
+  margin-bottom: 32px;
+}
+.master-class {
+font-size: 14px;
+line-height: 1.28;
+text-transform: uppercase;
+}
+.master-class-country {
+font-size: 12px;
+line-height: 1.16;
+}
+  
+  .container-hero {
+    max-width: 736px;
+    padding-left: 32px;
+  }
+  .hero {
+    padding-top: 44px;
+    padding-bottom: 40px;
+  }
+  .hero-title {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+  .hero-left-part {
+    max-width: 446px;
+  }
+  .hero-text {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    max-width: 408px;
+  }
+  .hero-btn {
+    padding: 14px 28px;
+    border-radius: 15px;
+    margin-bottom: 64px;
+  }
+  .hero-slider {
+    width: 871px;
+    height: 468px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .container-hero {
+    max-width: 1500px;
+    padding-left: 100px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .hero {
+    padding-top: 47px;
+    padding-bottom: 50px;
+  }
+} 
