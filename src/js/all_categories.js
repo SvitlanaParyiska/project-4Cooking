@@ -14,20 +14,20 @@ try{
 };
 };
 
-async function fetchDataAndRender(category = '') {
-    try {
-        const recipesUrl = `${BASE_URL}/recipes`;
-        const response = await axios.get(recipesUrl, {
-            params: { category, page: 1, limit: 0 },
-        });
+// async function fetchDataAndRender(category = '') {
+//     try {
+//         const recipesUrl = `${BASE_URL}/recipes`;
+//         const response = await axios.get(recipesUrl, {
+//             params: { category, page: 1, limit: 0 },
+//         });
 
-        const data = response.data;
-        return data;
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
-}
+//         const data = response.data;
+//         return data;
+//     } catch (error) {
+//         console.log(error);
+//         return null;
+//     }
+// }
 
 
 function renderCategoriesMarkup(categories) {
@@ -42,7 +42,7 @@ allCategoryButton.addEventListener('click', () => {
     sort = '';
     loadPage = 1;
     pictures = [];
-    fetchDataAndRender();
+    // fetchDataAndRender();
 });
 
 categoryList.innerHTML = '';
@@ -59,7 +59,7 @@ categories.forEach(category => {
     sort = category.name;
     loadPage = 1;
     pictures = [];
-    fetchDataAndRender();
+    // fetchDataAndRender();
     });
 
     const catItem = document.createElement('li');
