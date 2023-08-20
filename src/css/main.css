@@ -46,10 +46,9 @@
 
 :root {
   /* background colors */
-  --primary-bg-light-theme: #f8f8f8;
-  --primary-bg-dark-theme: #161616;
-  --mobile-menu-bg-light-theme: #9bb537;
-  --mobile-menu-bg-dark-theme: #050505;
+  --primary-bg-theme: #f8f8f8;
+  --mobile-menu-bg-theme: #9bb537;
+
 
   /* text colors light theme*/
   --primary-text-color-light-theme: #050505;
@@ -68,6 +67,21 @@
   --accent--text-color: #9bb537;
   --hero-text-color: rgba(248, 248, 248, 0.6);
   --hero-secondary-text-color: rgba(248, 248, 248, 0.2);
+
+  color-scheme: light;
+}
+.dark {
+  --primary-bg-theme: #161616;
+  --mobile-menu-bg-theme:#050505;
+
+--primary-text-color-light-theme:#ffffff;
+--categories-text-color-light-theme: rgba(255, 255, 255, 0.3);
+
+--search-text-color: rgba(255, 255, 255, 0.5);
+  --recipe-text-color: rgba(255, 255, 255, 0.8);
+
+
+  color-scheme: dark;
 }
 
 h1,
@@ -111,7 +125,7 @@ img {
 body {
   font-family: 'Inter', sans-serif;
   color: var(--primary-text-color-light-theme);
-  background-color: var(--primary-bg-light-theme);
+  background-color: var(--primary-bg-theme);
 }
 
 .container {
