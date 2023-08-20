@@ -21,3 +21,23 @@ function hendlerCloseMenu() {
 
   backdropEl.removeEventListener('click', hendlerCloseMenu);
 }
+
+const switchEl = document.querySelector('#check-1');
+const switchElMob = document.querySelector('#check-2');
+
+switchEl.addEventListener('change', handleChange);
+switchElMob.addEventListener('change', handleChange);
+
+let root = document.querySelector(':root');
+console.dir(root);
+
+function handleChange(e) {
+  switchEl.checked = e.target.checked;
+  switchElMob.checked = e.target.checked;
+
+  if (e.target.checked) {
+    root.classList.add('dark');
+  } else {
+    root.classList.remove('dark');
+  }
+}

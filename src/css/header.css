@@ -1,22 +1,21 @@
-.header {
-    background-color: fff;
-}
+
 .is-hidden {
     overflow: hidden;
 }
 
 .burger  {
-    stroke: #050505;
-            transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    stroke: var(--primary-text-color-light-theme);
+    transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .burger:hover {
-    stroke: #9BB537;
+    stroke: var(--mobile-menu-bg-light-theme);
 }
 
 .mobile-icons {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     
 }
 .order-btn {
@@ -33,7 +32,7 @@
 }
 
 .menu-link {
-    color: #050505;
+    color: var(--primary-text-color-light-theme);
         font-family: Inter;
         font-size: 12px;
         font-style: normal;
@@ -44,7 +43,7 @@
 }
 
 .menu-link:hover {
-    color: #9BB537;
+    color: var(--mobile-menu-bg-light-theme);
 }
 .mob-menu-link {
     color: #FFF;
@@ -56,13 +55,13 @@
 
 }
 .order-icon {
-    stroke: #050505;
+    stroke:var(--primary-text-color-light-theme);
 
     transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .order-icon:hover {
-    stroke: #9BB537;;
+    stroke:var(--mobile-menu-bg-light-theme);;
 }
 
 
@@ -77,7 +76,7 @@ background-color: transparent;
 }
 
 .burger-btn:hover {
-    stroke:#9BB537;
+    stroke:var(--mobile-menu-bg-light-theme);
 }
 
 .order-link {
@@ -86,7 +85,7 @@ line-height: 0;
 }
 
 .mobile-menu-close-icon {
-    stroke: black;
+    stroke: var(--primary-text-color-light-theme);
     position: absolute;
     right: 0;
     top: 0;
@@ -129,7 +128,7 @@ background-color: transparent;
     height: 100%;
     right: 0;
     top: 0;
-    background-color: #9BB537;
+    background-color: var(--mobile-menu-bg-theme);
     z-index: 100;
 
     display: flex;
@@ -222,7 +221,7 @@ background-color: #CECDCD;
    
      border-radius: 50%; 
 
-    background-color:#F8F8F8;
+    background-color:var(--primary-bg-theme);
     transition: 250ms;
 }
 
