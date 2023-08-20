@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { BASE_URL } from './tasty-api';
+const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api';
 
 const categoryUrl =`${BASE_URL}/categories`;
 
-export async function fetchCategories() {
+async function fetchCategories() {
 try{
     const categories = await axios.get(categoryUrl);
     
@@ -28,7 +28,6 @@ try{
 //         return null;
 //     }
 // }
-
 
 function renderCategoriesMarkup(categories) {
 const categoriesContainer = document.querySelector('.categories-container');
