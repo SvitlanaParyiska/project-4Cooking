@@ -143,6 +143,9 @@ body {
     width: 768px;
     padding: 0 32px;
   }
+  .recipes-thumb-box {
+    display: flex;
+  }
 }
 @media screen and (min-width: 1280px) {
   .container {
