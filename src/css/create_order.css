@@ -1,0 +1,81 @@
+.modal-is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.hero-btn {
+  color: #050505;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  border-radius: 12px;
+  border: 1px solid #9bb537;
+  padding: 10px 20px;
+  gap: 10px;
+  background-color: #fff;
+}
+
+.hero-btn:hover,
+.hero-btn:focus {
+  background: #9bb537;
+  color: #f8f8f8;
+}
+
+/* MODAL */
+.hero-modal-backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--navyblue-modal, rgba(46, 47, 66, 0.4));
+}
+
+.hero-modal {
+  border: 1px solid red;
+  width: 335px;
+  border-radius: 15px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 28px 20px;
+}
+.hero-close-btn {
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 0;
+  border: none;
+  background: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+.hero-modal-icon {
+  stroke: #050505;
+}
+.modal-title {
+  margin: 0;
+}
+.form-hero {
+}
+.inputs-wrapper {
+}
+.input-label-container {
+}
+.label-hero {
+}
+.input-hero {
+}
+.textarea-hero {
+}
+.form-btn {
+}

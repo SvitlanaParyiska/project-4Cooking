@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/create_order.css" />
+  </head>
+  <body>
+    <button class="hero-btn" type="button" data-open>Order now</button>
+    <div class="container">
+      <div class="hero-modal-backdrop modal-is-hidden" data-modal>
+        <div class="hero-modal">
+          <button class="hero-close-btn" type="button" data-close>
+            <svg class="hero-modal-icon" width="20" height="20">
+              <use href="../images/sprite.svg#icon-close"></use>
+            </svg>
+          </button>
+          <h2 class="modal-title">Order now</h2>
 
+          <form class="form-hero">
+            <div class="inputs-wrapper">
+              <div class="input-label-container">
+                <label class="label-hero" for="name">Name</label>
+                <input class="input-hero" type="text" name="name" />
+              </div>
+              <div class="input-label-container">
+                <label class="label-hero" for="number">Phone number</label>
+                <input class="input-hero" type="tel" name="number" />
+              </div>
+              <div class="input-label-container">
+                <label class="label-hero" for="email">Email</label>
+                <input class="input-hero" type="email" name="email" />
+              </div>
+
+              <div class="input-label-container">
+                <label class="label-hero" for="comment">Comment</label>
+                <textarea
+                  class="textarea-hero"
+                  name="comment"
+                  id="comment"
+                ></textarea>
+              </div>
+            </div>
+            <button class="form-btn" type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/create_order.js" type="module"></script>
+  </body>
+</html>
