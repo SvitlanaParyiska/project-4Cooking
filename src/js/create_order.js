@@ -1,4 +1,5 @@
 import debounce from 'lodash.debounce';
+import Notiflix from 'notiflix';
 const openBtnHero = document.querySelector('button[data-modal-open]');
 const closeBtnHero = document.querySelector('button[data-modal-close]');
 const heroModal = document.querySelector('div[data-modal]');
@@ -35,7 +36,7 @@ function onCloseModal(e) {
 function onHeroFormSubmit(e) {
   e.preventDefault();
   localStorage.removeItem(LOCAL_NAME);
-
+  Notiflix.Notify.success('Your order has been accepted!');
   formHeroValue = {};
   e.target.reset();
 }
