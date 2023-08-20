@@ -1,3 +1,4 @@
+import debounce from 'lodash.debounce';
 const openBtnHero = document.querySelector('button[data-modal-open]');
 const closeBtnHero = document.querySelector('button[data-modal-close]');
 const heroModal = document.querySelector('div[data-modal]');
@@ -6,8 +7,8 @@ const heroForm = document.querySelector('.form-hero');
 openBtnHero.addEventListener('click', onOpenModal);
 closeBtnHero.addEventListener('click', onCloseModal);
 heroForm.addEventListener('submit', onHeroFormSubmit);
-heroForm.addEventListener('input', onHeroFormInput);
-heroModal.addEventListener('click', onBackdropCloseModal);
+heroForm.addEventListener('input', debounce(onHeroFormInput, 300));
+heroModal.addEventListener('mousedown', onBackdropCloseModal);
 
 let formHeroValue = {};
 const LOCAL_NAME = 'form-hero-values';
@@ -19,6 +20,7 @@ function onBackdropCloseModal(e) {
 }
 
 function onOpenModal(e) {
+  document.body.classList.add('modal-is-open');
   heroModal.classList.remove('modal-is-hidden');
   window.addEventListener('keydown', onEscPress);
 }
@@ -27,11 +29,14 @@ populateValueInput();
 function onCloseModal(e) {
   heroModal.classList.add('modal-is-hidden');
   window.removeEventListener('keydown', onEscPress);
+  document.body.classList.remove('modal-is-open');
 }
 
 function onHeroFormSubmit(e) {
   e.preventDefault();
   localStorage.removeItem(LOCAL_NAME);
+
+  formHeroValue = {};
   e.target.reset();
 }
 
