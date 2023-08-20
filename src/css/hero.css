@@ -1,3 +1,67 @@
+.swiper {
+    width: 496px;
+}
+.swiper-slide {
+  display: flex !important;
+  gap: 8px;
+
+
+}
+
+.swiper-img-wrapper {
+  background-color: #050505;
+  border-radius: 15px;
+  height: 280px;
+
+
+}
+.swiper-img-dish {
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 56px 25px 14px;
+}
+.master-class {
+color: rgba(248, 248, 248, 0.60);
+text-align: center;
+font-size: 10px;
+font-weight: 500;
+line-height: 1.4;
+text-transform: uppercase;
+margin-bottom: 8px;
+}
+.master-class-country {
+  color: rgba(248, 248, 248, 0.20);
+  text-align: center;
+  font-size: 8px;
+  line-height: 1.5;
+}
+.swiper-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+.food-center-card {
+  margin-bottom: 20px;
+  width: 150px;
+  height: 150px;
+}
+
+.swiper-img-dish{
+width: 280px;
+}
+.swiper-img-second-dish {
+width: 222px;
+}
+.cook-card {
+  border-radius: 15px;
+}
+.swiper-img-human {
+  width: 80px;
+}
+
 
 
 .container-hero {
@@ -48,11 +112,47 @@
     background-color: #9BB537;
     color: #F8F8F8;
 }
-.hero-slider {
-    background-color: black;
+/* .hero-slider {
     width: 496px;
     height: 302px;
+} 
+
+.img-human {
+ width: 182px;
+ height: 456px;
 }
+.img-dish {
+  width: 262px;
+  height: 262px;
+}
+.swiper-slide {
+  display: flex;
+  gap: 16px;
+  flex-wrap: nowrap;
+}
+.swiper-img {
+  height: 442px;
+  background-color: #050505;
+}
+.swiper-img-human {
+ width: 137px;
+ height: 442px;
+}
+.swiper-img-dish {
+  width: 352px;
+  height: 442px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.swiper-img-second-dish {
+  width: 351px;
+  height: 442px;
+}
+.img-swiper {
+  position: absolute;
+} */
+
 
 @media screen and (min-width: 375px) {
   .container-hero {
@@ -65,6 +165,39 @@
 }
 
 @media screen and (min-width: 768px) {
+  .swiper {
+    width: 871px;
+  }
+  .swiper-slide {
+  gap: 16px;
+  }
+  .swiper-img-wrapper {
+  height: 442px;
+  }
+  .swiper-img-human {
+  width: 137px;
+}
+.swiper-img-dish{
+width: 351px;
+}
+.swiper-img-second-dish {
+width: 351px;
+}
+.food-center-card {
+  width: 262px;
+  height: 262px;
+  margin-bottom: 32px;
+}
+.master-class {
+font-size: 14px;
+line-height: 1.28;
+text-transform: uppercase;
+}
+.master-class-country {
+font-size: 12px;
+line-height: 1.16;
+}
+  
   .container-hero {
     max-width: 736px;
     padding-left: 32px;
@@ -109,4 +242,4 @@
     padding-top: 47px;
     padding-bottom: 50px;
   }
-}
+} 
