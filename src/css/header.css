@@ -65,9 +65,7 @@
     stroke: #9BB537;;
 }
 
-.check-span {
-    cursor: pointer;
-}
+
 
 
 .burger-btn{
@@ -120,7 +118,7 @@ background-color: transparent;
     justify-content: space-between;
 }
 
-.btn-desk {
+.btn-order-desk {
     display: flex;
     align-items: center;
 }
@@ -180,17 +178,63 @@ background-color: transparent;
 }
 
 /* =====CHECK====== */
-.hidden {
-    display: none;
-}
-
-
-.options-input {
+.switch__input {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
 
+.switch-desk, .switch-mob {
+    display: inline-block;
+    position: relative;
+    width: 46px;
+    height: 20px;
+
+border-radius: 14px;
+    box-shadow: 7px 5px 15px 0px rgba(22, 22, 22, 0.60);
+
+}
+
+.switch__slider {
+    position: absolute;
+cursor: pointer;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+
+border-radius: 18px; 
+background-color: #CECDCD;
+
+
+}
+
+.switch__slider::before {
+    content: '';
+    position: absolute;
+    cursor: pointer;
+    
+    bottom: 2px;
+    left: 2px;
+
+    height: 16px;
+    width: 16px;
+   
+     border-radius: 50%; 
+
+    background-color:#F8F8F8;
+    transition: 250ms;
+}
+
+.switch__input:checked + .switch__slider {
+background: linear-gradient(91deg, #9BB537 0%, rgba(155, 181, 55, 0.69) 100%);
+    box-shadow: 7px 5px 15px 0px rgba(22, 22, 22, 0.60);
+}
+
+.switch__input:checked + .switch__slider::before {
+    transform: translateX(26px);
+
+}
 
 
 

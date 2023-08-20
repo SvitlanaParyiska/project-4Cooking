@@ -1,123 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/header.css" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="container header-container">
-        <div class="menu-desc">
-          <nav class="page-nav">
-            <ul class="menu list">
-              <li class="menu-item">
-                <a class="menu-link" href="#">Home</a>
-              </li>
-              <li class="menu-item">
-                <a class="menu-link" href="#">Favorite</a>
-              </li>
-            </ul>
-          </nav>
-          <a class="logo-link" href="#">
-            <svg class="desc-icon" width="93" height="20">
-              <use href="./images/sprite.svg#icon-logo-day-desk"></use>
-            </svg>
-          </a>
-          <div class="btn-desk">
-            <button class="order-btn" type="button">
-              <svg class="order-icon" width="24px" height="24px">
-                <use href="./images/sprite.svg#icon-order"></use>
-              </svg>
-            </button>
-
-            <label class="label-check-desk options-check" for="check">
-              <input
-                class="input-check-desk options-input"
-                type="checkbox"
-                name="checkbox"
-                id="check"
-              />
-              <span class="check-span">
-                <svg class="switch-off" width="46px" height="20px">
-                  <use href="./images/sprite.svg#icon-switch-off"></use>
-                </svg>
-
-                <svg class="switch-on hidden" width="46px" height="20px">
-                  <use href="./images/sprite.svg#icon-switch-on"></use>
-                </svg>
-              </span>
-            </label>
-          </div>
-        </div>
-        <div class="mobile-icons">
-          <div class="logo-link-mob-container">
-            <a class="logo-link-mob" href="#">
-              <svg class="mobile-icon">
-                <use href="./images/sprite.svg#icon-logo-day-mob"></use>
-              </svg>
-            </a>
-          </div>
-
-          <div class="mob-btn">
-            <button class="order-btn" type="button">
-              <svg class="order-icon" width="24px" height="24px">
-                <use href="./images/sprite.svg#icon-order"></use>
-              </svg>
-            </button>
-            <button class="burger-btn" type="button" data-menu-open>
-              <svg class="burger" width="32px" height="32px">
-                <use href="./images/sprite.svg#icon-burger"></use>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="mobile-menu">
-        <button class="mob-menu-close-btn" type="button" data-menu-close>
-          <svg
-            class="mobile-menu-close-icon"
-            aria-label="Mobile menu button"
-            width="32px"
-            height="32px"
-          >
-            <use href="./images/sprite.svg#icon-close"></use>
+<header class="header">
+  <div class="container header-container">
+    <div class="menu-desc">
+      <nav class="page-nav">
+        <ul class="menu list">
+          <li class="menu-item">
+            <a class="menu-link" href="#">Home</a>
+          </li>
+          <li class="menu-item">
+            <a class="menu-link" href="#">Favorite</a>
+          </li>
+        </ul>
+      </nav>
+      <a class="logo-link" href="#">
+        <svg class="desc-icon" width="93" height="20">
+          <use href="./images/sprite.svg#icon-logo-day-desk"></use>
+        </svg>
+      </a>
+      <div class="btn-order-desk">
+        <button class="order-btn" type="button">
+          <svg class="order-icon" width="24px" height="24px">
+            <use href="./images/sprite.svg#icon-order"></use>
           </svg>
         </button>
-        <nav class="mobile-nav">
-          <ul class="mob-menu-list">
-            <li class="mob-menu-item">
-              <a class="mob-menu-link" href="#">Home</a>
-            </li>
-            <li class="mob-menu-item">
-              <a class="mob-menu-link" href="#">Favorite</a>
-            </li>
-          </ul>
-        </nav>
-        <label class="label-check options-check" for="check">
-          <input
-            class="input-check options-input"
-            type="checkbox"
-            name="checkbox"
-            id="check"
-          />
 
-          <span class="check-span-">
-            <svg class="switch-off" width="46px" height="20px">
-              <use href="./images/sprite.svg#icon-switch-off"></use>
-            </svg>
-
-            <svg class="switch-on hidden" width="46px" height="20px">
-              <use href="./images/sprite.svg#icon-switch-on"></use>
-            </svg>
-          </span>
+        <label class="switch-desk">
+          <input class="switch__input" type="checkbox"  />
+          <span class="switch__slider"> </span>
         </label>
       </div>
-      <div class="backdrop"></div>
-    </header>
+    </div>
+    <div class="mobile-icons">
+      <div class="logo-link-mob-container">
+        <a class="logo-link-mob" href="#">
+          <svg class="mobile-icon">
+            <use href="./images/sprite.svg#icon-logo-day-mob"></use>
+          </svg>
+        </a>
+      </div>
 
-    <script src="./js/header.js" type="module"></script>
-  </body>
-</html>
+      <div class="mob-btn">
+        <button class="order-btn" type="button">
+          <svg class="order-icon" width="24px" height="24px">
+            <use href="./images/sprite.svg#icon-order"></use>
+          </svg>
+        </button>
+        <button class="burger-btn" type="button" data-menu-open>
+          <svg class="burger" width="32px" height="32px">
+            <use href="./images/sprite.svg#icon-burger"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-menu">
+    <button class="mob-menu-close-btn" type="button" data-menu-close>
+      <svg
+        class="mobile-menu-close-icon"
+        width="32px"
+        height="32px"
+      >
+        <use href="./images/sprite.svg#icon-close"></use>
+      </svg>
+    </button>
+    <nav class="mobile-nav">
+      <ul class="mob-menu-list">
+        <li class="mob-menu-item">
+          <a class="mob-menu-link" href="#">Home</a>
+        </li>
+        <li class="mob-menu-item">
+          <a class="mob-menu-link" href="#">Favorite</a>
+        </li>
+      </ul>
+    </nav>
+    <label class="label-check options-check" for="check">
+       <label class="switch-mob">
+          <input class="switch__input" type="checkbox"  />
+          <span class="switch__slider"> </span>
+        </label>
+  </div>
+  <div class="backdrop"></div>
+</header>
