@@ -1,5 +1,5 @@
-const openBtnHero = document.querySelector('button[data-open]');
-const closeBtnHero = document.querySelector('button[data-close]');
+const openBtnHero = document.querySelector('button[data-modal-open]');
+const closeBtnHero = document.querySelector('button[data-modal-close]');
 const heroModal = document.querySelector('div[data-modal]');
 const heroForm = document.querySelector('.form-hero');
 
@@ -7,9 +7,16 @@ openBtnHero.addEventListener('click', onOpenModal);
 closeBtnHero.addEventListener('click', onCloseModal);
 heroForm.addEventListener('submit', onHeroFormSubmit);
 heroForm.addEventListener('input', onHeroFormInput);
+heroModal.addEventListener('click', onBackdropCloseModal);
 
 let formHeroValue = {};
 const LOCAL_NAME = 'form-hero-values';
+
+function onBackdropCloseModal(e) {
+  if (e.currentTarget === e.target) {
+    onCloseModal();
+  }
+}
 
 function onOpenModal(e) {
   heroModal.classList.remove('modal-is-hidden');
