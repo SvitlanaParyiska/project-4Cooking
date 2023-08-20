@@ -22,16 +22,9 @@ async function fetchDataAndRender(category = '') {
         });
 
         const data = response.data;
-        renderCardsList(data);
-
         return data;
     } catch (error) {
         console.log(error);
-        Notiflix.Report.failure(
-            'Error',
-            'Failed to fetch data. Please try again later.',
-            'OK'
-        );
         return null;
     }
 }
