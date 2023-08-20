@@ -1,3 +1,5 @@
+import svg from '../../images/sprite.svg';
+
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-categories'),
   favoritesRecipesList: document.querySelector('.favorites-list'),
@@ -8,21 +10,27 @@ const refs = {
 
 function getArrFavorites() {
   const arrFavorites = JSON.parse(localStorage(KEY_FAVORITE));
+  if (!arrFavorites || arrFavorites.length === 0) {
+  }
   return arrFavorites;
 }
 
 function MarkUp() {
   const createArr = getArrFavorites();
-  createArr.map(
-    () => `<li class="dishes-list-item" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center; 
-                      background-size: cover;"> 
-        <button type="button" aria-label="Favorite Button" class="heart-btn"> 
-        <svg class=" dishes-list-heart-icon is-active-heart"> 
-            <use href="./images/sprite.svg#icon-heart"> 
-            </use> 
-        </svg> 
-    </button> 
-             
+
+  const markUpFavor = createArr.map(
+    (
+      preview,
+      category,
+      title,
+      description,
+      rating
+    ) => `<li class="dishes-list-item"> 
+            <svg class="dishes-list-heart-icon is-active-heart" width='22' height='22'> 
+                <use href="${svg}#icon-heart"> 
+                </use> 
+            </svg> 
+            <img class="dishes-list-image" src="${preview}" alt="${category}" loading="lazy"> 
             <div class="dishes-list-item-wrapper"> 
                 <h3 class="dishes-list-item-title">${title}</h3> 
                 <p class="dishes-list-item-text">${description}</p> 
@@ -52,11 +60,10 @@ function MarkUp() {
                             </svg> 
                         </div> 
                     </div> 
-                    <button type="button" data-id=${_id} class="see-recipe-btn">See recipe</button> 
+                    <button type="button" class="see-recipe-btn">See recipe</button> 
                 </div> 
             </div> 
         </li>`
   );
+  refs.favoritesRecipesList.innerHTML = markUpFavor.join('');
 }
-
-function findProduct(recipeId) {}
