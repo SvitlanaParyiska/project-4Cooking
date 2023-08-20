@@ -1,0 +1,166 @@
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(5, 5, 5, 0.10);
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+.filters-container {
+    max-width: 335px;
+}
+
+.filters-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.filters-item {
+    position: relative;
+}
+
+.filters-name {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.16;
+    color: var(--search-text-color);
+}
+
+.filters {
+    padding: 14px 18px;
+    margin-top: 8px;
+    height: 46px;
+    display: block;
+    border-radius: 15px;
+    border: 1px solid rgba(5, 5, 5, 0.20);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--search-text-color);
+}
+
+.filters:hover,
+.filters:focus {
+    outline: none;
+}
+
+.search-query {
+    width: 335px;
+    padding-left: 40px;
+}
+
+.search-query::placeholder {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--search-text-color);
+}
+
+.icon-search {
+    fill: var(--search-text-color);
+    position: absolute;
+    top: 55%;
+    left: 18px;
+}
+
+.icon-reset {
+    stroke: #050505;
+    position: absolute;
+    top: 55%;
+    right: 18px;
+    display: none;
+}
+
+.active {
+    stroke: var(--accent--text-color);
+}
+
+.filters-times {
+    width: 160px;
+}
+
+.filters-areas {
+    width: 161px;
+}
+
+.filters-ingredients {
+    width: 188px;
+}
+
+.reset-filters-btn {
+    display: flex;
+    background: none;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-left: auto;
+    color: var(--search-text-color);
+    margin-top: 16px;
+}
+
+.reset-filters-btn:hover {
+    text-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+}
+
+.icon-close {
+    stroke: var(--accent--text-color);
+}
+
+@media screen and (min-width: 768px) {
+    .filters-container {
+        max-width: 496px;
+    }
+
+    .filters-list {
+        gap: 16px;
+    }
+
+    .filters {
+        height: 48px;
+        font-size: 16px;
+    }
+
+    .filters-name {
+        font-size: 14px;
+        line-height: 1.28;
+    }
+
+    .search-query {
+        width: 278px;
+    }
+
+    .search-query::placeholder {
+        font-size: 16px;
+    }
+
+    .filters-times {
+        width: 125px;
+    }
+
+    .filters-areas {
+        width: 141px;
+    }
+
+    .filters-ingredients {
+        width: 188px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .filters-container {
+        max-width: 780px;
+    }
+
+    .filters-list {
+        flex-wrap: nowrap;
+    }
+}
