@@ -1,1 +1,57 @@
+<div class="container">
+  <div class="hero-modal-backdrop modal-is-hidden" data-modal>
+    <div class="hero-modal">
+      <button class="hero-close-btn" type="button" data-modal-close>
+        <svg class="hero-modal-icon" width="20" height="20">
+          <use href="./images/sprite.svg#icon-close"></use>
+        </svg>
+      </button>
+      <h2 class="modal-title">Order now</h2>
 
+      <form class="form-hero">
+        <div class="inputs-wrapper">
+          <div class="input-label-container">
+            <label class="label-hero" for="name">Name</label>
+            <input
+              class="input-hero"
+              type="text"
+              name="name"
+              required
+              pattern="[A-z]{1,15}"
+            />
+          </div>
+          <div class="input-label-container">
+            <label class="label-hero" for="number">Phone number</label>
+            <input
+              class="input-hero"
+              type="tel"
+              name="number"
+              required
+              pattern="[0-9]{7,10}"
+            />
+          </div>
+          <div class="input-label-container">
+            <label class="label-hero" for="email">Email</label>
+            <input
+              class="input-hero"
+              type="email"
+              name="email"
+              required
+              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+            />
+          </div>
+
+          <div class="input-label-container">
+            <label class="label-hero" for="comment">Comment</label>
+            <textarea
+              class="textarea-hero"
+              name="comment"
+              id="comment"
+            ></textarea>
+          </div>
+        </div>
+        <button class="form-btn" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
