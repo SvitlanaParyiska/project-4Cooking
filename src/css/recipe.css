@@ -1,0 +1,219 @@
+.recipe-backdrop {
+  position: relative;
+  width: 335px;
+  height: 1171px;
+}
+.recipe-markup {
+  padding: 40px 20px;
+}
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background-color: transparent;
+}
+.modal-icon-close {
+  stroke: var(--primary-text-color-light-theme);
+}
+.recipe-video {
+  width: 100%;
+  height: 295px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.recipe-alternative-img {
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.recipe-title {
+  font-size: 18px;
+  line-height: 1.33;
+  color: var(--primary-text-color-light-theme);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.recipe-rating-time {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 33px;
+}
+.rating {
+  display: flex;
+  width: 122px;
+  height: 18px;
+  color: var(--search-text-color);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.28;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+.time-cooking {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.28;
+  color: var(--search-text-color);
+}
+.recipe-ingredients {
+  width: 100%;
+  height: 224px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  gap: 14px;
+  overflow: auto;
+  margin-bottom: 40px;
+}
+.ingredients-item {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.1);
+}
+.ingredients-item-name {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.28;
+  color: var(--primary-text-color-light-theme);
+}
+.ingredients-item-measure {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.28;
+  color: var(--primary-text-color-light-theme);
+  opacity: 0.5;
+}
+.recipe-tags {
+  width: 295px;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  overflow: auto;
+}
+.tags-item {
+  padding: 8px 16px;
+  border-radius: 35px;
+  border: 1px solid rgba(5, 5, 5, 0.2);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.16;
+  color: var(--primary-text-color-light-theme);
+}
+.recipe-text {
+  height: 288px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.28;
+  color: var(--recipe-text-color);
+  overflow: auto;
+  margin-bottom: 40px;
+}
+.modal-btn {
+  display: flex;
+  gap: 14px;
+}
+.btn {
+  height: 41px;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 12px 24px;
+  border-radius: 15px;
+  border: 1px solid var(--accent--text-color);
+}
+.favorite-btn {
+  width: 148px;
+  color: var(--white-text-color);
+  background: var(--accent--text-color);
+}
+.rating-btn {
+  width: 133px;
+  color: var(--primary-text-color-light-theme);
+}
+
+@media screen and (min-width: 768px) {
+  .recipe-backdrop {
+    width: 531px;
+    height: 905px;
+  }
+  .recipe-markup {
+    padding: 32px;
+  }
+  .close-btn {
+    top: 16px;
+    right: 16px;
+  }
+  .recipe-main-info {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .recipe-video {
+    height: 250px;
+    margin-bottom: 16px;
+  }
+  .recipe-title {
+    line-height: 1.22;
+    margin-bottom: 16px;
+  }
+  .recipe-details-info {
+    position: relative;
+  }
+  .recipe-rating-time {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    gap: 8px;
+    margin: 0;
+  }
+  .recipe-ingredients-tags {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .recipe-ingredients {
+    height: 204px;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .ingredients-item {
+    padding-bottom: 6px;
+  }
+  .recipe-tags {
+    width: 258px;
+    gap: 4px;
+    margin-bottom: 32px;
+  }
+  .recipe-text {
+    height: 162px;
+    margin-bottom: 32px;
+  }
+  .modal-btn {
+    gap: 16px;
+  }
+  .btn {
+    height: 45px;
+    font-size: 14px;
+  }
+  .favorite-btn {
+    width: 156px;
+  }
+  .rating-btn {
+    width: 141px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .recipe-backdrop {
+    width: 531px;
+  }
+  .favorite-btn:is(:hover, :focus) {
+    color: var(--primary-text-color-light-theme);
+  }
+  .rating-btn:is(:hover, :focus) {
+    color: var(--white-text-color);
+    background: var(--accent--text-color);
+  }
+}
