@@ -1,34 +1,53 @@
 import axios from 'axios';
 import svg from '../images/sprite.svg';
 import { createPlugFavoriteMarkup } from './plug';
+import { save, load, remove } from './localStorageJSON';
 
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-category-list'),
   favoritesRecipesList: document.querySelector('.favorites-recipes-list'),
   emptyStorage: document.querySelector('.empty-storage-js'),
+  listRecipeEl: document.querySelector('.favorites-recipes-list'),
 
   //paginationBox: document.getElementById('pagination'),
   //allBtn: document.querySelector('.all-btn'),
 };
+const KEY_FAVOURITE = 'favourite';
+
+refs.listRecipeEl.addEventListener('click', selectId);
 
 checkArrFavoritesId();
 
 async function checkArrFavoritesId() {
-  // const arrFavoritesId = function Vova; // нужна функция
+  const arrFavoritesId = load(KEY_FAVOURITE);
+  console.log(arrFavoritesId);
 
   //   if (!arrFavoritesId || arrFavoritesId.length === 0)
-  if (1) {
+  if (!arrFavoritesId || arrFavoritesId.length === 0) {
     const MarkStr = createPlugFavoriteMarkup();
     refs.emptyStorage.innerHTML = MarkStr;
   }
 
   try {
     const recipesList = await fetchUsers(arrFavoritesId);
+    console.log(recipesList);
     MarkUpRecipes(recipesList);
+    const seeRecipeBtn = document.querySelectorAll('.js-recipe');
+    console.log(seeRecipeBtn);
   } catch (error) {
     console.log(error.message);
   }
 }
+
+function selectId(event) {
+  if (event.target.nodeName !== 'BUTTON') {
+    return;
+  }
+  const selectedId = event.target.dataset.id;
+  seeRecipe(selectedId);
+}
+
+function seeRecipe(id) {}
 
 async function fetchUsers(arrId) {
   const BASE_URL_RECIPES =
@@ -55,54 +74,55 @@ function MarkUpFavSearch(arr) {
 }
 
 function MarkUpRecipes(arr) {
+  console.log(arr);
   const favorArr = arr
     .map(
-      (
-        preview,
-        category,
-        title,
-        description,
-        rating
-      ) => `<li class="dishes-list-fav-item"> 
-            <svg class="dishes-list-heart-icon is-active-heart" width='22' height='22'> 
-                <use href="${svg}#icon-heart"> 
-                </use> 
-            </svg> 
-            <img class="dishes-list-image" src="${preview}" alt="${category}" loading="lazy"> 
-            <div class="dishes-list-fav-item-wrapper"> 
-                <h3 class="dishes-list-item-title">${title}</h3> 
-                <p class="dishes-list-item-text">${description}</p> 
-                <div class="dishes-list-item-wrapper-rating"> 
-                    <div class="dishes-list-item-wrapper-rating-star"> 
-                        <p class="dishes-list-item-wrapper-rating-text">${rating}</p> 
-                        <div class="dishes-list-item-wrapper-rating-star-5"> 
-                            <svg class="dishes-list-star-icon is-active-star"> 
-                                <use href="./images/sprite.svg#icon-star"> 
-                                </use> 
-                            </svg> 
-                            <svg class="dishes-list-star-icon is-active-star"> 
-                                <use href="./images/sprite.svg#icon-star"> 
-                                </use> 
-                            </svg> 
-                            <svg class="dishes-list-star-icon is-active-star"> 
-                                <use href="./images/sprite.svg#icon-star"> 
-                                </use> 
-                            </svg> 
-                            <svg class="dishes-list-star-icon is-active-star"> 
-                                <use href="./images/sprite.svg#icon-star"> 
-                                </use> 
-                            </svg> 
-                            <svg class="dishes-list-star-icon"> 
-                                <use href="./images/sprite.svg#icon-star"> 
-                                </use> 
-                            </svg> 
-                        </div> 
-                    </div> 
-                    <button type="button" data-id="${_id}" class="see-recipe-btn">See recipe</button>
-                </div> 
-            </div> 
-        </li>`
+      ({ value: { _id, title, category, description, preview, rating } }) => {
+        return `<li class="dishes-list-item" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
+                      background-size: cover;">
+        <button type="button" aria-label="Favorite Button" class="heart-btn js-favourite" data-heart="heart">
+        <svg class="dishes-list-heart-icon">
+        <use href="${svg}#icon-heart">
+        </use>
+    </svg>
+</button>
+            
+            <div class="dishes-list-item-wrapper">
+                <h3 class="dishes-list-item-title">${title}</h3>
+                <p class="dishes-list-item-text">${description}</p>
+                <div class="dishes-list-item-wrapper-rating">
+                    <div class="dishes-list-item-wrapper-rating-star">
+                        <p class="dishes-list-item-wrapper-rating-text">${rating}</p>
+                        <div class="dishes-list-item-wrapper-rating-star-5">
+                            <svg class="dishes-list-star-icon is-active-star">
+                                <use href="${svg}#icon-star">
+                                </use>
+                            </svg>
+                            <svg class="dishes-list-star-icon is-active-star">
+                                <use href="${svg}#icon-star">
+                                </use>
+                            </svg>
+                            <svg class="dishes-list-star-icon is-active-star">
+                                <use href="${svg}#icon-star">
+                                </use>
+                            </svg>
+                            <svg class="dishes-list-star-icon is-active-star">
+                                <use href="${svg}#icon-star">
+                                </use>
+                            </svg>
+                            <svg class="dishes-list-star-icon">
+                                <use href="${svg}#icon-star">
+                                </use>
+                            </svg>
+                        </div>
+                    </div>
+                    <button type="button" data-id="${_id}" data-recipe-btn="click" class="see-recipe-btn js-see-recipe js-recipe">See recipe</button>
+                </div>
+            </div>
+        </li>`;
+      }
     )
+
     .join('');
   refs.favoritesRecipesList.innerHTML = favorArr;
 }
