@@ -13,6 +13,7 @@ const refs = {
   //allBtn: document.querySelector('.all-btn'),
 };
 const KEY_FAVOURITE = 'favourite';
+let favArrList = [];
 
 refs.listRecipeEl.addEventListener('click', selectId);
 
@@ -20,20 +21,20 @@ checkArrFavoritesId();
 
 async function checkArrFavoritesId() {
   const arrFavoritesId = load(KEY_FAVOURITE);
-  console.log(arrFavoritesId);
 
-  //   if (!arrFavoritesId || arrFavoritesId.length === 0)
   if (!arrFavoritesId || arrFavoritesId.length === 0) {
-    const MarkStr = createPlugFavoriteMarkup();
-    refs.emptyStorage.innerHTML = MarkStr;
+    const markStr = createPlugFavoriteMarkup();
+    refs.emptyStorage.innerHTML = markStr;
   }
 
   try {
     const recipesList = await fetchUsers(arrFavoritesId);
-    console.log(recipesList);
     MarkUpRecipes(recipesList);
+    const favoritListArr = favArrList
+      .filter((course, index, array) => array.indexOf(course) === index)
+      .sort((a, b) => a.localeCompare(b));
+    MarkUpFavSearch(favoritListArr);
     const seeRecipeBtn = document.querySelectorAll('.js-recipe');
-    console.log(seeRecipeBtn);
   } catch (error) {
     console.log(error.message);
   }
@@ -70,14 +71,16 @@ function MarkUpFavSearch(arr) {
           <button type="button" class="fav-search-button">${search}</button>
         </li>`
   );
-  refs.favoritesCategoriesList.innerHTML;
+  refs.favoritesCategoriesList.innerHTML = `<li class="fav-search-item">
+          <button type="button" class="fav-search-button all-category-btn">All  categories</button>
+        </li>${favSearchArr.join('')}`;
 }
 
 function MarkUpRecipes(arr) {
-  console.log(arr);
   const favorArr = arr
     .map(
       ({ value: { _id, title, category, description, preview, rating } }) => {
+        favArrList.push(category);
         return `<li class="dishes-list-item" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
                       background-size: cover;">
         <button type="button" aria-label="Favorite Button" class="heart-btn js-favourite" data-heart="heart">

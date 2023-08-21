@@ -1,8 +1,6 @@
-@media screen and (min-width: 768px) {
-  .favorites-recipes-list {
-    display: flex;
-    gap: 16px;
-  }
+.favorites-category-list {
+  display: flex;
+  gap: 12px;
 }
 
 .dishes-list-wrap {
@@ -247,5 +245,15 @@
 
   .see-recipe-btn {
     padding: 8px 16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .favorites-recipes-list {
+    display: flex;
+    gap: 16px;
+  }
+  .favorites-category-list {
+    gap: 16px;
   }
 }
