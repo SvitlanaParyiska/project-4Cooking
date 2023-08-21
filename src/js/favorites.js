@@ -1,25 +1,41 @@
-//import svg from '../../images/sprite.svg';
+import axios from 'axios';
+import svg from '../images/sprite.svg';
+import { createPlugFavoriteMarkup } from './plug';
 
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-categories'),
   favoritesRecipesList: document.querySelector('.favorites-list'),
-  //warning: document.querySelector('.empty-storage'),
+    emptyStorage: document.querySelector('.empty-storage-js'),
+    URL_RECIPE:'https://tasty-treats-backend.p.goit.global/api/recipes/';
   //paginationBox: document.getElementById('pagination'),
   //allBtn: document.querySelector('.all-btn'),
 };
 
-function getArrFavorites() {
-  const arrFavorites = JSON.parse(localStorage(KEY_FAVORITE));
+checkArrFavorites();
+
+function checkArrFavorites() {
+  const arrFavorites = JSON.parse(localStorage(KEY_FAVORITE)); // надо функцию Миши
+  const arrFavSearch = JSON.parse(localStorage(KEY_FAVORITE.CATEGORIES)); // надо функцию Миши
   if (!arrFavorites || arrFavorites.length === 0) {
-    // функция Миши
+    const MarkStr = createPlugFavoriteMarkup();
+    refs.emptyStorage.innerHTML = MarkStr;
   }
-  return arrFavorites;
+  MarkUpRecipes(arrFavorites);
+  MarkUpFavSearch(arrFavSearch);
+  //return arrFavorites;
 }
 
-function MarkUp() {
-  const createArr = getArrFavorites();
+function MarkUpFavSearch(arr) {
+  const favSearchArr = arr.map(
+    search => ` <li class="fav-search-item">
+          <button type="button" class="fav-search-button">${search}</button>
+        </li>`
+  );
+  refs.favoritesCategoriesLis.innerHTML;
+}
 
-  const markUpFavor = createArr.map(
+function MarkUpRecipes(arr) {
+  const favorArr = arr.map(
     (
       preview,
       category,
@@ -66,5 +82,5 @@ function MarkUp() {
             </div> 
         </li>`
   );
-  refs.favoritesRecipesList.innerHTML = markUpFavor.join('');
+  refs.favoritesRecipesList.innerHTML = favorArr.join('');
 }
