@@ -3,26 +3,46 @@ import svg from '../images/sprite.svg';
 import { createPlugFavoriteMarkup } from './plug';
 
 const refs = {
-  favoritesCategoriesList: document.querySelector('.favorites-categories'),
-  favoritesRecipesList: document.querySelector('.favorites-list'),
-    emptyStorage: document.querySelector('.empty-storage-js'),
-    URL_RECIPE:'https://tasty-treats-backend.p.goit.global/api/recipes/';
+  favoritesCategoriesList: document.querySelector('.favorites-category-list'),
+  favoritesRecipesList: document.querySelector('.favorites-recipes-list'),
+  emptyStorage: document.querySelector('.empty-storage-js'),
+
   //paginationBox: document.getElementById('pagination'),
   //allBtn: document.querySelector('.all-btn'),
 };
 
-checkArrFavorites();
+checkArrFavoritesId();
 
-function checkArrFavorites() {
-  const arrFavorites = JSON.parse(localStorage(KEY_FAVORITE)); // надо функцию Миши
-  const arrFavSearch = JSON.parse(localStorage(KEY_FAVORITE.CATEGORIES)); // надо функцию Миши
-  if (!arrFavorites || arrFavorites.length === 0) {
+async function checkArrFavoritesId() {
+  // const arrFavoritesId = function Vova; // нужна функция
+
+  //   if (!arrFavoritesId || arrFavoritesId.length === 0)
+  if (1) {
     const MarkStr = createPlugFavoriteMarkup();
     refs.emptyStorage.innerHTML = MarkStr;
   }
-  MarkUpRecipes(arrFavorites);
-  MarkUpFavSearch(arrFavSearch);
-  //return arrFavorites;
+
+  try {
+    const recipesList = await fetchUsers(arrFavoritesId);
+    MarkUpRecipes(recipesList);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+async function fetchUsers(arrId) {
+  const BASE_URL_RECIPES =
+    'https://tasty-treats-backend.p.goit.global/api/recipes/';
+  try {
+    const arrOfPromises = arrId.map(async itemId => {
+      const response = await fetch(`${BASE_URL_RECIPES}${itemId}`);
+      return response.json();
+    });
+    const recipes = await Promise.allSettled(arrOfPromises);
+    return recipes;
+  } catch {
+    throw new Error('ERROR');
+  }
 }
 
 function MarkUpFavSearch(arr) {
@@ -31,24 +51,25 @@ function MarkUpFavSearch(arr) {
           <button type="button" class="fav-search-button">${search}</button>
         </li>`
   );
-  refs.favoritesCategoriesLis.innerHTML;
+  refs.favoritesCategoriesList.innerHTML;
 }
 
 function MarkUpRecipes(arr) {
-  const favorArr = arr.map(
-    (
-      preview,
-      category,
-      title,
-      description,
-      rating
-    ) => `<li class="dishes-list-item"> 
+  const favorArr = arr
+    .map(
+      (
+        preview,
+        category,
+        title,
+        description,
+        rating
+      ) => `<li class="dishes-list-fav-item"> 
             <svg class="dishes-list-heart-icon is-active-heart" width='22' height='22'> 
                 <use href="${svg}#icon-heart"> 
                 </use> 
             </svg> 
             <img class="dishes-list-image" src="${preview}" alt="${category}" loading="lazy"> 
-            <div class="dishes-list-item-wrapper"> 
+            <div class="dishes-list-fav-item-wrapper"> 
                 <h3 class="dishes-list-item-title">${title}</h3> 
                 <p class="dishes-list-item-text">${description}</p> 
                 <div class="dishes-list-item-wrapper-rating"> 
@@ -81,6 +102,7 @@ function MarkUpRecipes(arr) {
                 </div> 
             </div> 
         </li>`
-  );
-  refs.favoritesRecipesList.innerHTML = favorArr.join('');
+    )
+    .join('');
+  refs.favoritesRecipesList.innerHTML = favorArr;
 }
