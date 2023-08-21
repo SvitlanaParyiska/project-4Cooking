@@ -1,7 +1,12 @@
 import axios from 'axios';
+import { renderOnClickCategory, clearRecipeCardsContent } from './dishes_list';
 const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api';
 
-const categoryUrl =`${BASE_URL}/categories`;
+const categoryUrl = `${BASE_URL}/categories`;
+
+let sort = '';
+let loadPage = 1;
+let pictures = [];
 
 async function fetchCategories() {
 try{
@@ -13,21 +18,6 @@ try{
     console.log(error);
 };
 };
-
-// async function fetchDataAndRender(category = '') {
-//     try {
-//         const recipesUrl = `${BASE_URL}/recipes`;
-//         const response = await axios.get(recipesUrl, {
-//             params: { category, page: 1, limit: 0 },
-//         });
-
-//         const data = response.data;
-//         return data;
-//     } catch (error) {
-//         console.log(error);
-//         return null;
-//     }
-// }
 
 function renderCategoriesMarkup(categories) {
 const categoriesContainer = document.querySelector('.categories-container');
@@ -41,10 +31,13 @@ allCategoryButton.addEventListener('click', () => {
     sort = '';
     loadPage = 1;
     pictures = [];
-    // fetchDataAndRender();
+
+    clearRecipeCardsContent();
+    renderOnClickCategory(sort, loadPage);
 });
 
-categoryList.innerHTML = '';
+    categoryList.innerHTML = '';
+    renderOnClickCategory(sort, loadPage);
 
 categories.forEach(category => {
     const categoryButton = document.createElement('button');
@@ -58,7 +51,8 @@ categories.forEach(category => {
     sort = category.name;
     loadPage = 1;
     pictures = [];
-    // fetchDataAndRender();
+    clearRecipeCardsContent(); 
+    renderOnClickCategory(sort, loadPage);
     });
 
     const catItem = document.createElement('li');
@@ -125,3 +119,4 @@ if (!event.target.classList.contains('category-btn')) {
     event.stopPropagation();
 }
 });
+
