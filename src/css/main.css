@@ -49,6 +49,8 @@
   --primary-bg-theme: #f8f8f8;
   --mobile-menu-bg-theme: #9bb537;
 
+  --border-button-color: rgba(5, 5, 5, 0.20);
+
 
   /* text colors light theme*/
   --primary-text-color-light-theme: #050505;
@@ -79,6 +81,8 @@
 
 --search-text-color: rgba(255, 255, 255, 0.5);
   --recipe-text-color: rgba(255, 255, 255, 0.8);
+
+  --border-button-color: rgba(255, 255, 255, 0.20);
 
 
   color-scheme: dark;
