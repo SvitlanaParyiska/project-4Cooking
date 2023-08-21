@@ -10,12 +10,13 @@ function modalRating() {
     ratingEmailBtn: document.querySelector('.rating-email-btn'),
     starInputs: document.querySelectorAll('.star-input'),
     ratingEmailInput: document.querySelector('.rating-form-input'),
+    openModalBtn: document.querySelector(".modal-open"),
   };
 
   refs.closeBtnModal.addEventListener('click', () => {
     refs.ratingBackdrop.classList.add('visible');
     changeColor(0);
-    enableScroll();
+    removeScroll();    
   });
 
   refs.starInputs.forEach(input => {
@@ -30,7 +31,7 @@ function modalRating() {
   refs.ratingEmailBtn.addEventListener('submit', event => {    
     event.preventDefault(); 
     refs.ratingBackdrop.classList.add('visible');
-    enableScroll();
+    removeScroll();
     changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
 
     const inputValue = refs.ratingEmailInput.value.trim();
@@ -49,7 +50,7 @@ function modalRating() {
   refs.ratingBackdrop.addEventListener('click', event => {
     if (event.target === refs.ratingBackdrop) {
       refs.ratingBackdrop.classList.add('visible');
-      enableScroll();
+      removeScroll();
     }
   });
 
@@ -57,7 +58,7 @@ function modalRating() {
     if (event.key === 'Escape') {
       changeColor(0);
       refs.ratingBackdrop.classList.add('visible');
-      enableScroll();
+      removeScroll();
     }
   });
 
@@ -87,7 +88,7 @@ function changeColor(starCount) {
 
 // видаляємо overflow: hidden
 
-function enableScroll() {
+function removeScroll() {
   document.body.classList.remove('no-scroll');
 }
 
@@ -130,3 +131,24 @@ emailInput.addEventListener('input', updateSubmitButtonState);
 ratingInputs.forEach(input =>
   input.addEventListener('change', updateSubmitButtonState)
 );
+
+// Local
+
+// function onHeroFormInput(e) {
+//     formHeroValue[e.target.name] = e.target.value;
+//     localStorage.setItem(LOCAL_NAME, JSON.stringify(formHeroValue));
+//   }
+
+//   function populateValueInput(params) {
+//     const savedMessage = localStorage.getItem(LOCAL_NAME);
+//     const parsedDataHero = JSON.parse(localStorage.getItem(LOCAL_NAME));
+//     const { name, number, email, comment } = heroForm.elements;
+//     if (savedMessage) {
+//       name.value = parsedDataHero.name || '';
+//       number.value = parsedDataHero.number || '';
+//       email.value = parsedDataHero.email || '';
+//       comment.value = parsedDataHero.comment || '';
+//     }
+//     formHeroValue = { ...parsedDataHero };
+//   }
+  

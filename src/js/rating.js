@@ -1,36 +1,22 @@
 
 
-
-// (() => {
-//   const refs = {
-//     openModalBtn: document.querySelector(".modal-open"),
-//     closeModalBtn: document.querySelector(".modal-close"),
-//     modal: document.querySelector(".modal"),
-//     body: document.querySelector('body')
-//   };
-
-//   refs.openModalBtn.addEventListener("click", toggleModal);
-//   refs.closeModalBtn.addEventListener("click", toggleModal);
-
-//   function toggleModal() {
-//     refs.modal.classList.toggle("visible");
-//     refs.body.classList.toggle("no-scroll");
-//   }
-// })();
-
-
 const refs = {
   openModalBtn: document.querySelector(".modal-open"),
-  closeModalBtn: document.querySelector(".modal-close"),
+  
   modal: document.querySelector(".modal"),
   body: document.querySelector('body')
 };
 
-refs.openModalBtn.addEventListener("click", toggleModal);
-refs.closeModalBtn.addEventListener("click", toggleModal);
+function openModalRating() {
+  refs.openModalBtn.addEventListener("click", toggleModal);
+}
+
+
 
 function toggleModal() {
   refs.modal.classList.toggle("visible");
   refs.body.classList.toggle("no-scroll");
-  console.log("click event listener was rating btn")
+  console.log("click event listener rating btn")
 }
+openModalRating();
+// refs.openModalBtn.removeEventListener("click", toggleModal);
