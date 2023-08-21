@@ -28,13 +28,13 @@ export class RatingAPI {
     
     } catch (err) {
       if (err.response.status === 409) {
-        Notiflix.Report.failure(
+        Notiflix.Notify.failure(
           'You have already rated this recipe',
           err.message
         );
       }
       if (err.response.status === 400) {
-        Notiflix.Report.failure(
+        Notiflix.Notify.failure(
           'An error occurred, please try again',
           err.message
         );

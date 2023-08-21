@@ -27,8 +27,8 @@ function modalRating() {
     });
   });
 
-  refs.ratingEmailBtn.addEventListener('click', event => {
-    // event.preventDefault(); треба чи ні?
+  refs.ratingEmailBtn.addEventListener('submit', event => {    
+    event.preventDefault(); 
     refs.ratingBackdrop.classList.add('visible');
     enableScroll();
     changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
@@ -36,7 +36,7 @@ function modalRating() {
     const inputValue = refs.ratingEmailInput.value.trim();
 
     if (inputValue === '') {
-      Notiflix.Report.failure('Please enter a valid email');
+        Notiflix.Notify.failure('Please enter a valid email');
       return;
     }
     const id = refs.ratingEmailBtn.id;

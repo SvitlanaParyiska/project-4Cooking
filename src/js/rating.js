@@ -32,4 +32,5 @@ refs.closeModalBtn.addEventListener("click", toggleModal);
 function toggleModal() {
   refs.modal.classList.toggle("visible");
   refs.body.classList.toggle("no-scroll");
+  console.log("click event listener was rating btn")
 }
