@@ -2,6 +2,13 @@ import axios from 'axios';
 
 export class TastyAPI {
   #BASE_URL = 'https://tasty-treats-backend.p.goit.global/api';
+  title = '';
+  category = '';
+  page = '1';
+  limit = '6';
+  time = '';
+  area = '';
+  ingredient = '';
 
   // GET ALL RECIPES
   getAllRecipes(page) {
@@ -22,11 +29,20 @@ export class TastyAPI {
   }
 
   // GET RECIPES BY FILTER
-  getRecipeByFilter(category, page, limit, time, area, ingredients) {
-    const url = `${
-      this.#BASE_URL
-    }/recipes?category=${category}&page=${page}&limit=${limit}&time=${time}&area=${area}&ingredients=${ingredients}`;
-    return axios.get(url).then(resp => resp.data);
+  getRecipeByFilter() {
+    const searchParams = new URLSearchParams({
+      title: this.title,
+      category: this.category,
+      page: this.page,
+      limit: this.limit,
+      time: this.time,
+      area: this.area,
+      ingredient: this.ingredient,
+    });
+    // const url = `${
+    //   this.#BASE_URL
+    // }/recipes?category=${category}&page=${page}&limit=${limit}&time=${time}&area=${area}&ingredients=${ingredients}`;
+    return axios.get(`${this.#BASE_URL}/recipes?${searchParams}`).then(resp => resp.data);
   }
 
   // GET  POPULAR RECIPES
