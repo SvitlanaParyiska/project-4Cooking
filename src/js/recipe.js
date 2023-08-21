@@ -12,12 +12,11 @@ const refs = {
 };
 const tastyApi = new TastyAPI();
 
-// export async function markupRecipe(idRecipe) {
-// const data = await
-tastyApi.getRecipeById('6462a8f74c3d0ddd288980d4').then(data => {
-  refs.markupRecipe.innerHTML = createMarkupRecipe(data);
-});
-// }
+export async function markupRecipe(idRecipe) {
+  const data = await tastyApi.getRecipeById(idRecipe).then(data => {
+    refs.markupRecipe.innerHTML = createMarkupRecipe(data);
+  });
+}
 
 function createMarkupRecipe(recipe) {
   const { title, instructions, time, youtube, tags, ingredients, rating } =
