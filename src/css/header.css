@@ -3,13 +3,13 @@
     overflow: hidden;
 }
 
-.burger  {
+ .burger  {
     stroke: var(--primary-text-color-light-theme);
     transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .burger:hover {
     stroke: var(--mobile-menu-bg-light-theme);
-}
+} 
 
 .mobile-icons {
     display: flex;
@@ -40,11 +40,26 @@
         line-height: normal;
 
         transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        padding-top: 31px;
+        padding-bottom: 31px;
+
+        display: block;
+}
+.menu-link:focus,
+.menu-link:hover {
+    color: #9bb537;
+}
+.active {
+    color:#9bb537;
 }
 
-.menu-link:hover {
-    color: var(--mobile-menu-bg-light-theme);
+.logo-link-mob {
+    padding-top: 27px;
+    padding-bottom: 27px;
+
+    display: block;
 }
+
 .mob-menu-link {
     color: #FFF;
         font-family: Inter;
@@ -59,11 +74,12 @@
 
     transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .order-icon:hover {
-    stroke:var(--mobile-menu-bg-light-theme);;
+    stroke:#9bb537;
 }
-
+.order-btn:focus .order-icon {
+    stroke: #9bb537;
+}
 
 
 
@@ -76,7 +92,7 @@ background-color: transparent;
 }
 
 .burger-btn:hover {
-    stroke:var(--mobile-menu-bg-light-theme);
+    stroke:var(--mobile-menu-bg-theme);
 }
 
 .order-link {
@@ -87,7 +103,7 @@ line-height: 0;
 .mobile-menu-close-icon {
     stroke: var(--primary-text-color-light-theme);
     position: absolute;
-    right: 0;
+    right: 10px;
     top: 0;
 }  
 .mob-menu-close-btn {
@@ -107,14 +123,16 @@ background-color: transparent;
 
 .header-container {
     align-items: center;
-    padding-top: 24px;
-    padding-bottom: 24px;
+
     position: relative;
-}
+
+    background-color: teal;
+    }
 
 .menu-desc {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .btn-order-desk {
@@ -242,11 +260,6 @@ background: linear-gradient(91deg, #9BB537 0%, rgba(155, 181, 55, 0.69) 100%);
     display: flex;
     gap: 16px;
 }
-.page-nav {
-    display: flex;
-
-}
-
 
 /* ================== */
 
@@ -254,6 +267,9 @@ background: linear-gradient(91deg, #9BB537 0%, rgba(155, 181, 55, 0.69) 100%);
   .menu-desc {
     display: none;
   }
+
+  
+
 
   
 }
