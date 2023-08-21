@@ -1,4 +1,4 @@
-import svg from '../../images/sprite.svg';
+//import svg from '../../images/sprite.svg';
 
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-categories'),
