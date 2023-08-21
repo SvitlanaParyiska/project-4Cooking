@@ -10,36 +10,11 @@ export async function searchOnCategory(searchQuery, page) {
   return response.data;
 }
 
-// export async function getAllRecipesTest(
-//   //   shownCategory,
-//   shownPage,
-//   shownPerPage
-//   //   shownTime,
-//   //   shownArea,
-//   //   shownIngredient
-// ) {
-//   const options = {
-//     headers: {
-//       'Content-Type': 'application/json; charset=UTF-8',
-//     },
-//     params: {
-//       //   category: `${shownCategory}`,
-//       page: `${shownPage}`,
-//       limit: `${shownPerPage}`,
-//       //   time: `${shownTime}`,
-//       //   area: `${shownArea}`,
-//       //   ingredients: `${shownIngredient}`,
-//     },
-//   };
-//   const response = await axios.get(BASE_URL, options);
-//   return response.data;
-// }
 // =========================== апішка==========
 const elements = {
   dishesList: document.querySelector('.dishes-list-wrap'),
-  renderMarkup: document.querySelector('.render-markup'),
-  seeRecipeBtn: document.querySelector('.see-recipe-btn'),
-  heartIcon: document.querySelector('.js-favourite'),
+  //   seeRecipeBtn: document.querySelector('.see-recipe-btn'),
+  //   heartIcon: document.querySelector('button[data-heart="heart"]'),
 };
 
 // elements.renderMarkup.addEventListener('click', renderOnClickCategory);
@@ -48,22 +23,40 @@ const elements = {
 //   console.log('Button was clicked');
 // });
 
-async function renderOnClickCategory(category, page) {
+export async function renderOnClickCategory(category, page) {
   try {
     const response = await searchOnCategory(category, page);
     console.log(response);
     onRenderMarkup(response);
+    //   додавання по рисічу в обране та модалка
+    elements.dishesList.addEventListener('click', onListClick);
+
+    const heartIcon = document.querySelector('.js-favourite');
+    console.log(heartIcon);
+    heartIcon.addEventListener('click', addToFavourite);
   } catch (error) {
     Notify.failure(error.message);
   }
 }
 
-function onRenderMarkup(searchValue) {
+export function onListClick(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('see-recipe-btn')) {
+    const { id } = event.target.closest('.dishes-list-item').dataset;
+    console.log(id);
+  }
+}
+
+export function findCard(id) {
+  return response.result;
+}
+
+export function onRenderMarkup(searchValue) {
   const markup = searchValue.results
     .map(({ _id, title, category, description, preview, rating }) => {
-      return `<li class="dishes-list-item" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
+      return `<li class="dishes-list-item" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
                       background-size: cover;">
-        <button type="button" aria-label="Favorite Button" class="heart-btn js-favourite">
+        <button type="button" aria-label="Favorite Button" class="heart-btn js-favourite" data-heart="heart">
         <svg class="dishes-list-heart-icon">
         <use href="${svg}#icon-heart">
         </use>
@@ -99,7 +92,7 @@ function onRenderMarkup(searchValue) {
                             </svg>
                         </div>
                     </div>
-                    <button type="button" data-id="${_id}" class="see-recipe-btn">See recipe</button>
+                    <button type="button" data-id="${_id}" data-recipe-btn="click" class="see-recipe-btn">See recipe</button>
                 </div>
             </div>
         </li>`;
@@ -113,7 +106,7 @@ export function clearRecipeCardsContent() {
   elements.dishesList.innerHTML = '';
 }
 
-function resizePage() {
+export function resizePage() {
   const screenWidth = window.innerWidth;
 
   if (screenWidth >= 1280) {
@@ -129,8 +122,10 @@ function resizePage() {
   }
 }
 
-function addToFavourite() {}
-export { onRenderMarkup, renderOnClickCategory };
+function addToFavourite() {
+  console.log('click on heart');
+}
+// export { onRenderMarkup, renderOnClickCategory };
 
 // ==============серця======
 import { save, load, remove } from './localStorageJSON';
