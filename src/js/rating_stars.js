@@ -45,9 +45,7 @@ const createRatingStars = rating => {
 export function createMarkupRating(arr) {
   return arr
     .map(
-      ({ rating }) => ` 
- 
-                        
+      ({ rating }) => `                         
                         <div class='rating'>
               <div class="rating__body">
                 <div class="rating__active">
