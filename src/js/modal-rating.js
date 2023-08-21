@@ -1,9 +1,7 @@
 import Notiflix from 'notiflix';
-import { addARating } from './rating_api';
+import { RatingAPI } from './rating_api';
 
-
-const RatingAdd = new addARating();
-
+const RatingAdd = new RatingAPI();
 
 function modalRating() {
   const refs = {
@@ -11,7 +9,7 @@ function modalRating() {
     ratingBackdrop: document.querySelector('.rating-backdrop'),
     ratingEmailBtn: document.querySelector('.rating-email-btn'),
     starInputs: document.querySelectorAll('.star-input'),
-    ratingEmailInp: document.querySelector('.rating-form-input'),
+    ratingEmailInput: document.querySelector('.rating-form-input'),
   };
 
   refs.closeBtnModal.addEventListener('click', () => {
@@ -29,37 +27,34 @@ function modalRating() {
     });
   });
 
-  refs.ratingEmailBtn.addEventListener('click', () => {
-    
+  refs.ratingEmailBtn.addEventListener('click', event => {
+    // event.preventDefault(); треба чи ні?
     refs.ratingBackdrop.classList.add('visible');
     enableScroll();
-    changeColor(0); // !!!!!!!!!!!!!!!!! при отправке на backend должы обновиться звезды, но и отправиться
+    changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
 
-    const inputValue = refs.ratingEmailInp.value.trim();
-   
-   
+    const inputValue = refs.ratingEmailInput.value.trim();
+
     if (inputValue === '') {
-        Notiflix.Report.failure(
-            'Please enter a valid email');
-    //   window.alert('Please enter a valid query');
+      Notiflix.Report.failure('Please enter a valid email');
       return;
     }
     const id = refs.ratingEmailBtn.id;
     RatingAdd.setInputValue(inputValue);
     RatingAdd.setId(id);
     RatingAdd.addRating();
-     refs.ratingEmailInp.value = ""
+    refs.ratingEmailInput.value = '';
   });
 
-  refs.ratingBackdrop.addEventListener('click', evt => {
-    if (evt.target === refs.ratingBackdrop) {
+  refs.ratingBackdrop.addEventListener('click', event => {
+    if (event.target === refs.ratingBackdrop) {
       refs.ratingBackdrop.classList.add('visible');
       enableScroll();
     }
   });
 
-  document.addEventListener('keydown', evt => {
-    if (evt.key === 'Escape') {
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
       changeColor(0);
       refs.ratingBackdrop.classList.add('visible');
       enableScroll();
@@ -67,18 +62,17 @@ function modalRating() {
   });
 
   const stars = document.querySelectorAll('.rating-star input[type="radio"]');
-    stars.forEach(star => {
-      star.addEventListener('click', () => {
-        const starCount = parseInt(star.value);
-        changeColor(starCount);
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      const starCount = parseInt(star.value);
+      changeColor(starCount);
     });
   });
-};
-
+}
 
 function changeColor(starCount) {
   const stars = document.querySelectorAll('.rating-star input[type="radio"]');
-  const ratingValue = document.querySelector(".rating_value")
+  const ratingValue = document.querySelector('.rating_value');
   for (let i = 0; i < stars.length; i += 1) {
     const starLabel = stars[i].nextElementSibling;
     const starSVG = starLabel.querySelector('.star-rating');
@@ -88,56 +82,51 @@ function changeColor(starCount) {
       starSVG.classList.remove('active-modal-stars');
     }
   }
-  ratingValue.textContent = starCount.toFixed(1); 
-};
+  ratingValue.textContent = starCount.toFixed(1);
+}
 
-
-// function disableScroll() {
-//   document.body.classList.add('scroll-lock');
-// };
-
+// видаляємо overflow: hidden
 
 function enableScroll() {
   document.body.classList.remove('no-scroll');
-};
+}
 
+// викликаємо головну функцію
 
 modalRating();
 
-
-
-
+// Перевіряємо на валідність
 
 const emailInput = document.querySelector('.rating-form-input');
 const ratingInputs = document.querySelectorAll('.star-input');
 const submitButton = document.querySelector('.rating-email-btn');
 
-// MODAL-VALIDATION //
+// Перевіряємо валідність email
+// Метод checkValidity() перевіряє чи є у елемента якісь обмеження і чи задовольняє він їм.
+// Якщо елемент не відповідає своїм обмеженням, браузер запускає скасовану invalid подію для елемента, а потім повертає значення false.
 
-
-
-// Функция для проверки валидности email
 function isValidEmail(email) {
-  // Используем встроенную валидацию HTML5 для поля email
   return emailInput.checkValidity();
 }
 
-// Функция для проверки состояния выбора рейтинга
+// Перевіряємо стан вибраного рейтингу та присутність елемету з класом 'star-input'
+
 function isRatingSelected() {
-  // Проверяем, есть ли выбранный элемент с классом 'star-input'
   return [...ratingInputs].some(input => input.checked);
 }
 
-// Функция для обновления состояния кнопки отправки
+// Оновлюємо стан кнопки та перевіряємо валідність email + вибраного рейтингу
+
 function updateSubmitButtonState() {
-  // Проверяем валидность email и выбран ли рейтинг
   const isEmailValid = isValidEmail(emailInput.value);
   const isRatingValid = isRatingSelected();
 
-  // Если оба условия выполнены, активируем кнопку отправки
+  // Якщо все ок знімаємо клас css 'submit-btn[disabled]'
   submitButton.disabled = !(isEmailValid && isRatingValid);
 }
 
-// Слушаем события изменения поля email и выбора рейтинга
+// Слухаємо події зміни поля email та вибору рейтингу
 emailInput.addEventListener('input', updateSubmitButtonState);
-ratingInputs.forEach(input => input.addEventListener('change', updateSubmitButtonState));
+ratingInputs.forEach(input =>
+  input.addEventListener('change', updateSubmitButtonState)
+);

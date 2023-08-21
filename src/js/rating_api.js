@@ -3,7 +3,7 @@ import Notiflix from 'notiflix';
 
 
 const ratingBackdrop = document.querySelector('.rating-backdrop');
-export class addARating {
+export class RatingAPI {
   constructor() {
     this.id = '';
     this.inputValue = '';
@@ -20,6 +20,7 @@ export class addARating {
       };
 
       const responseFromRating = await axios.patch(URL, obj);
+      console.log(responseFromRating);
 
       Notiflix.Report.success(
         'Your rating was successfully added,please enter a new Email '
@@ -34,7 +35,7 @@ export class addARating {
       }
       if (err.response.status === 400) {
         Notiflix.Report.failure(
-          'An error occured,plase try again',
+          'An error occurred, please try again',
           err.message
         );
       }
