@@ -11,6 +11,7 @@ const refs = {
 function getArrFavorites() {
   const arrFavorites = JSON.parse(localStorage(KEY_FAVORITE));
   if (!arrFavorites || arrFavorites.length === 0) {
+    // функция Миши
   }
   return arrFavorites;
 }
@@ -60,7 +61,7 @@ function MarkUp() {
                             </svg> 
                         </div> 
                     </div> 
-                    <button type="button" class="see-recipe-btn">See recipe</button> 
+                    <button type="button" data-id="${_id}" class="see-recipe-btn">See recipe</button>
                 </div> 
             </div> 
         </li>`
