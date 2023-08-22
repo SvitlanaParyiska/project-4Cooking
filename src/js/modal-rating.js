@@ -49,7 +49,7 @@ function modalRating() {
 
   refs.ratingBackdrop.addEventListener('click', event => {
     if (event.target === refs.ratingBackdrop) {
-      refs.ratingBackdrop.classList.add('visible');
+      // refs.ratingBackdrop.classList.add('visible');
       removeScroll();
     }
   });
