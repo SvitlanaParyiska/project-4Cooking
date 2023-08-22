@@ -2,7 +2,7 @@
 import { openCloseModal } from './create-modal';
 import { TastyAPI } from './tasty-api';
 import svg from '../images/sprite.svg';
-import { localStorageFavourite, onBtnFavouriteClick } from './dishes_list';
+// import { localStorageFavourite, onBtnFavouriteClick } from './dishes_list';
 // import alternativepic from '../images/alternativepic.jpg';
 
 const refs = {
