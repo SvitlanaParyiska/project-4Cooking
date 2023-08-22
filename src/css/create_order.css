@@ -47,7 +47,7 @@
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12),
     0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
-  background: #fff;
+  background-color: var(--primary-bg-modal);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -173,12 +173,12 @@
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.18);
 }
 
-.container {
+.order-hero-container {
   margin: 0 auto;
 }
 
 @media screen and (max-width: 767px) {
-  .container {
+  .order-hero-container {
     min-width: 375px;
     padding: 0 20px;
   }
@@ -187,7 +187,7 @@
   }
 }
 @media screen and (min-width: 768px) {
-  .container {
+  .order-hero-container {
     width: 768px;
     padding: 0 32px;
   }
@@ -215,7 +215,7 @@
   }
 }
 @media screen and (min-width: 1280px) {
-  .container {
+  .order-hero-container {
     width: 1280px;
     padding: 0 100px;
   }
