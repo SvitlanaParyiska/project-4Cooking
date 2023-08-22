@@ -93,6 +93,9 @@
 }
 
 @media screen and (min-width: 1280px) {
+.sidebar{
+    width: 234px;
+}
     .category-container {
         max-height: 540px;
         max-width: 174px;
