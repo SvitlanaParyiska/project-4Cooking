@@ -5,19 +5,19 @@ const RatingAdd = new RatingAPI();
 
 function modalRating() {
   const refs = {
-    closeBtnModal: document.querySelector('.btn-close-rating'),
+    // closeBtnModal: document.querySelector('.btn-close-rating'),
     ratingBackdrop: document.querySelector('.rating-backdrop'),
     ratingEmailBtn: document.querySelector('.rating-email-btn'),
     starInputs: document.querySelectorAll('.star-input'),
     ratingEmailInput: document.querySelector('.rating-form-input'),
-    openModalBtn: document.querySelector(".modal-open"),
+    // openModalBtn: document.querySelector(".modal-open"),
   };
 
-  refs.closeBtnModal.addEventListener('click', () => {
-    refs.ratingBackdrop.classList.add('visible');
-    changeColor(0);
-    removeScroll();    
-  });
+  // refs.closeBtnModal.addEventListener('click', () => {
+  //   refs.ratingBackdrop.classList.add('visible');
+  //   changeColor(0);
+  //   removeScroll();
+  // });
 
   refs.starInputs.forEach(input => {
     input.addEventListener('click', event => {
@@ -28,8 +28,8 @@ function modalRating() {
     });
   });
 
-  refs.ratingEmailBtn.addEventListener('submit', event => {    
-    event.preventDefault(); 
+  refs.ratingEmailBtn.addEventListener('submit', event => {
+    event.preventDefault();
     refs.ratingBackdrop.classList.add('visible');
     removeScroll();
     changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
@@ -37,7 +37,7 @@ function modalRating() {
     const inputValue = refs.ratingEmailInput.value.trim();
 
     if (inputValue === '') {
-        Notiflix.Notify.failure('Please enter a valid email');
+      Notiflix.Notify.failure('Please enter a valid email');
       return;
     }
     const id = refs.ratingEmailBtn.id;
@@ -54,13 +54,13 @@ function modalRating() {
     }
   });
 
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
-      changeColor(0);
-      refs.ratingBackdrop.classList.add('visible');
-      removeScroll();
-    }
-  });
+  // document.addEventListener('keydown', event => {
+  //   if (event.key === 'Escape') {
+  //     changeColor(0);
+  //     refs.ratingBackdrop.classList.add('visible');
+  //     removeScroll();
+  //   }
+  // });
 
   const stars = document.querySelectorAll('.rating-star input[type="radio"]');
   stars.forEach(star => {
@@ -71,7 +71,7 @@ function modalRating() {
   });
 }
 
-function changeColor(starCount) {
+export function changeColor(starCount) {
   const stars = document.querySelectorAll('.rating-star input[type="radio"]');
   const ratingValue = document.querySelector('.rating_value');
   for (let i = 0; i < stars.length; i += 1) {
@@ -133,22 +133,3 @@ ratingInputs.forEach(input =>
 );
 
 // Local
-
-// function onHeroFormInput(e) {
-//     formHeroValue[e.target.name] = e.target.value;
-//     localStorage.setItem(LOCAL_NAME, JSON.stringify(formHeroValue));
-//   }
-
-//   function populateValueInput(params) {
-//     const savedMessage = localStorage.getItem(LOCAL_NAME);
-//     const parsedDataHero = JSON.parse(localStorage.getItem(LOCAL_NAME));
-//     const { name, number, email, comment } = heroForm.elements;
-//     if (savedMessage) {
-//       name.value = parsedDataHero.name || '';
-//       number.value = parsedDataHero.number || '';
-//       email.value = parsedDataHero.email || '';
-//       comment.value = parsedDataHero.comment || '';
-//     }
-//     formHeroValue = { ...parsedDataHero };
-//   }
-  

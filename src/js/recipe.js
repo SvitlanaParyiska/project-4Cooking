@@ -16,11 +16,26 @@ export async function markupRecipe(idRecipe) {
   const data = await tastyApi.getRecipeById(idRecipe).then(data => {
     refs.markupRecipe.innerHTML = createMarkupRecipe(data);
   });
+  const btn= document.querySelector('.rating-btn');
+btn.addEventListener('click', openCloseModal('[data-modal-rating]'));
 }
 
 function createMarkupRecipe(recipe) {
+
+
   const { title, instructions, time, youtube, tags, ingredients, rating } =
     recipe;
+    const activeStarMarkup = `<svg class="star-active"><use href="${svg}}#icon-star"></use></svg>`;
+    const inactiveStarMarkup = `<svg class="star-notActive"><use href="${svg}}#icon-star"></use></svg>`;
+
+    function generateStars(rating) {
+      let stars = '';
+      let roundedRating = Math.round(rating);
+      for (let i = 0; i < 5; i++) {
+        stars += i < roundedRating ? activeStarMarkup : inactiveStarMarkup;
+      }
+      return stars;
+    }
   // const videoPhotoRecipe = `
   // src="https://img.youtube.com/vi/${youtube}/sddefault.jpg"`;
   const ingredientList = ingredients
@@ -66,28 +81,8 @@ function createMarkupRecipe(recipe) {
 <div class="recipe-details-info">
     <div class="recipe-rating-time">
       <div  class="rating">${rating}
-      <div class="dishes-list-item-wrapper-rating-star-5">
-        <svg class="dishes-list-star-icon is-active-star">
-           <use href="${svg}#icon-star">
-            </use>
-          </svg>
-        <svg class="dishes-list-star-icon is-active-star">
-            <use href="${svg}#icon-star">
-             </use>
-          </svg>
-         <svg class="dishes-list-star-icon is-active-star">
-            <use href="${svg}#icon-star">
-            </use>
-          </svg>
-          <svg class="dishes-list-star-icon is-active-star">
-              <use href="${svg}#icon-star">
-              </use>
-            </svg>
-              <svg class="dishes-list-star-icon is-active-star">
-                <use href="${svg}#icon-star">
-                </use>
-              </svg>
-          </div>
+      <div class="test-tumb">${generateStars(rating)}</div>
+      
           </div>
       <p class="time-cooking">${time}min</p>
     </div>
