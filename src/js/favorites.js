@@ -134,3 +134,35 @@ function MarkUpRecipes(arr) {
 }
 
 console.log(favCatArrObj);
+
+// function filterFavoriteCard() {
+//   const cardsLisCategory = document.querySelectorAll('.fav-search-button');
+
+//   cardsLisCategory.forEach(button => {
+//     button.addEventListener('click', event => {
+//       const selectedCategory = event.target.textContent;
+//       save('category', selectedCategory);
+//       save('page', 1);
+
+//       favSortArr = [];
+      
+//       favCatArrObj.forEach(obj => {
+//         if (obj.categ[0] === selectedCategory) {
+//           favSortArr.push(...obj.id);
+//         }
+//       });
+
+//       rend();
+//       pagination.reset(favSortArr.length); 
+//     });
+//   });
+// }
+
+// function rend() {
+//   const recipesList = favSortArr.map(recipeId => {
+//     return recipes.find(recipe => recipe._id === recipeId);
+//   });
+
+//   MarkUpRecipes(recipesList);
+// }
+// filterFavoriteCard()
