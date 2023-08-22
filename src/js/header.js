@@ -59,18 +59,21 @@ function checkedTheme() {
   }
 }
 
-// function handlerOpenModalOrder() {
-//   document.body.classList.add('modal-is-open');
-// }
-
 linkFavEl.addEventListener('click', activeFav);
 
 function activeFav() {
-  linkFavEl.classList.add('active');
-  linkHomeEl.classList.remove('active');
+  localStorage.setItem('active', 'fav');
 }
 
-linkHomeEl.addEventListener('click', () => {
-  linkFavEl.classList.remove('active');
-  linkHomeEl.classList.add('active');
-});
+linkHomeEl.addEventListener('click', activeHome);
+
+function activeHome() {
+  localStorage.setItem('active', 'home');
+}
+function checkActive() {
+  if (localStorage.getItem('active') === 'fav') {
+    linkFavEl.classList.add('active');
+    linkHomeEl.classList.remove('active');
+  }
+}
+checkActive();
