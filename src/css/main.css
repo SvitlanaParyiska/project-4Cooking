@@ -138,27 +138,37 @@ body {
 }
 
 .container {
-  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 375px) {
   .container {
-    min-width: 375px;
+    max-width: 375px;
     padding: 0 20px;
   }
 }
+
 @media screen and (min-width: 768px) {
   .container {
-    width: 768px;
+    max-width: 768px;
     padding: 0 32px;
   }
   .recipes-thumb-box {
     display: flex;
+    gap: 32px;
   }
 }
+
 @media screen and (min-width: 1280px) {
   .container {
-    width: 1280px;
+    max-width: 1280px;
     padding: 0 100px;
+  }
+  .recipes-thumb-box {
+    display: flex;
+    gap: 64px;
   }
 }
