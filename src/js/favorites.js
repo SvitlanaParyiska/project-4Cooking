@@ -93,7 +93,7 @@ function MarkUpRecipes(arr) {
     </svg>
 </button>
             
-            <div class="dishes-list-item-wrapper">
+            <div class="dishes-list-item-wrapper-fav">
                 <h3 class="dishes-list-item-title">${title}</h3>
                 <p class="dishes-list-item-text-fav">${description}</p>
                 <div class="dishes-list-item-wrapper-rating">
@@ -145,7 +145,7 @@ console.log(favCatArrObj);
 //       save('page', 1);
 
 //       favSortArr = [];
-      
+
 //       favCatArrObj.forEach(obj => {
 //         if (obj.categ[0] === selectedCategory) {
 //           favSortArr.push(...obj.id);
@@ -153,7 +153,7 @@ console.log(favCatArrObj);
 //       });
 
 //       rend();
-//       pagination.reset(favSortArr.length); 
+//       pagination.reset(favSortArr.length);
 //     });
 //   });
 // }
