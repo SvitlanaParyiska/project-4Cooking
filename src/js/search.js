@@ -2,6 +2,7 @@ import { TastyAPI } from './tasty-api';
 import { onRenderMarkup, clearRecipeCardsContent } from './dishes_list';
 import Notiflix from 'notiflix';
 import debounce from 'lodash.debounce';
+import { createPlugMarkup } from './plug';
 
 const filtersContainer = document.querySelector('.filters-container');
 const searchInput = document.querySelector('.search-query');
@@ -12,6 +13,7 @@ const iconSearch = document.querySelector('.icon-search');
 const inputReset = document.querySelector('.icon-reset');
 const filtersReset = document.querySelector('.reset-filters-btn');
 const loaderEl = document.querySelector('.loader');
+const dishesList = document.querySelector('.dishes-list-wrap');
 const tastyApi = new TastyAPI();
 
 function createOptions() {
@@ -70,7 +72,8 @@ function getFiltersData() {
     loaderEl.classList.remove('visually-hidden');
     tastyApi.getRecipeByFilter().then(data => {
         if (data.results.length === 0) {
-            Notiflix.Notify.failure('Sorry, but nothing was found for your search')
+            Notiflix.Notify.failure('Sorry, but nothing was found for your search');
+            dishesList.innerHTML = createPlugMarkup();
         }
         onRenderMarkup(data);
         loaderEl.classList.add('visually-hidden');

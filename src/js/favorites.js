@@ -84,7 +84,7 @@ function MarkUpRecipes(arr) {
       ({ value: { _id, title, category, description, preview, rating } }) => {
         favArrList.push(category);
         favCatArrObj.push({ categ: [category], id: [_id] });
-        return `<li class="dishes-list-item" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
+        return `<li class=" dishes-list-item-fav" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
                       background-size: cover;">
         <button type="button" aria-label="Favorite Button" class="heart-btn js-favourite" data-heart="heart">
         <svg class="dishes-list-heart-icon">
@@ -93,9 +93,9 @@ function MarkUpRecipes(arr) {
     </svg>
 </button>
             
-            <div class="dishes-list-item-wrapper">
+            <div class="dishes-list-item-wrapper-fav">
                 <h3 class="dishes-list-item-title">${title}</h3>
-                <p class="dishes-list-item-text">${description}</p>
+                <p class="dishes-list-item-text-fav">${description}</p>
                 <div class="dishes-list-item-wrapper-rating">
                     <div class="dishes-list-item-wrapper-rating-star">
                         <p class="dishes-list-item-wrapper-rating-text">${rating}</p>
@@ -134,3 +134,35 @@ function MarkUpRecipes(arr) {
 }
 
 console.log(favCatArrObj);
+
+// function filterFavoriteCard() {
+//   const cardsLisCategory = document.querySelectorAll('.fav-search-button');
+
+//   cardsLisCategory.forEach(button => {
+//     button.addEventListener('click', event => {
+//       const selectedCategory = event.target.textContent;
+//       save('category', selectedCategory);
+//       save('page', 1);
+
+//       favSortArr = [];
+
+//       favCatArrObj.forEach(obj => {
+//         if (obj.categ[0] === selectedCategory) {
+//           favSortArr.push(...obj.id);
+//         }
+//       });
+
+//       rend();
+//       pagination.reset(favSortArr.length);
+//     });
+//   });
+// }
+
+// function rend() {
+//   const recipesList = favSortArr.map(recipeId => {
+//     return recipes.find(recipe => recipe._id === recipeId);
+//   });
+
+//   MarkUpRecipes(recipesList);
+// }
+// filterFavoriteCard()

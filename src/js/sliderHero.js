@@ -2,41 +2,30 @@
 
 import Swiper from 'swiper/swiper-bundle.min.mjs';
 import 'swiper/swiper-bundle.css';
-import 'swiper/modules/pagination.min.css';
+
+
 import { TastyAPI } from './tasty-api';
 import { Notify } from 'notiflix';
 
 
 new Swiper('.swiper', {
-  // пагінація по булетам
   pagination: {
     el: '.swiper-pagination',
     type: 'bullets',
     clickable: true,
     dynamicBullets: true,
   },
-  // відстань між слайдами
   spaceBetween: 10,
+  autoplay: {
+    delay: 3000,
+  disableOnInteraction: false,
+  },
 
-  // -------------автоматичне відтворення з затримкою 5сек-------------
- // autoplay: {
-  //  delay: 5000,
-    // вимкнення зупинки автовідтворення
-  //  disableOnInteraction: false,
- // },
-
-  // ручка при наведенні
   grabCursor: true,
-  // //   безкінечне гортання
   loop: true,
-  // //   гортання мишкою
   mousewheel: {
     invert: true,
   },
-  // к-сть показаних слайдів на сторінку
-  slidesPerView: 1,
-  // к-сть слайдів які пролистуються
-  slidesPerGroup: 1,
 });
 
 const slider = document.querySelector('.swiper-wrapper');
@@ -68,7 +57,7 @@ function createMarkup(arr) {
         </div>
 
         <div class='swiper-img-wrapper swiper-img-second-dish'>
-          <img src="${topicImgUrl}" loading="lazy" alt="${topicName}" class='swiper-slide-img big-slide-img' width='529' height='529'>
+          <img src="${topicImgUrl}" loading="lazy" alt="${topicName}" class='swiper-slide-img big-slide-img' width='663' height='663'>
         </div>
 
       </div>
