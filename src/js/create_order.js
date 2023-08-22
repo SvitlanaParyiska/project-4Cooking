@@ -1,12 +1,11 @@
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 
-const openBtnHero = document.querySelector('.hero-btn');
-const closeBtnHero = document.querySelector('.hero-close-btn');
-const heroModal = document.querySelector('.hero-modal-backdrop');
+const openBtnHero = document.querySelectorAll('[data-open-hero]');
+const closeBtnHero = document.querySelector('[data-close-hero]');
+const heroModal = document.querySelector('[data-hero]');
 const heroForm = document.querySelector('.form-hero');
 
-openBtnHero.addEventListener('click', onOpenModal);
 closeBtnHero.addEventListener('click', onCloseModal);
 heroForm.addEventListener('submit', onHeroFormSubmit);
 heroForm.addEventListener('input', debounce(onHeroFormInput, 300));
@@ -14,6 +13,9 @@ heroModal.addEventListener('mousedown', onBackdropCloseModal);
 
 let formHeroValue = {};
 const LOCAL_NAME = 'form-hero-values';
+openBtnHero.forEach(btn => {
+  btn.addEventListener('click', onOpenModal);
+});
 
 function onBackdropCloseModal(e) {
   if (e.currentTarget === e.target) {
