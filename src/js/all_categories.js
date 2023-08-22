@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { TastyAPI } from './tasty-api';
-import { renderOnClickCategory, clearRecipeCardsContent } from './dishes_list';
+import { onRenderMarkup, clearRecipeCardsContent } from './dishes_list';
 
 const tastyApi = new TastyAPI();
 
@@ -8,7 +7,7 @@ const categoriesContainer = document.querySelector('.categories-container');
 const categoryList = categoriesContainer.querySelector('.category-list');
 const allCategoryButton = document.querySelector('.all-category-button');
 
-let sort = ''; // Оголошуємо змінну sort тут
+let sort = '';
 let loadPage = 1;
 let pictures = [];
 
@@ -21,34 +20,36 @@ async function fetchAndRenderCategories() {
   }
 }
 
-function renderCategoriesMarkup(categories) {
-  allCategoryButton.addEventListener('click', () => {
-    categoryList.querySelectorAll('.category-btn').forEach(button => button.classList.remove('active'));
-    allCategoryButton.classList.add('active');
-    sort = '';
-    loadPage = 1;
-    pictures = [];
-    clearRecipeCardsContent();
-    renderOnClickCategory(sort, loadPage);
-  });
+getCategoriesFilters();
 
-  categoryList.innerHTML = '';
-  renderOnClickCategory(sort, loadPage);
+function renderCategoriesMarkup(categories) {
+  // allCategoryButton.addEventListener('click', () => {
+  //   categoryList.querySelectorAll('.category-btn').forEach(button => button.classList.remove('active'));
+  //   allCategoryButton.classList.add('active');
+  //   sort = '';
+  //   loadPage = 1;
+  //   pictures = [];
+  //   clearRecipeCardsContent();
+  //   renderOnClickCategory(sort, loadPage);
+  // });
+
+  // categoryList.innerHTML = '';
+  // renderOnClickCategory(sort, loadPage);
 
   categories.forEach(category => {
     const categoryButton = document.createElement('button');
     categoryButton.classList.add('category-btn');
     categoryButton.textContent = category.name;
 
-    categoryButton.addEventListener('click', () => {
-      categoryList.querySelectorAll('.category-btn').forEach(button => button.classList.remove('active'));
-      categoryButton.classList.add('active');
-      sort = category.name;
-      loadPage = 1;
-      pictures = [];
-      clearRecipeCardsContent();
-      renderOnClickCategory(sort, loadPage);
-    });
+    // categoryButton.addEventListener('click', () => {
+    //   categoryList.querySelectorAll('.category-btn').forEach(button => button.classList.remove('active'));
+    //   categoryButton.classList.add('active');
+    //   sort = category.name;
+    //   loadPage = 1;
+    //   pictures = [];
+    //   clearRecipeCardsContent();
+    //   renderOnClickCategory(sort, loadPage);
+    // });
 
     const catItem = document.createElement('li');
     catItem.classList.add('cat-items');
@@ -58,6 +59,12 @@ function renderCategoriesMarkup(categories) {
 }
 
 fetchAndRenderCategories();
+
+function getCategoriesFilters() {
+  tastyApi.getRecipeByFilter().then(data => onRenderMarkup(data))
+}
+
+
 
 const refs = {
   categoryContainer: document.querySelector('.category-container'),
@@ -70,10 +77,19 @@ let lastClickedBtn = null;
 
 function onBtnCLick(event) {
   const Btn = event.target;
+  tastyApi.category = '';
+  clearRecipeCardsContent();
 
   if (Btn.nodeName !== 'BUTTON') {
     return;
   }
+
+  if (Btn.textContent === 'All categories') {
+    getCategoriesFilters();
+  }
+  tastyApi.category = Btn.textContent;
+
+  getCategoriesFilters();
 
   if (lastClickedBtn) {
     lastClickedBtn.classList.remove('active');
