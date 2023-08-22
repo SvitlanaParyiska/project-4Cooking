@@ -1,25 +1,21 @@
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 
-const openBtnHero = document.querySelectorAll('[data-modal-open]');
-const closeBtnHero = document.querySelectorAll('[data-modal-close]');
-const heroModal = document.querySelector('[data-modal]');
+const openBtnHero = document.querySelectorAll('[data-open-hero]');
+const closeBtnHero = document.querySelector('[data-close-hero]');
+const heroModal = document.querySelector('[data-hero]');
 const heroForm = document.querySelector('.form-hero');
 
-openBtnHero.forEach(btn => {
-  btn.addEventListener('click', onOpenModal);
-});
-
-closeBtnHero.forEach(btn => {
-  btn.addEventListener('click', onCloseModal);
-});
-
+closeBtnHero.addEventListener('click', onCloseModal);
 heroForm.addEventListener('submit', onHeroFormSubmit);
 heroForm.addEventListener('input', debounce(onHeroFormInput, 300));
 heroModal.addEventListener('mousedown', onBackdropCloseModal);
 
 let formHeroValue = {};
 const LOCAL_NAME = 'form-hero-values';
+openBtnHero.forEach(btn => {
+  btn.addEventListener('click', onOpenModal);
+});
 
 function onBackdropCloseModal(e) {
   if (e.currentTarget === e.target) {
@@ -28,22 +24,15 @@ function onBackdropCloseModal(e) {
 }
 
 function onOpenModal(e) {
-  let currentButton = e.currentTarget.getAttribute('data-modal-open');
-
   document.body.classList.add('modal-is-open');
-  document
-    .querySelector(`[data-modal='${currentButton}']`)
-    .classList.remove('modal-is-hidden');
+
+  heroModal.classList.remove('modal-is-hidden');
   window.addEventListener('keydown', onEscPress);
 }
 populateValueInput();
 
 function onCloseModal(e) {
-  let currentButtonClose = e.currentTarget.getAttribute('data-modal-close');
-
-  document
-    .querySelector(`[data-modal='${currentButtonClose}']`)
-    .classList.add('modal-is-hidden');
+  heroModal.classList.add('modal-is-hidden');
   window.removeEventListener('keydown', onEscPress);
   document.body.classList.remove('modal-is-open');
 }
