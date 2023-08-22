@@ -6,8 +6,8 @@
 .all-category-button {
     width: 176px;
     height: 50px;
-    border: 1px solid rgba(5, 5, 5, 0.20);
-    background-color: var(--white-text-color);
+    border: 1px solid var(--border-button-color);
+    background-color: var(--primary-bg-theme);
     border-radius: 15px;
     font-family: 'Inter';
     font-weight: 500;
@@ -48,7 +48,7 @@
 }
 
 .category-list::-webkit-scrollbar-track {
-    background-color: var(--white-text-color);
+    background-color: var(--primary-bg-theme);
 }
 
 .category-btn {
@@ -60,7 +60,8 @@
     font-family: 'Inter';
     cursor: pointer;
     padding: 0;
-    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);}
+    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 .category-btn:hover {
     color: var(--accent--text-color);
@@ -80,7 +81,9 @@
     .category-container {
         max-height: 496px;
         max-width: 176px;
-        margin-bottom: 0;
+        margin-top: 26px;
+        margin-bottom: 64px;
+        margin-right: 32px;
     }
 
     .all-category-button {
@@ -98,6 +101,7 @@
     .category-container {
         max-height: 540px;
         max-width: 174px;
+        margin-right: 64px;
     }
 
     .all-category-button {

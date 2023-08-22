@@ -49,10 +49,11 @@
   --primary-bg-theme: #f8f8f8;
   --mobile-menu-bg-theme: #9bb537;
 
-  --border-button-color: rgba(5, 5, 5, 0.20);
-
+  --border-button-color: rgba(5, 5, 5, 0.2);
+  --primary-bg-modal: #fff;
 
   /* text colors light theme*/
+  --input-border: 1px solid rgba(5, 5, 5, 0.2);
   --primary-text-color-light-theme: #050505;
   --white-text-color: #f8f8f8;
   --categories-text-color-light-theme: rgba(5, 5, 5, 0.3);
@@ -65,7 +66,8 @@
   --categories-text-color-dark-theme: rgba(5, 5, 5, 0.5);
   --search-text-color-dark-theme: rgba(255, 255, 255, 0.5);
   --recipe-text-color-dark-theme: rgba(255, 255, 255, 0.8);
-
+  --close-button-modal: #050505;
+  --close-button-modal-hover: #fff;
   --accent--text-color: #9bb537;
   --hero-text-color: rgba(248, 248, 248, 0.6);
   --hero-secondary-text-color: rgba(248, 248, 248, 0.2);
@@ -73,17 +75,20 @@
   color-scheme: light;
 }
 .dark {
+  --input-border: 1px solid rgba(255, 255, 255, 0.2);
+  --close-button-modal: #fff;
+  --close-button-modal-hover: #050505;
+  --primary-bg-modal: #050505;
   --primary-bg-theme: #161616;
-  --mobile-menu-bg-theme:#050505;
+  --mobile-menu-bg-theme: #050505;
 
---primary-text-color-light-theme:#ffffff;
---categories-text-color-light-theme: rgba(255, 255, 255, 0.3);
+  --primary-text-color-light-theme: #ffffff;
+  --categories-text-color-light-theme: rgba(255, 255, 255, 0.3);
 
---search-text-color: rgba(255, 255, 255, 0.5);
+  --search-text-color: rgba(255, 255, 255, 0.5);
   --recipe-text-color: rgba(255, 255, 255, 0.8);
 
-  --border-button-color: rgba(255, 255, 255, 0.20);
-
+  --border-button-color: rgba(255, 255, 255, 0.2);
 
   color-scheme: dark;
 }
