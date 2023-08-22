@@ -79,16 +79,16 @@
   background-color: #9bb537;
 }
 .hero-modal-icon {
-  stroke: #050505;
+  stroke: var(--close-button-modal);
   transition: 300ms linear;
 }
 .hero-close-btn:hover .hero-modal-icon,
 .hero-close-btn:focus .hero-modal-icon {
-  stroke: #fff;
+  stroke: var(--close-button-modal-hover);
 }
 .modal-title {
   margin: 0;
-  color: #050505;
+  color: var(--primary-text-color-light-theme);
   font-family: Inter;
   font-size: 18px;
   font-style: normal;
@@ -113,7 +113,7 @@
   margin-bottom: 40px;
 }
 .label-hero {
-  color: rgba(5, 5, 5, 0.5);
+  color: var(--search-text-color);
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -124,9 +124,10 @@
 .input-hero {
   height: 46px;
   border-radius: 15px;
-  border: 1px solid rgba(5, 5, 5, 0.2);
+  border: var(--input-border);
   padding: 0px 10px;
   outline: transparent;
+  background-color: var(--primary-bg-modal);
 }
 .input-hero:not(:focus):valid {
   transition: 300ms linear;
@@ -135,12 +136,12 @@
 
 .textarea-hero {
   display: flex;
-
+  background-color: var(--primary-bg-modal);
   height: 100px;
   align-items: flex-start;
   gap: 32px;
   border-radius: 15px;
-  border: 1px solid rgba(5, 5, 5, 0.2);
+  border: var(--input-border);
   resize: none;
 
   padding: 10px;
