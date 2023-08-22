@@ -1,34 +1,52 @@
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.min.css';
+import 'tui-pagination/dist/tui-pagination.css';
 
-const container = document.getElementById('tui-pagination-container');
+function resizeVisPage() {
+  const screenWidth = window.innerWidth;
 
-const options = {
-  totalItems: 0,
-  itemsPerPage: 9,
-  visiblePages: window.innerWidth < 768 ? 2 : 3,
-  page: 1,
-  centerAlign: true,
-  firstItemClassName: 'tui-first-child',
-  lastItemClassName: 'tui-last-child',
-  template: {
-    page: '<a href="#" class="tui-page-btn current-page">{{page}}</a>',
-    currentPage: '<span class="tui-page-btn tui-is-selected">{{page}}</span>',
-    moveButton:
-      '<a href="#" class="tui-page-btn tui-{{type}}">' +
-      '<span class="tui-ico-{{type}}">{{type}}</span>' +
-      '</a>',
-    disabledMoveButton:
-      '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
-      '<span class="tui-ico-{{type}}">{{type}}</span>' +
-      '</span>',
-    moreButton:
-      '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
-      '<span class="tui-ico-ellip">...</span>' +
-      '</a>',
-  },
-};
+  if (screenWidth < 768) {
+    return 2;
+  }
 
-const pagination = new Pagination(container, options);
+  if (screenWidth >= 768) {
+    return 3;
+  }
+}
 
-export { pagination };
+function startPagination(page, perPage, totalPages, callback) {
+  const options = {
+    totalItems: Number(perPage) * Number(totalPages),
+    itemsPerPage: Number(perPage),
+    visiblePages: resizeVisPage(),
+    page: Number(page),
+    centerAlign: false,
+    omitMiddlePages: false,
+    firstItemClassName: 'tui-first-child',
+    lastItemClassName: 'tui-last-child',
+    template: {
+      page: '<a href="#" class="tui-page-btn pag-page">{{page}}</a>',
+      currentPage:
+        '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+      moveButton:
+        '<a href="#" class="tui-page-btn tui-{{type}} move-button">' +
+        '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</a>',
+      disabledMoveButton:
+        '<span class="tui-page-btn tui-is-disabled tui-{{type}} prev-button">' +
+        '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</span>',
+      moreButton:
+        '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip more-button">' +
+        '<span class="tui-ico-ellip">...</span>' +
+        '</a>',
+    },
+  };
+
+  const pagination = new Pagination('pagination', options);
+
+  pagination.on('afterMove', ({ page }) => {
+    callback(page);
+  });
+}
+
+export default startPagination;
