@@ -2,6 +2,8 @@
 
 import Swiper from 'swiper/swiper-bundle.min.mjs';
 import 'swiper/swiper-bundle.css';
+
+
 import { TastyAPI } from './tasty-api';
 import { Notify } from 'notiflix';
 
@@ -55,7 +57,7 @@ function createMarkup(arr) {
         </div>
 
         <div class='swiper-img-wrapper swiper-img-second-dish'>
-          <img src="${topicImgUrl}" loading="lazy" alt="${topicName}" class='swiper-slide-img big-slide-img' width='529' height='529'>
+          <img src="${topicImgUrl}" loading="lazy" alt="${topicName}" class='swiper-slide-img big-slide-img' width='663' height='663'>
         </div>
 
       </div>
