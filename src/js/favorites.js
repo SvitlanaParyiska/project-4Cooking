@@ -14,6 +14,8 @@ const refs = {
 };
 const KEY_FAVOURITE = 'favourite';
 let favArrList = [];
+let favCatArrObj = [];
+let favSortArr = [];
 
 refs.listRecipeEl.addEventListener('click', selectId);
 
@@ -81,7 +83,8 @@ function MarkUpRecipes(arr) {
     .map(
       ({ value: { _id, title, category, description, preview, rating } }) => {
         favArrList.push(category);
-        return `<li class="dishes-list-item" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
+        favCatArrObj.push({ categ: [category], id: [_id] });
+        return `<li class=" dishes-list-item-fav" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
                       background-size: cover;">
         <button type="button" aria-label="Favorite Button" class="heart-btn js-favourite" data-heart="heart">
         <svg class="dishes-list-heart-icon">
@@ -92,7 +95,7 @@ function MarkUpRecipes(arr) {
             
             <div class="dishes-list-item-wrapper">
                 <h3 class="dishes-list-item-title">${title}</h3>
-                <p class="dishes-list-item-text">${description}</p>
+                <p class="dishes-list-item-text-fav">${description}</p>
                 <div class="dishes-list-item-wrapper-rating">
                     <div class="dishes-list-item-wrapper-rating-star">
                         <p class="dishes-list-item-wrapper-rating-text">${rating}</p>
@@ -129,3 +132,5 @@ function MarkUpRecipes(arr) {
     .join('');
   refs.favoritesRecipesList.innerHTML = favorArr;
 }
+
+console.log(favCatArrObj);
