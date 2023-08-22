@@ -5,7 +5,7 @@ export class TastyAPI {
   title = '';
   category = '';
   page = '1';
-  limit = '6';
+  limit = '9';
   time = '';
   area = '';
   ingredient = '';
