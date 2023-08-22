@@ -1,25 +1,24 @@
 .popular-container {
-  max-width: 335px;
-  max-height: 202px;
-  overflow: hidden;
+  width: 100%;
 }
 .popular-title {
-  max-width: 166px;
+  width: 166px;
   font-size: 18px;
   line-height: 1.33;
   text-transform: uppercase;
   margin-bottom: 20px;
 }
-.popular-link {
-  width: 100%;
+.popular-list {
+  max-height: 158px;
+  overflow: hidden;
   display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 16px;
-  margin-bottom: 24px;
 }
-
+.popular-link {
+  display: flex;
+  gap: 16px;
+}
 .popular-item-img {
   width: 64px;
   height: 64px;
@@ -27,6 +26,7 @@
 }
 .popular-item-title {
   max-width: 252px;
+  height: 18px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -34,11 +34,10 @@
   font-size: 14px;
   line-height: 1.28;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 .popular-item-text {
   max-width: 255px;
-  max-height: 41px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -48,27 +47,18 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 1.33;
-  color: var(--categories-text-color-dark-theme);
-}
-@media screen and (max-width: 767px) {
-  .popular-container {
-    min-width: 375px;
-    padding: 0 20px;
-    margin: 0 auto;
-  }
+  color: var(--recipe-text-color);
 }
 @media screen and (min-width: 768px) {
   .popular-container {
-    max-width: 176px;
-    max-height: 372px;
-    padding: 0;
-    margin: 0;
+    width: 100%;
   }
   .popular-title {
     margin-bottom: 32px;
   }
-  .popular-item {
-    margin-bottom: 16px;
+  .popular-list {
+    max-height: 316px;
+    overflow: hidden;
   }
   .popular-item-img {
     width: 48px;
@@ -89,7 +79,7 @@
 }
 @media screen and (min-width: 1280px) {
   .popular-container {
-    max-width: 235px;
+    max-width: 100%;
     max-height: 424px;
   }
   .popular-title {
@@ -98,15 +88,16 @@
     line-height: 1.16;
     margin-bottom: 33px;
   }
-  .popular-item {
-    margin-bottom: 32px;
+  .popular-list {
+    max-height: 316px;
+    overflow: hidden;
   }
   .popular-item-img {
     width: 64px;
     height: 64px;
   }
   .popular-item-title {
-    max-width: 155px;
+    max-width: 120px;
   }
   .popular-item-text {
     max-width: 155px;
