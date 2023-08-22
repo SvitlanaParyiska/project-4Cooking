@@ -10,3 +10,5 @@ import './js/rating';
 import './js/recipe';
 import './js/create_order';
 //import './js/test';
+import './js/rating_api';
+import './js/modal-rating';
