@@ -24,25 +24,49 @@ async function fetchSlider() {
 }
 fetchSlider();
 
-new Swiper('.swiper', {
+const swiper = new Swiper('.swiper', {
+  loop: true,
+  effect: 'cube',
+  grabCursor: true,
+  speed: 1500,
+  autoplay: {
+    delay: 2000,
+  },
   pagination: {
     el: '.swiper-pagination',
     type: 'bullets',
     clickable: true,
     dynamicBullets: true,
   },
-  spaceBetween: 10,
-  // autoplay: {
-  //   delay: 3000,
-  //   disableOnInteraction: false,
-  //},
-
-  grabCursor: true,
-  loop: true,
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
   mousewheel: {
     invert: true,
   },
 });
+
+
+// new Swiper('.swiper', {
+//   pagination: {
+//     el: '.swiper-pagination',
+//     type: 'bullets',
+//     clickable: true,
+//     dynamicBullets: true,
+//   },
+//   spaceBetween: 10,
+//   // autoplay: {
+//   //   delay: 3000,
+//   //   disableOnInteraction: false,
+//   //},
+
+//   grabCursor: true,
+//   loop: true,
+//   mousewheel: {
+//     invert: true,
+//   },
+// });
 
 function createMarkup(arr) {
   const markup = arr
