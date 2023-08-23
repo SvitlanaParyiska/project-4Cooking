@@ -32,10 +32,10 @@ new Swiper('.swiper', {
     dynamicBullets: true,
   },
   spaceBetween: 10,
-  // autoplay: {
-  //   delay: 3000,
-  //   disableOnInteraction: false,
-  //},
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
 
   grabCursor: true,
   loop: true,
