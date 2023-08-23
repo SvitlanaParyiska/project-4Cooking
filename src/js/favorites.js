@@ -47,6 +47,7 @@ function selectId(event) {
     return;
   }
   const selectedId = event.target.dataset.id;
+  console.log(selectedId);
   seeRecipe(selectedId);
 }
 
@@ -135,34 +136,36 @@ function MarkUpRecipes(arr) {
 
 console.log(favCatArrObj);
 
-// function filterFavoriteCard() {
-//   const cardsLisCategory = document.querySelectorAll('.fav-search-button');
+function filterFavoriteCard() {
+  const cardsLisCategory = document.querySelectorAll('.fav-search-button');
+  console.log(cardsLisCategory);
+  cardsLisCategory.forEach(button => {
+    button.addEventListener('click', event => {
+      const selectedCategory = event.target.textContent;
+      console, log(selectedCategory);
+      save('category', selectedCategory);
+      save('page', 1);
 
-//   cardsLisCategory.forEach(button => {
-//     button.addEventListener('click', event => {
-//       const selectedCategory = event.target.textContent;
-//       save('category', selectedCategory);
-//       save('page', 1);
+      favSortArr = [];
 
-//       favSortArr = [];
+      favCatArrObj.forEach(obj => {
+        if (obj.categ[0] === selectedCategory) {
+          favSortArr.push(...obj.id);
+        }
+        console.log(favSortArr);
+      });
 
-//       favCatArrObj.forEach(obj => {
-//         if (obj.categ[0] === selectedCategory) {
-//           favSortArr.push(...obj.id);
-//         }
-//       });
+      rend();
+      pagination.reset(favSortArr.length);
+    });
+  });
+}
 
-//       rend();
-//       pagination.reset(favSortArr.length);
-//     });
-//   });
-// }
+function rend() {
+  const recipesList = favSortArr.map(recipeId => {
+    return recipes.find(recipe => recipe._id === recipeId);
+  });
 
-// function rend() {
-//   const recipesList = favSortArr.map(recipeId => {
-//     return recipes.find(recipe => recipe._id === recipeId);
-//   });
-
-//   MarkUpRecipes(recipesList);
-// }
-// filterFavoriteCard()
+  MarkUpRecipes(recipesList);
+}
+filterFavoriteCard();
