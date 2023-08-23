@@ -51,8 +51,6 @@
 
   --border-button-color: rgba(5, 5, 5, 0.2);
   --primary-bg-modal: #fff;
-  --active-page-mobile: #fff;
-  --order-btn-text: #f8f8f8
 
   /* text colors light theme*/
   --input-border: 1px solid rgba(5, 5, 5, 0.2);
@@ -91,9 +89,6 @@
   --recipe-text-color: rgba(255, 255, 255, 0.8);
 
   --border-button-color: rgba(255, 255, 255, 0.2);
-
-  --order-btn-text: #fff;
-  --active-page-mobile: #9bb537;
 
   color-scheme: dark;
 }
