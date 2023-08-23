@@ -12,7 +12,10 @@ const refs = {
 const KEY_FAVOURITE = 'favourite';
 let favCatArrObj = [];
 
-refs.favoritesCategoriesList.addEventListener('click', filterFavRecipeByCategory);
+refs.favoritesCategoriesList.addEventListener(
+  'click',
+  filterFavRecipeByCategory
+);
 
 checkArrFavoritesId();
 
@@ -35,7 +38,8 @@ async function checkArrFavoritesId() {
 }
 
 async function fetchUsers(arrId) {
-  const BASE_URL_RECIPES = 'https://tasty-treats-backend.p.goit.global/api/recipes/';
+  const BASE_URL_RECIPES =
+    'https://tasty-treats-backend.p.goit.global/api/recipes/';
   try {
     const arrOfPromises = arrId.map(async itemId => {
       const response = await fetch(`${BASE_URL_RECIPES}${itemId}`);
@@ -50,10 +54,14 @@ async function fetchUsers(arrId) {
 
 function createFavCatArrObj(recipesList) {
   const favCatArr = [];
-  const uniqueCategories = [...new Set(recipesList.map(recipe => recipe.category))];
-  
+  const uniqueCategories = [
+    ...new Set(recipesList.map(recipe => recipe.category)),
+  ];
+
   uniqueCategories.forEach(category => {
-    const recipesInCategory = recipesList.filter(recipe => recipe.category === category);
+    const recipesInCategory = recipesList.filter(
+      recipe => recipe.category === category
+    );
     favCatArr.push({ categ: category, recipes: recipesInCategory });
   });
 
@@ -77,16 +85,33 @@ function filterFavRecipeByCategory(event) {
   if (selectedCategory === 'All categories') {
     MarkUpRecipes(favCatArrObj);
   } else {
-    const selectedCategoryObj = favCatArrObj.find(obj => obj.categ === selectedCategory);
+    const selectedCategoryObj = favCatArrObj.find(
+      obj => obj.categ === selectedCategory
+    );
     MarkUpRecipes([selectedCategoryObj]);
   }
 }
 
 function MarkUpRecipes(arr) {
   refs.favoritesRecipesList.innerHTML = '';
-  const favorArr = arr.flatMap(
-    ({ recipes }) => recipes.map(
-      ({ _id, title, category, description, preview, rating }) => `<li class=" dishes-list-item-fav" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
+  const favorArr = arr.flatMap(({ recipes }) =>
+    recipes.map(({ _id, title, category, description, preview, rating }) => {
+      const activeStarMarkup = `<svg class="is-active-star">
+      <use href="${svg}#icon-star"></use>
+    </svg>`;
+      const inactiveStarMarkup = `<svg class="dishes-list-star-icon">
+      <use href="${svg}}#icon-star"></use>
+    </svg>`;
+
+      function generateStars(rating) {
+        let stars = '';
+        let roundedRating = Math.round(rating);
+        for (let i = 0; i < 5; i++) {
+          stars += i < roundedRating ? activeStarMarkup : inactiveStarMarkup;
+        }
+        return stars;
+      }
+      return `<li class=" dishes-list-item-fav" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
                       background-size: cover;">
         <button type="button" aria-label="Favorite Button" class="heart-btn js-favourite" data-heart="heart">
         <svg class="dishes-list-heart-icon">
@@ -100,38 +125,21 @@ function MarkUpRecipes(arr) {
                 <p class="dishes-list-item-text-fav">${description}</p>
                 <div class="dishes-list-item-wrapper-rating">
                     <div class="dishes-list-item-wrapper-rating-star">
-                        <p class="dishes-list-item-wrapper-rating-text">${rating}</p>
+                        <p class="dishes-list-item-wrapper-rating-text">${rating.toFixed(
+                          1
+                        )}</p>
                         <div class="dishes-list-item-wrapper-rating-star-5">
-                            <svg class="dishes-list-star-icon is-active-star">
-                                <use href="${svg}#icon-star">
-                                </use>
-                            </svg>
-                            <svg class="dishes-list-star-icon is-active-star">
-                                <use href="${svg}#icon-star">
-                                </use>
-                            </svg>
-                            <svg class="dishes-list-star-icon is-active-star">
-                                <use href="${svg}#icon-star">
-                                </use>
-                            </svg>
-                            <svg class="dishes-list-star-icon is-active-star">
-                                <use href="${svg}#icon-star">
-                                </use>
-                            </svg>
-                            <svg class="dishes-list-star-icon">
-                                <use href="${svg}#icon-star">
-                                </use>
-                            </svg>
+                            ${generateStars(rating)}
                         </div>
                     </div>
                     <button type="button" data-id="${_id}" data-recipe-btn="click" class="see-recipe-btn js-see-recipe js-recipe">See recipe</button>
                 </div>
             </div>
-        </li>`)
-      
-    );
+        </li>`;
+    })
+  );
 
-refs.favoritesRecipesList.innerHTML = favorArr.join('');
+  refs.favoritesRecipesList.innerHTML = favorArr.join('');
 }
 
 // console.log(favCatArrObj);
