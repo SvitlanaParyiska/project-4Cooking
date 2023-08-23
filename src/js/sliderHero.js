@@ -3,22 +3,26 @@ import 'swiper/swiper-bundle.css';
 // import { TastyAPI } from './tasty-api';
 import { Notify } from 'notiflix';
 
+
 const slider = document.querySelector('.swiper-wrapper');
 // const TastyApi = new TastyAPI;
 // const fetchEvents = TastyApi.getEvents();
 
+
+
 const URL = `https://tasty-treats-backend.p.goit.global/api/events`;
-export async function fetchEvent() {
-  try {
-    const response = await axios.get(URL);
-    if (response.status === 404) {
-      throw new Error(response.status);
-    }
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
+export async function fetchEvent(){
+    try {
+      const response = await axios.get(URL);
+      if (response.status === 404) {
+        throw new Error(response.status);
+      };
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    };
+};
+  
 
 new Swiper('.swiper', {
   pagination: {
@@ -30,7 +34,7 @@ new Swiper('.swiper', {
   spaceBetween: 10,
   autoplay: {
     delay: 3000,
-    disableOnInteraction: false,
+  disableOnInteraction: false,
   },
 
   grabCursor: true,
@@ -40,9 +44,13 @@ new Swiper('.swiper', {
   },
 });
 
-fetchEvent.then(events => {
-  createMarkup(events);
-});
+
+
+// fetchEvents.then(events => {
+//   createMarkup(events);
+// }).catch(
+//   err => console.err
+// )
 
 function createMarkup(arr) {
   const markup = arr
@@ -71,11 +79,11 @@ function createMarkup(arr) {
     )
     .join('');
 
-  slider.innerHTML = markup;
+    slider.innerHTML = markup;
 }
 
-// async function fetchSwiper() {
-//   const response = await fetchEvents();
-//   createMarkup(response);
-// }
-// fetchSwiper();
+async function fetchSwiper() {
+  const response = await fetchEvents();
+  createMarkup(response);
+}
+fetchSwiper();
