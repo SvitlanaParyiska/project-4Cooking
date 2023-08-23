@@ -26,32 +26,32 @@
 // refs.openModalBtn.removeEventListener("click", toggleModal);
 
 
-const sendCart = () => {
+// const sendCart = () => {
 
-    const cartFrom = document.querySelector('.form-rating-email');
+//     const cartFrom = document.querySelector('.form-rating-email');
 
-    cartFrom.addEventListener('submit', e => {
-        e.preventDefault();
+//     cartFrom.addEventListener('submit', e => {
+//         e.preventDefault();
 
-        const formData = new FormData(cartFrom);
+//         const formData = new FormData(cartFrom);
 
-        const data = {
+//         const data = {
             
-                "rate": 5,
-                "email": "test@gmail.com"
+//                 "rate": 5,
+//                 "email": "test@gmail.com"
               
-        };
+//         };
 
-        for (const [key, value] of formData) {
-data[key] = value;
-        }
+//         for (const [key, value] of formData) {
+// data[key] = value;
+//         }
 
-        data.order = userData.cartList;
+//         data.order = userData.cartList;
 
-        sendData('http://jsonplaceholder.typicode.com/posts', JSON.stringify(data)).then(() => {
-            cartFrom.reset();
-        }).catch((err) => {
-            console.log(err);
-        })
-    })
-}
+//         sendData('https://tasty-treats-backend.p.goit.global/api/recipes/', JSON.stringify(data)).then(() => {
+//             cartFrom.reset();
+//         }).catch((err) => {
+//             console.log(err);
+//         })
+//     })
+// }

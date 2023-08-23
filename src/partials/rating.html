@@ -14,7 +14,7 @@
       <div class="rating-block">
         <div class="rating-block-star">
           <h2 class="block-star-txt">Rating</h2>
-          <form class="form-rating-email">
+          <form class="form-rating">
           <div class="rating-star">
             <p class="rating_value">0.0</p>
             <input
@@ -88,6 +88,7 @@
           placeholder="Enter your email"
           class="rating-form-input rating-email-valid email-rating"
           required
+          pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
         />
         <button type="submit" class="rating-email-btn submit-btn" disabled>
           Send

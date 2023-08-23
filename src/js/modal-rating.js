@@ -10,9 +10,16 @@ function modalRating() {
     ratingEmailBtn: document.querySelector('.rating-email-btn'),
     starInputs: document.querySelectorAll('.star-input'),
     ratingEmailInput: document.querySelector('.rating-form-input'),
+    allRatingForm: document.querySelector('.form-rating'),
+    // raringModal: document.querySelector('[data-hero]'),
     // openModalBtn: document.querySelector(".modal-open"),
   };
 
+ 
+
+
+  let formRatingValue = {};
+  const LOCAL_NAME = 'form-rating-values';
   // refs.closeBtnModal.addEventListener('click', () => {
   //   refs.ratingBackdrop.classList.add('visible');
   //   changeColor(0);
@@ -51,8 +58,34 @@ function modalRating() {
     if (event.target === refs.ratingBackdrop) {
       // refs.ratingBackdrop.classList.add('visible');
       removeScroll();
-    }
+    } 
   });
+
+  refs.allRatingForm.addEventListener('submit', event => {
+    event.preventDefault();
+    localStorage.removeItem(LOCAL_NAME);
+    Notiflix.Notify.success('Your rating has been accepted!');
+    formRatingValue = {};
+    event.target.reset();
+  });
+
+  refs.allRatingForm.addEventListener('input', event => {
+    formRatingValue[event.target.name] = event.target.value;
+    localStorage.setItem(LOCAL_NAME, JSON.stringify(formRatingValue));
+    // refs.allRatingForm.reset();
+  });
+
+  populateValueInput();
+  function populateValueInput(params) {
+    const savedMessage = localStorage.getItem(LOCAL_NAME);
+    const parsedDataHero = JSON.parse(localStorage.getItem(LOCAL_NAME));
+    const { email } = refs.allRatingForm.elements;
+    if (savedMessage) {
+            email.value = parsedDataHero.email || '';
+     
+    }
+    
+  }
 
   // document.addEventListener('keydown', event => {
   //   if (event.key === 'Escape') {
