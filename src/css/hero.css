@@ -74,8 +74,20 @@ overflow: hidden;
 
 
 /************************ PAGINATION *****************************/
-.swiper-pagination-bullet-active {
-  background: var(--accent--text-color); 
+
+/* .sample-slider .swiper-pagination-bullet{
+  background-color: var(--accent--text-color);
+} */
+
+.swiper-pagination  .swiper-pagination-bullet {
+background-color: var(--primary-text-color-light-theme);
+opacity: 1;
+}
+.swiper-pagination  .swiper-pagination-bullet-active {
+    background-color: var(--accent--text-color);
+}
+.swiper {
+    padding-bottom: 40px !important;
 }
 
 /****************************** OTHER *******************************/
