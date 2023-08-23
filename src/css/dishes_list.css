@@ -1,3 +1,7 @@
+:root {
+  --main-transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .dishes-list-wrap {
   display: flex;
   flex-direction: column;
@@ -15,14 +19,25 @@
 }
 
 .heart-btn {
-  background: transparent;
+  /* z-index: 1000; */
+  background: 0, 0;
   position: absolute;
   border: none;
   top: 16px;
   right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
 }
 
 .dishes-list-heart-icon {
+  /* position: absolute; */
+  /* z-index: 3; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
   width: 22px;
   height: 22px;
   opacity: 0.5;
@@ -30,10 +45,34 @@
   stroke: var(--white-text-color);
 }
 
-.is-active-heart {
+.js-favourite.is-active-heart .dishes-list-heart-icon {
   opacity: 1;
+  /* z-index: 2; */
   fill: #f8f8f8;
 }
+
+.js-favourite.is-not-active-heart .dishes-list-heart-icon {
+  fill: none;
+  stroke: var(--white-text-color);
+}
+
+.js-favourite .dishes-list-heart-icon {
+  /* z-index: 2; */
+  fill: none;
+  stroke: var(--white-text-color);
+}
+
+.dishes-list-heart-icon:hover,
+.dishes-list-heart-icon:focus {
+  stroke: black;
+  /* transform: scale(2); */
+  transition: stroke var(--main-transition), transform var(--main-transition);
+}
+
+/* .is-active-heart {
+  opacity: 1;
+  fill: #f8f8f8;
+} */
 
 /* .dishes-list-image {
   position: absolute;
@@ -105,6 +144,8 @@
 }
 
 .is-active-star {
+  width: 18px;
+  height: 18px;
   fill: #eea10c;
 }
 
@@ -121,6 +162,10 @@
   font-size: 12px;
   font-weight: 500;
   line-height: normal;
+}
+.see-recipe-btn:hover,
+.see-recipe-btn:focus {
+  color: black;
 }
 /* ==================tablet======================== */
 @media screen and (min-width: 768px) {

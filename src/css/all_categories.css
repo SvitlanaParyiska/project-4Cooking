@@ -38,10 +38,6 @@
     width: 8px;
 }
 
-.category-list::-webkit-scrollbar {
-    width: 8px;
-}
-
 .category-list::-webkit-scrollbar-thumb {
     background-color: rgba(5, 5, 5, 0.18);
     border-radius: 12px;
@@ -82,8 +78,7 @@
         max-height: 496px;
         max-width: 176px;
         margin-top: 26px;
-        margin-bottom: 64px;
-        margin-right: 32px;
+        /* /* margin-bottom: 64px; */
     }
 
     .all-category-button {
@@ -98,10 +93,12 @@
 }
 
 @media screen and (min-width: 1280px) {
+.sidebar{
+    width: 234px;
+}
     .category-container {
         max-height: 540px;
         max-width: 174px;
-        margin-right: 64px;
     }
 
     .all-category-button {
@@ -110,5 +107,6 @@
 
     .category-list {
         width: 235px;
+        gap: 24px;
     }
 }

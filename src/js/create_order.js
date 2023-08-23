@@ -68,3 +68,32 @@ function populateValueInput(params) {
   }
   formHeroValue = { ...parsedDataHero };
 }
+
+/**SCROLL */
+const scrollBtn = document.querySelector('.scroll-btn-show');
+
+window.onload = () => {
+  window.onscroll = function (e) {
+    let winY = window.scrollY;
+    if (winY > 300) {
+      progressBar();
+
+      scrollAnimation();
+
+      winY = null;
+    }
+  };
+
+  window.onscroll = () => {
+    if (window.scrollY > 500) {
+      scrollBtn.classList.remove('scroll-top-hide');
+    } else if (window.scrollY < 500) {
+      scrollBtn.classList.add('scroll-top-hide');
+    }
+  };
+
+  scrollBtn.addEventListener('mousedown', onScrlBtnClick);
+  function onScrlBtnClick(e) {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }
+};

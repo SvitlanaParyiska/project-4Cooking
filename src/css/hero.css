@@ -1,3 +1,4 @@
+/************************ SWIPER *************************/
 .swiper {
     width: 496px;
 }
@@ -51,27 +52,30 @@ margin-bottom: 8px;
 .swiper-img-dish{
 width: 280px;
 }
+.big-slide-img {
+width: 663px;
+height: 663px;
+}
 .swiper-img-second-dish {
 width: 222px;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
 }
 .cook-card {
   border-radius: 15px;
 }
 .swiper-img-human {
-  width: 80px;
+  max-width: 80px;
 }
 
+/************************ PAGINATION *****************************/
 
 
+/****************************** OTHER *******************************/
 
-.container-hero {
-    width: 100%;
-    padding-left: 20px;
-    position: relative;
-    margin: 0 auto;
-}
 .hero {
-    background-color: var(--primary-bg-light-theme);
     padding-top: 42px;
     padding-bottom: 40px;
 }
@@ -116,9 +120,6 @@ width: 222px;
 
 
 @media screen and (min-width: 375px) {
-  .container-hero {
-    max-width: 355px;
-  }
   .hero-left-part {
     max-width: 335px;
   }
@@ -136,7 +137,7 @@ width: 222px;
   height: 442px;
   }
   .swiper-img-human {
-  width: 137px;
+  max-width: 137px;
 }
 .swiper-img-dish{
 width: 351px;
@@ -158,11 +159,6 @@ text-transform: uppercase;
 font-size: 12px;
 line-height: 1.16;
 }
-  
-  .container-hero {
-    max-width: 736px;
-    padding-left: 32px;
-  }
   .hero {
     padding-top: 44px;
     padding-bottom: 40px;
@@ -192,9 +188,14 @@ line-height: 1.16;
 }
 
 @media screen and (min-width: 1280px) {
+
+
+  .hero-slider {
+    /* width: px; */
+    overflow: hidden;
+  }
   .container-hero {
-    max-width: 1500px;
-    padding-left: 100px;
+
     display: flex;
     gap: 32px;
     align-items: center;
