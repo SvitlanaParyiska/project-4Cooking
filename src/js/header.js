@@ -9,10 +9,10 @@ const switchEl = document.querySelector('#check-1');
 const switchElMob = document.querySelector('#check-2');
 const linkHomeEl = document.querySelector('.link-home');
 const linkFavEl = document.querySelector('.link-fav');
+const logoEl = document.querySelector('.logo-link');
 
 burgerEl.addEventListener('click', handlerTogle);
 closeBtnEl.addEventListener('click', handlerTogle);
-// orderBtn.addEventListener('click', handlerOpenModalOrder);
 
 function handlerTogle() {
   mobMenuEl.classList.toggle('is-open');
@@ -66,7 +66,8 @@ function activeFav() {
 }
 
 linkHomeEl.addEventListener('click', activeHome);
-
+logoEl.addEventListener('click', activeHome);
+console.log(logoEl);
 function activeHome() {
   localStorage.setItem('active', 'home');
 }
