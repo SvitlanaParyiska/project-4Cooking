@@ -46,11 +46,9 @@ new Swiper('.swiper', {
 
 
 
-// fetchEvents.then(events => {
-//   createMarkup(events);
-// }).catch(
-//   err => console.err
-// )
+fetchEvent.then(events => {
+  createMarkup(events);
+});
 
 function createMarkup(arr) {
   const markup = arr
@@ -82,8 +80,8 @@ function createMarkup(arr) {
     slider.innerHTML = markup;
 }
 
-async function fetchSwiper() {
-  const response = await fetchEvents();
-  createMarkup(response);
-}
-fetchSwiper();
+// async function fetchSwiper() {
+//   const response = await fetchEvents();
+//   createMarkup(response);
+// }
+// fetchSwiper();
