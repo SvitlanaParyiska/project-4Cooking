@@ -67,3 +67,4 @@ if (linkFavEl.getAttribute('href') === current) {
   favMobEl.classList.add('active-mob-nav');
   homeMobEl.classList.remove('active-mob-nav');
 }
+console.log('test');
