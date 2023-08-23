@@ -94,7 +94,7 @@ function createMarkup(searchValue) {
   const markup = searchValue.results
     .map(({ _id, title, category, description, preview, rating }) => {
       const activeStarMarkup = `<svg class="is-active-star">
-      <use href="${svg}}#icon-star"></use>
+      <use href="${svg}#icon-star"></use>
     </svg>`;
       const inactiveStarMarkup = `<svg class="dishes-list-star-icon">
       <use href="${svg}}#icon-star"></use>
