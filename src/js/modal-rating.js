@@ -3,6 +3,8 @@ import { RatingAPI } from './rating_api';
 
 const RatingAdd = new RatingAPI();
 
+console.log(RatingAdd);
+
 function modalRating() {
   const refs = {
     // closeBtnModal: document.querySelector('.btn-close-rating'),
@@ -16,10 +18,12 @@ function modalRating() {
   };
 
  
-
+refs.allRatingForm.addEventListener('submit', onRatingFormSubmit);
+refs.allRatingForm.addEventListener('input', onRatingFormInput);
+refs. ratingEmailInput.addEventListener('input', onRatingFormInput);
 
   let formRatingValue = {};
-  const LOCAL_NAME = 'form-rating-values';
+  const LOCAL_NAME = 'form-rating';
   // refs.closeBtnModal.addEventListener('click', () => {
   //   refs.ratingBackdrop.classList.add('visible');
   //   changeColor(0);
@@ -35,24 +39,24 @@ function modalRating() {
     });
   });
 
-  refs.ratingEmailBtn.addEventListener('submit', event => {
-    event.preventDefault();
-    refs.ratingBackdrop.classList.add('visible');
-    removeScroll();
-    changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
+  // refs.ratingEmailBtn.addEventListener('submit', event => {
+  //   event.preventDefault();
+  //   refs.ratingBackdrop.classList.add('visible');
+  //   removeScroll();
+  //   changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
 
-    const inputValue = refs.ratingEmailInput.value.trim();
+  //   const inputValue = refs.ratingEmailInput.value.trim();
 
-    if (inputValue === '') {
-      Notiflix.Notify.failure('Please enter a valid email');
-      return;
-    }
-    const id = refs.ratingEmailBtn.id;
-    RatingAdd.setInputValue(inputValue);
-    RatingAdd.setId(id);
-    RatingAdd.addRating();
-    refs.ratingEmailInput.value = '';
-  });
+  //   if (inputValue === '') {
+  //     Notiflix.Notify.failure('Please enter a valid email');
+  //     return;
+  //   }
+  //   const id = refs.ratingEmailBtn.id;
+  //   RatingAdd.setInputValue(inputValue);
+  //   RatingAdd.setId(id);
+  //   RatingAdd.addRating();
+  //   refs.ratingEmailInput.value = '';
+  // });
 
   refs.ratingBackdrop.addEventListener('click', event => {
     if (event.target === refs.ratingBackdrop) {
@@ -61,31 +65,55 @@ function modalRating() {
     } 
   });
 
-  refs.allRatingForm.addEventListener('submit', event => {
+  function onRatingFormSubmit(event) {
     event.preventDefault();
-    localStorage.removeItem(LOCAL_NAME);
-    Notiflix.Notify.success('Your rating has been accepted!');
-    formRatingValue = {};
-    event.target.reset();
-  });
+      refs.ratingBackdrop.classList.add('visible');
+      removeScroll();
+      changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
+  
+      const inputValue = refs.ratingEmailInput.value.trim();
+  
+      if (inputValue === '') {
+        Notiflix.Notify.failure('Please enter a valid email');
+        return;
+      }
 
-  refs.allRatingForm.addEventListener('input', event => {
+      const id = refs.ratingEmailBtn.id;
+      RatingAdd.setInputValue(inputValue);
+      RatingAdd.setId(id);
+      RatingAdd.addRating();
+      refs.ratingEmailInput.value = '';
+
+      localStorage.removeItem(LOCAL_NAME);
+      Notiflix.Notify.success('Your rating has been accepted!');
+      formRatingValue = {};
+      event.target.reset();
+
+  }
+
+  function onRatingFormInput(event) {
     formRatingValue[event.target.name] = event.target.value;
     localStorage.setItem(LOCAL_NAME, JSON.stringify(formRatingValue));
-    // refs.allRatingForm.reset();
-  });
-
-  populateValueInput();
-  function populateValueInput(params) {
-    const savedMessage = localStorage.getItem(LOCAL_NAME);
-    const parsedDataHero = JSON.parse(localStorage.getItem(LOCAL_NAME));
-    const { email } = refs.allRatingForm.elements;
-    if (savedMessage) {
-            email.value = parsedDataHero.email || '';
-     
-    }
-    
+    console.log(formRatingValue);
   }
+
+
+
+
+
+
+
+  // populateValueInput();
+  // function populateValueInput(params) {
+  //   const savedMessage = localStorage.getItem(LOCAL_NAME);
+  //   const parsedDataHero = JSON.parse(localStorage.getItem(LOCAL_NAME));
+  //   const { email } = refs.allRatingForm.elements;
+  //   if (savedMessage) {
+  //           email.value = parsedDataHero.email || '';
+     
+  //   }
+    
+  // }
 
   // document.addEventListener('keydown', event => {
   //   if (event.key === 'Escape') {

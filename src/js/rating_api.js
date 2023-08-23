@@ -20,7 +20,8 @@ export class RatingAPI {
       };
 
       const responseFromRating = await axios.patch(URL, obj);
-      console.log(responseFromRating);
+      // return responseFromRating;
+      // console.log(responseFromRating);
 
       Notiflix.Report.success(
         'Your rating was successfully added,please enter a new Email '
