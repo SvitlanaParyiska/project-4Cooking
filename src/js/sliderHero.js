@@ -73,7 +73,12 @@ function createMarkup(arr) {
     .map(
       ({
         cook: { name: cookName, imgWebpUrl: cookImgUrl },
-        topic: { name: topicName, area, previewUrl: topicImgUrl },
+        topic: {
+          name: topicName,
+          area,
+          previewUrl: topicImgUrl,
+          imgWebpUrl: bigImgUrl,
+        },
       }) => `
       <div class="swiper-slide slider">
         <div class='swiper-img-wrapper swiper-img-human'>
@@ -87,7 +92,7 @@ function createMarkup(arr) {
         </div>
 
         <div class='swiper-img-wrapper swiper-img-second-dish'>
-          <img src="${topicImgUrl}" loading="lazy" alt="${topicName}" class='swiper-slide-img big-slide-img' width='663' height='663'>
+          <img src="${bigImgUrl}" loading="lazy" alt="${topicName}" class='swiper-slide-img big-slide-img' width='663' height='663'>
         </div>
 
       </div>
