@@ -10,6 +10,8 @@ const switchElMob = document.querySelector('#check-2');
 const linkHomeEl = document.querySelector('.link-home');
 const linkFavEl = document.querySelector('.link-fav');
 const logoEl = document.querySelector('.logo-link');
+const homeMobEl = document.querySelector('.home-mob');
+const favMobEl = document.querySelector('.fav-mob');
 
 burgerEl.addEventListener('click', handlerTogle);
 closeBtnEl.addEventListener('click', handlerTogle);
@@ -34,8 +36,6 @@ function hendlerCloseMenu() {
 switchEl.addEventListener('change', handleChange);
 switchElMob.addEventListener('change', handleChange);
 
-console.dir(root);
-
 function handleChange(e) {
   switchEl.checked = e.target.checked;
   switchElMob.checked = e.target.checked;
@@ -59,22 +59,12 @@ function checkedTheme() {
   }
 }
 
-linkFavEl.addEventListener('click', activeFav);
+const current = window.location.pathname;
+console.log(window.location.pathname);
 
-function activeFav() {
-  localStorage.setItem('active', 'fav');
+if (linkFavEl.getAttribute('href') === current) {
+  linkFavEl.classList.add('active');
+  linkHomeEl.classList.remove('active');
+  favMobEl.classList.add('active-mob-nav');
+  homeMobEl.classList.remove('active-mob-nav');
 }
-
-linkHomeEl.addEventListener('click', activeHome);
-logoEl.addEventListener('click', activeHome);
-console.log(logoEl);
-function activeHome() {
-  localStorage.setItem('active', 'home');
-}
-function checkActive() {
-  if (localStorage.getItem('active') === 'fav') {
-    linkFavEl.classList.add('active');
-    linkHomeEl.classList.remove('active');
-  }
-}
-checkActive();
