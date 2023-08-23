@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { TastyAPI } from './tasty-api';
-import { ModalRecipe } from './create-modal';
-
+import { markupRecipe } from './recipe';
+import { openCloseModal } from './create-modal';
 
 const popularRecipesList = document.querySelector('.popular-list');
 const TastyApi = new TastyAPI();
@@ -11,6 +11,8 @@ const fetchPopularRecipes = TastyApi.getPopularRecipes();
 fetchPopularRecipes
   .then(popularRecipes => {
     renderPopularRecipes(popularRecipes);
+    openCloseModal();
+    popularRecipesList.addEventListener('click', onClickByPopularRecipe);
   })
   .catch(() => {
     Notify.failure('Oops! Something went wrong! Try reloading the page!');
@@ -18,9 +20,10 @@ fetchPopularRecipes
 function renderPopularRecipes(popularRecipes) {
   const markup = popularRecipes
     .map(({ _id, title, description, preview }) => {
-      return `<li class="popular-item" data-modal-recipe-open>
+      return `
+      <li class="popular-item" data-open='recipe' >
         <a href="#" class="popular-link"  data-id="${_id}" >
-        <img
+        <img 
           src="${preview}"
           alt="${title}"
           class="popular-item-img"
@@ -41,12 +44,9 @@ function renderPopularRecipes(popularRecipes) {
   popularRecipesList.innerHTML = markup;
 }
 
-popularRecipesList.addEventListener('click', onClickByPopularRecipe);
-
 function onClickByPopularRecipe(event) {
   event.preventDefault();
   const itemElement = event.target.closest('.popular-link');
   let idRecipe = itemElement.dataset.id;
-  console.log(idRecipe);
-  ModalRecipe(idRecipe);
+  markupRecipe(idRecipe);
 }
