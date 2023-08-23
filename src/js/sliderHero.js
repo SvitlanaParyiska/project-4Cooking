@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import Swiper from 'swiper/swiper-bundle.min.mjs';
 import 'swiper/swiper-bundle.css';
@@ -6,7 +7,6 @@ import { Notify } from 'notiflix';
 const slider = document.querySelector('.swiper-wrapper');
 
 const URL = `https://tasty-treats-backend.p.goit.global/api/events`;
-
 
 async function fetchEvents() {
   try {
@@ -32,10 +32,10 @@ new Swiper('.swiper', {
     dynamicBullets: true,
   },
   spaceBetween: 10,
-  autoplay: {
-    delay: 3000,
-    disableOnInteraction: false,
-  },
+  // autoplay: {
+  //   delay: 3000,
+  //   disableOnInteraction: false,
+  //},
 
   grabCursor: true,
   loop: true,
@@ -43,7 +43,6 @@ new Swiper('.swiper', {
     invert: true,
   },
 });
-
 
 function createMarkup(arr) {
   const markup = arr
