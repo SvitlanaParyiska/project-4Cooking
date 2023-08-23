@@ -1,44 +1,51 @@
-import { markupRecipe } from './recipe';
 import { changeColor } from './modal-rating';
 
-export function ModalRecipe(idRecipe) {
-  openCloseModal('[data-modal-recipe]');
-  markupRecipe(idRecipe);
-}
-
-export function openCloseModal(dataAtr) {
-  const refs = {
-    openModalBtn: document.querySelectorAll('[data-modal-recipe-open]'),
-    closeModalBtn: document.querySelector('[data-modal-recipe-close]'),
-    modal: document.querySelector(`${dataAtr}`),
-  };
-
-  refs.openModalBtn.forEach(element => {
-    element.addEventListener('click', openModal);
+export function openCloseModal() {
+  const modalBackdrop = document.querySelector('.modal-backdrop');
+  const openBtnsModal = document.querySelectorAll('[data-open]');
+  const closeBtnsModal = document.querySelectorAll('[data-close]');
+  const modals = document.querySelectorAll('[data-modal]');
+  let zIndexModal = 0;
+  openBtnsModal.forEach(btnOpen => {
+    btnOpen.addEventListener('click', onOpenModal);
   });
-  refs.closeModalBtn.addEventListener('click', closeModal);
-  refs.modal.addEventListener('click', removeModal);
-  window.addEventListener('keydown', onEscPress);
+  closeBtnsModal.forEach(btnClose => {
+    btnClose.addEventListener('click', onCloseModal);
+  });
+  modals.forEach(modal => {
+    modal.addEventListener('mousedown', onBackdropCloseModal);
+  });
 
-  function removeModal(e) {
-    if (e.target === e.currentTarget) {
-      refs.modal.classList.add('modal-is-hidden');
-      document.body.classList.remove('modal-is-open');
-    }
+  function onOpenModal(event) {
+    const dataAttribute = event.currentTarget.getAttribute('data-open');
+    console.log(dataAttribute);
+    zIndexModal += 1;
+    modalBackdrop.computedStyleMap.zIndex = zIndexModal;
+    document.body.classList.add('modal-is-open');
+    document
+      .querySelector(`[data-modal='${dataAttribute}']`)
+      .classList.remove('modal-is-hidden');
+    window.addEventListener('keydown', onEscPress);
   }
-  function openModal() {
-    refs.modal.classList.toggle('modal-is-hidden');
-    document.body.classList.toggle('modal-is-open');    
-  }
-  function closeModal() {
-    refs.modal.classList.add('modal-is-hidden');
+
+  function onCloseModal() {
     document.body.classList.remove('modal-is-open');
-    changeColor(0);
+    modals.forEach(modal => {
+      if (!modal.classList.contains('modal-is-hidden')) {
+        modal.classList.add('modal-is-hidden');
+      }
+    });
+  }
+
+  function onBackdropCloseModal(event) {
+    event.preventDefault();
+    if (event.currentTarget === event.target) {
+      onCloseModal();
+    }
   }
   function onEscPress(key) {
     if (key.code === 'Escape') {
-      closeModal();
-      changeColor(0);
+      onCloseModal();
     }
   }
 }
