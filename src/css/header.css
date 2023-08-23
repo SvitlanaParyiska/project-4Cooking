@@ -59,12 +59,9 @@
 
     display: block;
 }
-.mob-menu-item .active-mob-nav {
-    color: var(--active-page-mobile);
-}
 
 .mob-menu-link {
-    color: #f8f8f8;
+    color: #FFF;
         font-family: Inter;
         font-size: 12px;
         font-style: normal;

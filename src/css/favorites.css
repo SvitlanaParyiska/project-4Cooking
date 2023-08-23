@@ -1,7 +1,3 @@
-.favorites {
-  padding-top: 64px;
-}
-
 .fav-search-button {
   border: 1px solid var(--border-button-color);
   background-color: var(--primary-bg-theme);
@@ -84,9 +80,7 @@
      .fav-search-button {
         font-size: 14px;
      }
-  .favorites {
-  padding-top: 40px;
-}
+  
 }
 
 /* ============================ */
