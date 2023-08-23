@@ -8,6 +8,7 @@ const refs = {
   favoritesRecipesList: document.querySelector('.favorites-recipes-list'),
   emptyStorage: document.querySelector('.empty-storage-js'),
   listRecipeEl: document.querySelector('.favorites-recipes-list'),
+  cardsLisCategory: document.querySelectorAll('.fav-search-button'),
 
   //paginationBox: document.getElementById('pagination'),
   //allBtn: document.querySelector('.all-btn'),
@@ -15,9 +16,12 @@ const refs = {
 const KEY_FAVOURITE = 'favourite';
 let favArrList = [];
 let favCatArrObj = [];
-let favSortArr = [];
 
-refs.listRecipeEl.addEventListener('click', selectId);
+//refs.listRecipeEl.addEventListener('click', selectId);
+refs.favoritesCategoriesList.addEventListener(
+  'click',
+  filterFavRecipeByCategory
+);
 
 checkArrFavoritesId();
 
@@ -42,16 +46,14 @@ async function checkArrFavoritesId() {
   }
 }
 
-function selectId(event) {
-  if (event.target.nodeName !== 'BUTTON') {
-    return;
-  }
-  const selectedId = event.target.dataset.id;
-  console.log(selectedId);
-  seeRecipe(selectedId);
-}
-
-function seeRecipe(id) {}
+// function selectId(event) {
+//   if (event.target.nodeName !== 'BUTTON') {
+//     return;
+//   }
+//   const selectedId = event.target.dataset.id;
+//   console.log(selectedId);
+//   seeRecipe(selectedId);
+// }
 
 async function fetchUsers(arrId) {
   const BASE_URL_RECIPES =
@@ -69,6 +71,7 @@ async function fetchUsers(arrId) {
 }
 
 function MarkUpFavSearch(arr) {
+  console.log(arr);
   const favSearchArr = arr.map(
     search => ` <li class="fav-search-item">
           <button type="button" class="fav-search-button">${search}</button>
@@ -136,36 +139,61 @@ function MarkUpRecipes(arr) {
 
 console.log(favCatArrObj);
 
-function filterFavoriteCard() {
-  const cardsLisCategory = document.querySelectorAll('.fav-search-button');
-  console.log(cardsLisCategory);
-  cardsLisCategory.forEach(button => {
-    button.addEventListener('click', event => {
-      const selectedCategory = event.target.textContent;
-      console, log(selectedCategory);
-      save('category', selectedCategory);
-      save('page', 1);
-
-      favSortArr = [];
-
-      favCatArrObj.forEach(obj => {
-        if (obj.categ[0] === selectedCategory) {
-          favSortArr.push(...obj.id);
-        }
-        console.log(favSortArr);
-      });
-
-      rend();
-      pagination.reset(favSortArr.length);
-    });
+function filterFavRecipeByCategory(event) {
+  let favSortArr = [];
+  const selectedCategory = event.target.textContent;
+  favCatArrObj.forEach(obj => {
+    if (obj.categ[0] === selectedCategory) {
+      favSortArr.push(...obj.id);
+    }
   });
+  console.log(favSortArr);
+  getArrPromiseFilterById(favSortArr);
 }
 
-function rend() {
-  const recipesList = favSortArr.map(recipeId => {
-    return recipes.find(recipe => recipe._id === recipeId);
-  });
+async function getArrPromiseFilterById(catArr) {
+  // if (!catArr || catArr.length === 0) {
+  //   return;
+  // }
 
-  MarkUpRecipes(recipesList);
+  try {
+    const recipesListByCategory = await fetchUsers(catArr);
+    MarkUpRecipes(recipesListByCategory);
+  } catch (error) {
+    console.log(error.message);
+  }
 }
-filterFavoriteCard();
+
+// function filterFavoriteCard() {
+//   const cardsLisCategory = document.querySelectorAll('.fav-search-button');
+//   console.log(cardsLisCategory);
+//   cardsLisCategory.forEach(button => {
+//     button.addEventListener('click', event => {
+//       const selectedCategory = event.target.textContent;
+//       console.log(selectedCategory);
+//       save('category', selectedCategory);
+//       save('page', 1);
+
+//       favSortArr = [];
+
+//       favCatArrObj.forEach(obj => {
+//         if (obj.categ[0] === selectedCategory) {
+//           favSortArr.push(...obj.id);
+//         }
+//         console.log(favSortArr);
+//       });
+
+//       rend();
+//       pagination.reset(favSortArr.length);
+//     });
+//   });
+// }
+
+// function rend() {
+//   const recipesList = favSortArr.map(recipeId => {
+//     return recipes.find(recipe => recipe._id === recipeId);
+//   });
+
+//   MarkUpRecipes(recipesList);
+// }
+// filterFavoriteCard();
