@@ -25,9 +25,9 @@
   border: none;
   top: 16px;
   right: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
   width: 30px;
   height: 30px;
 }
@@ -45,34 +45,69 @@
   stroke: var(--white-text-color);
 }
 
-.js-favourite.is-active-heart .dishes-list-heart-icon {
+.heart-btn.is-active-heart .dishes-list-heart-icon {
   opacity: 1;
   /* z-index: 2; */
   fill: #f8f8f8;
 }
 
-.js-favourite.is-not-active-heart .dishes-list-heart-icon {
+.heart-btn.is-not-active-heart .dishes-list-heart-icon {
   fill: none;
   stroke: var(--white-text-color);
 }
 
-.js-favourite .dishes-list-heart-icon {
+.heart-btn .dishes-list-heart-icon {
   /* z-index: 2; */
   fill: none;
   stroke: var(--white-text-color);
 }
+.heart-btn:hover .dishes-list-heart-icon,
+.heart-btn:focus .dishes-list-heart-icon {
+  stroke: black;
+  stroke-width: 10px;
+  /* scale: 1.5; */
+}
+/* =============heart style */
+.heart-wraper {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+}
 
-.dishes-list-heart-icon:hover,
+.heart-checkbox {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  opacity: 0;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+/* // label - heart-checkbox-label */
+.heart-checkbox-label .heartOff,
+.heart-checkbox:checked ~ .heart-checkbox-label .heartOn {
+  display: inline;
+}
+
+.heart-checkbox-label .heartOn,
+.heart-checkbox:checked ~ .heart-checkbox-label .heartOff {
+  display: none;
+}
+/* ===================== */
+/* .dishes-list-heart-icon:hover,
 .dishes-list-heart-icon:focus {
   stroke: black;
-  /* transform: scale(2); */
+  stroke-width: 10px;
+  transform: scale(2);
   transition: stroke var(--main-transition), transform var(--main-transition);
-}
+} */
 
-/* .is-active-heart {
+.is-active-heart {
   opacity: 1;
   fill: #f8f8f8;
-} */
+}
 
 /* .dishes-list-image {
   position: absolute;
