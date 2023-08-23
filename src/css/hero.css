@@ -70,8 +70,11 @@ overflow: hidden;
   max-width: 80px;
 }
 
-/************************ PAGINATION *****************************/
 
+/************************ PAGINATION *****************************/
+.swiper-pagination-bullet-active {
+  background: var(--accent--text-color); 
+}
 
 /****************************** OTHER *******************************/
 
@@ -99,23 +102,23 @@ overflow: hidden;
     line-height: 1.28;
     margin-bottom: 28px;
 }
-.hero-btn {
-    border-radius: 12px;
-    border: 1px solid var(--accent--text-color);
-    padding: 10px 20px;
-    justify-content: center;
-    align-items: center;
-    color: var(--primary-text-color-light-theme);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: normal;
-    background-color: var(--primary-bg-light-theme);
-    margin-bottom: 48px;
+.hero-btn-p {
+  border-radius: 12px;
+  border: 1px solid var(--accent--text-color);
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-text-color-light-theme);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  background-color: transparent;
+  margin-bottom: 48px;
 }
-.hero-btn:hover,
-.hero-btn:focus {
-    background-color: var(--accent--text-color);
-    color: var(--white-text-color);
+.hero-btn-p:hover,
+.hero-btn-p:focus {
+  background-color: var(--accent--text-color);
+  color: var(--white-text-color);
 }
 
 
@@ -168,7 +171,7 @@ line-height: 1.16;
     margin-bottom: 16px;
   }
   .hero-left-part {
-    max-width: 446px;
+    min-width: 446px;
   }
   .hero-text {
     font-size: 16px;
@@ -190,11 +193,11 @@ line-height: 1.16;
 @media screen and (min-width: 1280px) {
 
 
-  .hero-slider {
-    /* width: px; */
+  /* .hero-slider {
     overflow: hidden;
-  }
+  } */
   .container-hero {
+    /* margin-right: ; */
     display: flex;
     gap: 32px;
     align-items: center;
