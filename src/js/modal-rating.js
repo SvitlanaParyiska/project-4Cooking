@@ -20,16 +20,12 @@ function modalRating() {
  
 refs.allRatingForm.addEventListener('submit', onRatingFormSubmit);
 refs.allRatingForm.addEventListener('input', onRatingFormInput);
-refs. ratingEmailInput.addEventListener('input', onRatingFormInput);
+refs.ratingEmailInput.addEventListener('input', onRatingFormInput);
 
   let formRatingValue = {};
   const LOCAL_NAME = 'form-rating';
-  // refs.closeBtnModal.addEventListener('click', () => {
-  //   refs.ratingBackdrop.classList.add('visible');
-  //   changeColor(0);
-  //   removeScroll();
-  // });
-
+ 
+  // click on the stars
   refs.starInputs.forEach(input => {
     input.addEventListener('click', event => {
       const star = event.target;
@@ -38,6 +34,8 @@ refs. ratingEmailInput.addEventListener('input', onRatingFormInput);
       RatingAdd.setRatingValue(ratingValue);
     });
   });
+
+  populateValueInput();
 
   // refs.ratingEmailBtn.addEventListener('submit', event => {
   //   event.preventDefault();
@@ -58,18 +56,18 @@ refs. ratingEmailInput.addEventListener('input', onRatingFormInput);
   //   refs.ratingEmailInput.value = '';
   // });
 
-  refs.ratingBackdrop.addEventListener('click', event => {
-    if (event.target === refs.ratingBackdrop) {
-      // refs.ratingBackdrop.classList.add('visible');
-      removeScroll();
-    } 
-  });
+  // refs.ratingBackdrop.addEventListener('click', event => {
+  //   if (event.target === refs.ratingBackdrop) {
+  //     // refs.ratingBackdrop.classList.add('visible');
+  //     // removeScroll();
+  //   } 
+  // });
 
   function onRatingFormSubmit(event) {
     event.preventDefault();
-      refs.ratingBackdrop.classList.add('visible');
-      removeScroll();
-      changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
+      // refs.ratingBackdrop.classList.add('visible');
+      // removeScroll();
+      changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися 
   
       const inputValue = refs.ratingEmailInput.value.trim();
   
@@ -78,11 +76,7 @@ refs. ratingEmailInput.addEventListener('input', onRatingFormInput);
         return;
       }
 
-      const id = refs.ratingEmailBtn.id;
-      RatingAdd.setInputValue(inputValue);
-      RatingAdd.setId(id);
-      RatingAdd.addRating();
-      refs.ratingEmailInput.value = '';
+      //треба зберегти не видаляти!!!
 
       localStorage.removeItem(LOCAL_NAME);
       Notiflix.Notify.success('Your rating has been accepted!');
@@ -95,9 +89,20 @@ refs. ratingEmailInput.addEventListener('input', onRatingFormInput);
     formRatingValue[event.target.name] = event.target.value;
     localStorage.setItem(LOCAL_NAME, JSON.stringify(formRatingValue));
     console.log(formRatingValue);
+  }   // Це требе зберігати при сабміті , а не при інпуті!!!
+
+
+  function populateValueInput(params) {
+    const savedMessage = localStorage.getItem(LOCAL_NAME);
+    const parsedDataHero = JSON.parse(localStorage.getItem(LOCAL_NAME));
+    const {rate,  email } = refs.allRatingForm.elements;
+    if (savedMessage) {
+      rate.value = parsedDataHero.rate || '';
+      email.value = parsedDataHero.email || '';
+
+    }
+    formRatingValue = { ...parsedDataHero };
   }
-
-
 
 
 
@@ -149,9 +154,9 @@ export function changeColor(starCount) {
 
 // видаляємо overflow: hidden
 
-function removeScroll() {
-  document.body.classList.remove('no-scroll');
-}
+// function removeScroll() {
+//   document.body.classList.remove('no-scroll');
+// }
 
 // викликаємо головну функцію
 
@@ -194,3 +199,10 @@ ratingInputs.forEach(input =>
 );
 
 // Local
+
+
+export function ratingModal(_id) {
+const recipeId= _id;
+// ввод даних в поля(зірочки і майл)
+// при сабміті форма зберігається на локал та очищ.
+}
