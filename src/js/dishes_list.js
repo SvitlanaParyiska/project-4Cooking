@@ -182,7 +182,7 @@ export function addToFavorites() {
         category: checkboxCategory,
       });
     } else {
-      index = favouriteArrLocalStor.findIndex(
+      const index = favouriteArrLocalStor.findIndex(
         cardHeart => cardHeart.id == checkboxId
       );
       favouriteArrLocalStor.splice(index, 1);
