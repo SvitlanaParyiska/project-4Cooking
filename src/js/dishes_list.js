@@ -1,28 +1,97 @@
+// import axios from 'axios';
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import svg from '../images/sprite.svg';
-import { openCloseModal } from './create-modal';
-import { markupRecipe } from './recipe';
+import { save, load, remove } from './localStorageJSON';
+// import { ModalRecipe } from './create-modal';
 
+// const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/recipes';
+
+// export async function searchOnCategory(searchQuery, page) {
+//   const apiUrl = `${BASE_URL}?category=${searchQuery}&page=${page}&${resizePage()}`;
+
+//   const response = await axios.get(apiUrl);
+//   return response.data;
+// }
+
+// =========================== апішка==========
 const elements = {
   dishesList: document.querySelector('.dishes-list-wrap'),
 };
 const KEY_FAVOURITE = 'favourite';
 let favouriteArrLocalStor =
   JSON.parse(localStorage.getItem(KEY_FAVOURITE)) ?? [];
+console.log(favouriteArrLocalStor);
 
 // обов'язкове
 export function onRenderMarkup(searchValue) {
   createMarkup(searchValue);
   addToFavorites();
-  openCloseModal();
-  const btnsSeeRecipeArray = document.querySelectorAll('.see-recipe-btn');
-  btnsSeeRecipeArray.forEach(btnSeeRecipe => {
-    btnSeeRecipe.addEventListener('click', onListClick);
-  });
+  // localStorageHeart();
+  //   додавання по рисічу в обране та модалка
+  // elements.dishesList.addEventListener('click', onListClick);
 }
-function onListClick(event) {
-  const btnSeeRecipeID = event.target.dataset.id;
-  markupRecipe(btnSeeRecipeID);
-}
+
+// Ф-ція для відмальовки сердець при оновленні сторінки
+// function localStorageHeart() {
+//   if (favouriteArrLocalStor) {
+//     const heartsBtns = document.querySelectorAll('.js-favourite');
+//     heartsBtns.forEach(heartBtn => {
+//       const heartId = heartBtn.dataset.id;
+//       if (favouriteArrLocalStor.includes(heartId)) {
+//         heartBtn.classList.add('is-active-heart');
+//       }
+//     });
+//   }
+// }
+
+// функція для опрацювання кліку по рецептам яка відслідковує клік на серце або кнопку і відкриває модалку або додає клас на серце та айдішку на локал сторидж
+// export function onListClick(event) {
+//   event.preventDefault();
+//   if (event.target.classList.contains('js-see-recipe')) {
+//     const { id } = event.target.closest('.dishes-list-item').dataset;
+//     ModalRecipe(id);
+//   }
+//   console.log('hello');
+//   if (
+//     // event.target.classList.contains('dishes-list-heart-icon') ||
+//     event.target.classList.contains('js-favourite')
+//   ) {
+//     const { id } = event.target.closest('.dishes-list-item').dataset;
+//     const heart = event.target.closest('.dishes-list-heart-icon');
+//     const heartBtn = event.target.closest('.js-favourite');
+//     console.log(heart, 'клік на свг');
+//     console.log(heartBtn, 'клік на кнопку');
+
+//     // Перевірка на наявність і додавання(видалення) активного класу і додавання(видалення) Id в LocalStorage
+//     if (
+//       heartBtn.classList.contains('is-not-active-heart') ||
+//       heartBtn.classList.contains('is-active-heart')
+//     ) {
+//       //   heart.classList.remove('is-active-heart');
+//       //   heart.addEventListener('click', () => {
+//       //     heart.classList.togle('is-active-heart');
+//       //   });
+//       heartBtn.classList.remove('is-active-heart');
+//       // heartBtn.classList.add('is-not-active-heart');
+//       console.log('hello');
+//       favouriteArrLocalStor.map((idIcon, index) => {
+//         if (idIcon === id) {
+//           favouriteArrLocalStor.splice(index, 1);
+//         }
+//       });
+//       save(KEY_FAVOURITE, favouriteArrLocalStor);
+//     } else {
+//       heartBtn.classList.add('is-active-heart');
+//       // heartBtn.classList.remove('is-not-active-heart');
+//       //   heart.classList.add('is-active-heart');
+//       if (favouriteArrLocalStor.includes(id)) {
+//         return;
+//       }
+//       favouriteArrLocalStor.push(id);
+//       save(KEY_FAVOURITE, favouriteArrLocalStor);
+//     }
+//   }
+// }
 
 // то також потрібне
 function createMarkup(searchValue) {
@@ -78,7 +147,7 @@ function createMarkup(searchValue) {
                             ${generateStars(rating)}
                         </div>
                     </div>
-                    <button type="button" data-id="${_id}" data-open="recipe" class="see-recipe-btn js-see-recipe">See recipe</button>
+                    <button type="button" data-id="${_id}" data-modal-recipe-open class="see-recipe-btn js-see-recipe">See recipe</button>
                 </div>
             </div>
         </li>`;
@@ -111,54 +180,38 @@ export function resizePage() {
   }
 }
 
-//Функція для кнопки "Add to favorite" і "Remove to favorite"
+// це не моє но комусь потрібне
 export function localStorageFavourite() {
-  const storedData = localStorage.getItem('favourite');
-  if (storedData) {
-    favouriteArrLocalStor = JSON.parse(storedData);
+  if (favouriteArrLocalStor) {
     const btnFavourite = document.querySelector('.favorite-btn');
     const btnFavouriteID = btnFavourite.dataset.id;
-    favouriteArrLocalStor.forEach(FavoriteObj => {
-      if (btnFavouriteID === FavoriteObj.id) {
-        btnFavourite.textContent = 'Remove to favorite';
-      }
-    });
+    console.log(btnFavouriteID);
+    if (favouriteArrLocalStor.includes(btnFavouriteID)) {
+      btnFavourite.textContent = 'Remove to favorite';
+    }
   }
 }
+
 export function onBtnFavouriteClick() {
   const btnFavourite = document.querySelector('.favorite-btn');
-  const btnFavouriteCard = btnFavourite.dataset;
-  const checkbox = document.querySelectorAll('.heart-checkbox');
+  const btnFavouriteID = btnFavourite.dataset.id;
   if (btnFavourite.textContent === 'Remove to favorite') {
     btnFavourite.textContent = 'Add to favorite';
-    checkbox.forEach(heart => {
-      const heartId = heart.getAttribute('id');
-      if (heartId === btnFavouriteCard.id) {
-        heart.checked = false;
-      }
-    });
     favouriteArrLocalStor.map((value, index) => {
-      if (btnFavouriteCard.id === value.id) {
+      if (btnFavouriteID === value) {
         favouriteArrLocalStor.splice(index, 1);
       }
     });
-    const favouriteArrLocalStorString = JSON.stringify(favouriteArrLocalStor);
-    localStorage.setItem('favourite', favouriteArrLocalStorString);
+    save(KEY_FAVOURITE, favouriteArrLocalStor);
   } else {
-    checkbox.forEach(heart => {
-      const heartId = heart.getAttribute('id');
-      if (heartId === btnFavouriteCard.id) {
-        heart.checked = true;
-      }
-    });
     btnFavourite.textContent = 'Remove to favorite';
-    if (favouriteArrLocalStor.includes(btnFavouriteCard)) {
+    if (favouriteArrLocalStor.includes(btnFavouriteID)) {
       return;
     }
-    favouriteArrLocalStor.push(btnFavouriteCard);
-    const favouriteArrLocalStorString = JSON.stringify(favouriteArrLocalStor);
-    localStorage.setItem('favourite', favouriteArrLocalStorString);
+    favouriteArrLocalStor.push(btnFavouriteID);
+    save(KEY_FAVOURITE, favouriteArrLocalStor);
   }
+  location.reload();
 }
 
 // =======================
@@ -171,6 +224,7 @@ export function addToFavorites() {
 
   // let favouriteArrLocalStor = []; // from local storage
   checkAndReadStorage();
+
   function onCheckboxChange(evt) {
     const checkbox = evt.target;
     const checkboxId = checkbox.id;
@@ -182,7 +236,7 @@ export function addToFavorites() {
         category: checkboxCategory,
       });
     } else {
-      const index = favouriteArrLocalStor.findIndex(
+      index = favouriteArrLocalStor.findIndex(
         cardHeart => cardHeart.id == checkboxId
       );
       favouriteArrLocalStor.splice(index, 1);
@@ -190,6 +244,7 @@ export function addToFavorites() {
     const heartCheckBoxElLocalStorage = JSON.stringify(favouriteArrLocalStor);
     localStorage.setItem('favourite', heartCheckBoxElLocalStorage);
   }
+
   function checkAndReadStorage() {
     const storedData = localStorage.getItem('favourite');
     if (storedData) {
