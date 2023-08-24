@@ -1,24 +1,15 @@
 .recipe-backdrop {
-  position: fixed;
-  /* overflow: hidden; */
-  top: 0;
-  left: 0;
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(46, 47, 66, 0.4);
-  /* transition: opacity 300ms linear, visibility 300ms linear; */
+  overflow: auto;
 }
 
 .modal-recipe {
   width: 335px;
-  height: calc(100% - 80px);
+  max-height: 1171px;
   background: var(--primary-bg-theme);
   position: absolute;
-  overflow-y: auto;
-  top: 0;
+  top: 50px;
   left: 50%;
-  margin-top: 50px;
+  border-radius: 15px;
   transform: translateX(-50%);
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -42,10 +33,7 @@
   border-radius: 8px;
   margin-bottom: 20px;
 }
-.recipe-alternative-img {
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
+
 .recipe-title {
   font-size: 18px;
   line-height: 1.33;
@@ -137,7 +125,7 @@
 .btn {
   height: 41px;
   font-family: Inter;
-  font-size: 11px;
+  font-size: 10px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -162,7 +150,6 @@
 }
 .rating {
   display: flex;
-  /* width: 122px; */
   height: 18px;
   color: var(--search-text-color);
   font-size: 14px;
@@ -171,11 +158,8 @@
   justify-content: center;
   align-items: center;
   gap: 6px;
-
   color: #050505;
-  font-family: Inter;
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
   line-height: calc(24 / 16);
 }
@@ -252,7 +236,7 @@
   }
   .btn {
     height: 45px;
-    font-size: 14px;
+    font-size: 11px;
   }
   .favorite-btn {
     width: 156px;
