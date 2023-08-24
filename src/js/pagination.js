@@ -3,6 +3,7 @@ import 'tui-pagination/dist/tui-pagination.css';
 import { TastyAPI } from './tasty-api';
 import { createMarkup } from './dishes_list';
 import svg from '../images/sprite.svg';
+import { onRenderMarkup, clearRecipeCardsContent } from './dishes_list';
 
 function resizeVisPage() {
   const screenWidth = window.innerWidth;
@@ -16,7 +17,7 @@ function resizeVisPage() {
   }
 }
 
-const API = new TastyAPI();
+export const tastyApi = new TastyAPI();
 
 const container = document.getElementById('tui-pagination-container');
 const listEl = document.querySelector('.dishes-list-wrap');
@@ -107,24 +108,30 @@ function AcreateMarkup(searchValue) {
 }
 // ===========================================================================
 
-const pagination = new Pagination(container, options);
+export const pagination = new Pagination(container, options);
 
 const page = pagination.getCurrentPage();
 
-console.log(API.getAllRecipes(page).then(data => console.log(data)));
-API.getAllRecipes(page).then(({ perPage, totalPages, results }) => {
-  pagination.reset(Number(perPage) * Number(totalPages));
-  console.log(results);
-  const markup = AcreateMarkup(results);
-  listEl.innerHTML = markup;
-});
+function getAllRecipe() {
+  tastyApi.page = page;
+  tastyApi.getRecipeByFilter().then(data => {
+    pagination.reset(Number(data.perPage) * Number(data.totalPages));
+    clearRecipeCardsContent();
+    onRenderMarkup(data);
+  });
+}
 
-pagination.on('afterMove', getPopular);
+getAllRecipe();
 
-function getPopular(event) {
+pagination.on('afterMove', getAll);
+
+function getAll(event) {
   const currentPage = event.page;
-  API.getAllRecipes(currentPage).then(({ perPage, totalPages, results }) => {
-    const markup = AcreateMarkup(results);
-    listEl.innerHTML = markup;
+  tastyApi.page = currentPage;
+
+  tastyApi.getRecipeByFilter().then(data => {
+    clearRecipeCardsContent();
+    onRenderMarkup(data);
+    // listEl.innerHTML = markup;
   });
 }
