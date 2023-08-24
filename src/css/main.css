@@ -51,6 +51,8 @@
 
   --border-button-color: rgba(5, 5, 5, 0.2);
   --primary-bg-modal: #fff;
+  --icon-chevron: url(/src/images/chevron-down-light.svg);
+
 
   --active-page-mobile: #f8f8f8;
 
@@ -83,6 +85,7 @@
   --primary-bg-modal: #050505;
   --primary-bg-theme: #161616;
   --mobile-menu-bg-theme: #050505;
+  --icon-chevron: url(/src/images/chevron-down-dark.svg);
 
   --primary-text-color-light-theme: #ffffff;
   --categories-text-color-light-theme: rgba(255, 255, 255, 0.3);
