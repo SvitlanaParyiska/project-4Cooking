@@ -1,24 +1,27 @@
-import Notiflix from 'notiflix';
+import { Notify } from 'notiflix';
+import debounce from 'lodash.debounce';
 import { RatingAPI } from './rating_api';
 
 const RatingAdd = new RatingAPI();
 
-function modalRating() {
+export function modalRating(idRecipe) {
   const refs = {
-    // closeBtnModal: document.querySelector('.btn-close-rating'),
-    ratingBackdrop: document.querySelector('.rating-backdrop'),
-    ratingEmailBtn: document.querySelector('.rating-email-btn'),
     starInputs: document.querySelectorAll('.star-input'),
-    ratingEmailInput: document.querySelector('.rating-form-input'),
-    // openModalBtn: document.querySelector(".modal-open"),
+    ratingEmailInput: document.querySelector('.rating-email-input'),
+    allRatingForm: document.querySelector('.form-rating'),
+
+    ratingModalBackdrop: document.querySelector('.js-modal-backdrop-rating'),
   };
+  
+  refs.allRatingForm.addEventListener('submit', onRatingFormSubmit);
+  refs.allRatingForm.addEventListener(
+    'input',
+    debounce(onRatingFormInput, 300)
+  );
 
-  // refs.closeBtnModal.addEventListener('click', () => {
-  //   refs.ratingBackdrop.classList.add('visible');
-  //   changeColor(0);
-  //   removeScroll();
-  // });
-
+  let formRatingValue = {};
+  const LOCAL_KEY = 'form-rating';
+  // click on the stars
   refs.starInputs.forEach(input => {
     input.addEventListener('click', event => {
       const star = event.target;
@@ -28,39 +31,41 @@ function modalRating() {
     });
   });
 
-  refs.ratingEmailBtn.addEventListener('submit', event => {
+  populateValueInput();
+
+  function onRatingFormSubmit(event) {
     event.preventDefault();
-    refs.ratingBackdrop.classList.add('visible');
-    removeScroll();
-    changeColor(0); // при натисканні на кнопку Send, повинні оновитися зірки та відправитися
 
-    const inputValue = refs.ratingEmailInput.value.trim();
+    changeColor(0);
 
-    if (inputValue === '') {
-      Notiflix.Notify.failure('Please enter a valid email');
-      return;
+    RatingAdd.setId(idRecipe);
+
+    localStorage.removeItem(LOCAL_KEY);
+    Notify.success('Your rating has been accepted!');
+    formRatingValue = {};
+    event.target.reset();
+
+    refs.ratingModalBackdrop.classList.add('modal-is-hidden');
+  }
+
+  function onRatingFormInput(event) {
+    formRatingValue['id'] = idRecipe;
+
+    formRatingValue[event.target.name] = event.target.value;
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(formRatingValue));  
+  }
+
+  function populateValueInput(params) {
+    const savedMessage = localStorage.getItem(LOCAL_KEY);
+    const parsedDataRating = JSON.parse(localStorage.getItem(LOCAL_KEY));
+    const { rate, email } = refs.allRatingForm.elements;
+    
+    if (savedMessage) {
+      rate.value = parsedDataRating.rate || '';
+      email.value = parsedDataRating.email || '';
     }
-    const id = refs.ratingEmailBtn.id;
-    RatingAdd.setInputValue(inputValue);
-    RatingAdd.setId(id);
-    RatingAdd.addRating();
-    refs.ratingEmailInput.value = '';
-  });
-
-  refs.ratingBackdrop.addEventListener('click', event => {
-    if (event.target === refs.ratingBackdrop) {
-      refs.ratingBackdrop.classList.add('visible');
-      removeScroll();
-    }
-  });
-
-  // document.addEventListener('keydown', event => {
-  //   if (event.key === 'Escape') {
-  //     changeColor(0);
-  //     refs.ratingBackdrop.classList.add('visible');
-  //     removeScroll();
-  //   }
-  // });
+    formRatingValue = { ...parsedDataRating };
+  }
 
   const stars = document.querySelectorAll('.rating-star input[type="radio"]');
   stars.forEach(star => {
@@ -86,50 +91,42 @@ export function changeColor(starCount) {
   ratingValue.textContent = starCount.toFixed(1);
 }
 
-// видаляємо overflow: hidden
-
-function removeScroll() {
-  document.body.classList.remove('no-scroll');
-}
-
 // викликаємо головну функцію
 
 modalRating();
 
 // Перевіряємо на валідність
 
-const emailInput = document.querySelector('.rating-form-input');
-const ratingInputs = document.querySelectorAll('.star-input');
-const submitButton = document.querySelector('.rating-email-btn');
+const validEmailInput = document.querySelector('.rating-email-input');
+const validRatingStarsInputs = document.querySelectorAll('.star-input');
+const validSubmitButton = document.querySelector('.rating-email-btn');
 
 // Перевіряємо валідність email
 // Метод checkValidity() перевіряє чи є у елемента якісь обмеження і чи задовольняє він їм.
 // Якщо елемент не відповідає своїм обмеженням, браузер запускає скасовану invalid подію для елемента, а потім повертає значення false.
 
 function isValidEmail(email) {
-  return emailInput.checkValidity();
+  return validEmailInput.checkValidity();
 }
 
 // Перевіряємо стан вибраного рейтингу та присутність елемету з класом 'star-input'
 
 function isRatingSelected() {
-  return [...ratingInputs].some(input => input.checked);
+  return [...validRatingStarsInputs].some(input => input.checked);
 }
 
 // Оновлюємо стан кнопки та перевіряємо валідність email + вибраного рейтингу
 
 function updateSubmitButtonState() {
-  const isEmailValid = isValidEmail(emailInput.value);
+  const isEmailValid = isValidEmail(validEmailInput.value);
   const isRatingValid = isRatingSelected();
 
   // Якщо все ок знімаємо клас css 'submit-btn[disabled]'
-  submitButton.disabled = !(isEmailValid && isRatingValid);
+  validSubmitButton.disabled = !(isEmailValid && isRatingValid);
 }
 
 // Слухаємо події зміни поля email та вибору рейтингу
-emailInput.addEventListener('input', updateSubmitButtonState);
-ratingInputs.forEach(input =>
+validEmailInput.addEventListener('input', updateSubmitButtonState);
+validRatingStarsInputs.forEach(input =>
   input.addEventListener('change', updateSubmitButtonState)
 );
-
-// Local

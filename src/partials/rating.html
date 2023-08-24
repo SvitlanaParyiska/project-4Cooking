@@ -1,25 +1,29 @@
-<!-- Modal window -->
-<div class="rating-backdrop modal-is-hidden" data-modal-rating>
+<!-- Modal window Rating -->
+<div
+  class="modal-backdrop js-modal-backdrop-rating modal-is-hidden"
+  data-modal="rating"
+>
+  >
   <div class="rating-modal-container">
     <div class="rating-modal">
       <button
         type="button"
         class="close-btn js-modal-close"
-        data-modal-recipe-close
+        data-close="rating"
       >
         <svg class="modal-icon-close" width="20" height="20">
           <use href="./images/sprite.svg#icon-close"></use>
         </svg>
       </button>
       <div class="rating-block">
-        <div class="rating-block-star">
-          <h2 class="block-star-txt">Rating</h2>
+        <h2 class="block-star-txt">Rating</h2>
+        <form class="form-rating">
           <div class="rating-star">
             <p class="rating_value">0.0</p>
             <input
               type="radio"
               id="star1"
-              name="rating"
+              name="rate"
               value="1"
               class="star-input"
             />
@@ -31,7 +35,7 @@
             <input
               type="radio"
               id="star2"
-              name="rating"
+              name="rate"
               value="2"
               class="star-input"
             />
@@ -43,7 +47,7 @@
             <input
               type="radio"
               id="star3"
-              name="rating"
+              name="rate"
               value="3"
               class="star-input"
             />
@@ -55,7 +59,7 @@
             <input
               type="radio"
               id="star4"
-              name="rating"
+              name="rate"
               value="4"
               class="star-input"
             />
@@ -67,7 +71,7 @@
             <input
               type="radio"
               id="star5"
-              name="rating"
+              name="rate"
               value="5"
               class="star-input"
             />
@@ -77,21 +81,20 @@
               </svg>
             </label>
           </div>
-        </div>
+          <input
+            type="email"
+            id="email-1"
+            name="email"
+            placeholder="Enter your email"
+            class="rating-email-input rating-email-valid email-rating"
+            required
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+          />
+          <button type="submit" class="rating-email-btn submit-btn" disabled>
+            Send
+          </button>
+        </form>
       </div>
-      <form class="form-rating-email">
-        <input
-          type="email"
-          id="email-1"
-          name="email"
-          placeholder="Enter your email"
-          class="rating-form-input rating-email-valid email-rating"
-          required
-        />
-        <button type="submit" class="rating-email-btn submit-btn" disabled>
-          Send
-        </button>
-      </form>
     </div>
   </div>
 </div>
