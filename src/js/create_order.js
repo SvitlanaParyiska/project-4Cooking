@@ -1,41 +1,54 @@
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
+import { openCloseModal } from './create-modal';
 
+const heroModalBackdrop = document.querySelector('.hero-modal-backdrop');
 const openBtnHero = document.querySelectorAll('[data-open-hero]');
-const closeBtnHero = document.querySelector('[data-close-hero]');
+const closeBtnHero = document.querySelectorAll('[data-close-hero]');
 const heroModal = document.querySelector('[data-hero]');
 const heroForm = document.querySelector('.form-hero');
-
-closeBtnHero.addEventListener('click', onCloseModal);
+openCloseModal();
 heroForm.addEventListener('submit', onHeroFormSubmit);
 heroForm.addEventListener('input', debounce(onHeroFormInput, 300));
-heroModal.addEventListener('mousedown', onBackdropCloseModal);
+// heroModal.addEventListener('mousedown', onBackdropCloseModal);
 
 let formHeroValue = {};
 const LOCAL_NAME = 'form-hero-values';
-openBtnHero.forEach(btn => {
-  btn.addEventListener('click', onOpenModal);
-});
+// let zIndexModal = null;
+// openBtnHero.forEach(btn => {
+//   btn.addEventListener('click', onOpenModal);
+// });
 
-function onBackdropCloseModal(e) {
-  if (e.currentTarget === e.target) {
-    onCloseModal();
-  }
-}
+// closeBtnHero.forEach(btn => {
+//   btn.addEventListener('click', onCloseModal);
+// });
 
-function onOpenModal(e) {
-  document.body.classList.add('modal-is-open');
+// function onBackdropCloseModal(e) {
+//   if (e.currentTarget === e.target) {
+//     onCloseModal();
+//   }
+// }
 
-  heroModal.classList.remove('modal-is-hidden');
-  window.addEventListener('keydown', onEscPress);
-}
+// function onOpenModal(e) {
+//   const dataAttribute = e.currentTarget.getAttribute('data-open-hero');
+//   zIndexModal += 1;
+//   document.body.classList.add('modal-is-open');
+//   heroModalBackdrop.style.zIndex = zIndexModal;
+//   document
+//     .querySelector(`[data-hero='${dataAttribute}']`)
+//     .classList.remove('modal-is-hidden');
+//   window.addEventListener('keydown', onEscPress);
+// }
 populateValueInput();
 
-function onCloseModal(e) {
-  heroModal.classList.add('modal-is-hidden');
-  window.removeEventListener('keydown', onEscPress);
-  document.body.classList.remove('modal-is-open');
-}
+// function onCloseModal(e) {
+//   const dataAttribute = e.currentTarget.getAttribute('data-close-hero');
+//   document
+//     .querySelector(`[data-hero='${dataAttribute}']`)
+//     .classList.add('modal-is-hidden');
+//   window.removeEventListener('keydown', onEscPress);
+//   document.body.classList.remove('modal-is-open');
+// }
 
 function onHeroFormSubmit(e) {
   e.preventDefault();
@@ -50,11 +63,11 @@ function onHeroFormInput(e) {
   localStorage.setItem(LOCAL_NAME, JSON.stringify(formHeroValue));
 }
 
-function onEscPress(key) {
-  if (key.code === 'Escape') {
-    onCloseModal();
-  }
-}
+// function onEscPress(key) {
+//   if (key.code === 'Escape') {
+//     onCloseModal();
+//   }
+// }
 
 function populateValueInput(params) {
   const savedMessage = localStorage.getItem(LOCAL_NAME);

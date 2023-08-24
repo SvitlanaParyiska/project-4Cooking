@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import Swiper from 'swiper/swiper-bundle.min.mjs';
 import 'swiper/swiper-bundle.css';
@@ -24,21 +23,24 @@ async function fetchSlider() {
 }
 fetchSlider();
 
-new Swiper('.swiper', {
+const swiper = new Swiper('.swiper', {
+  loop: true,
+  effect: 'cube',
+  grabCursor: true,
+  speed: 1500,
+  autoplay: {
+    delay: 2000,
+  },
   pagination: {
     el: '.swiper-pagination',
     type: 'bullets',
     clickable: true,
     dynamicBullets: true,
   },
-  spaceBetween: 10,
-  // autoplay: {
-  //   delay: 3000,
-  //   disableOnInteraction: false,
-  //},
-
-  grabCursor: true,
-  loop: true,
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
   mousewheel: {
     invert: true,
   },
@@ -49,7 +51,12 @@ function createMarkup(arr) {
     .map(
       ({
         cook: { name: cookName, imgWebpUrl: cookImgUrl },
-        topic: { name: topicName, area, previewUrl: topicImgUrl },
+        topic: {
+          name: topicName,
+          area,
+          previewWebpUrl: topicImgUrl,
+          imgWebpUrl: bigTopicImgUrl,
+        },
       }) => `
       <div class="swiper-slide slider">
         <div class='swiper-img-wrapper swiper-img-human'>
@@ -63,7 +70,7 @@ function createMarkup(arr) {
         </div>
 
         <div class='swiper-img-wrapper swiper-img-second-dish'>
-          <img src="${topicImgUrl}" loading="lazy" alt="${topicName}" class='swiper-slide-img big-slide-img' width='663' height='663'>
+          <img src="${bigTopicImgUrl}" loading="lazy" alt="${topicName}" class='swiper-slide-img big-slide-img' width='663' height='663'>
         </div>
 
       </div>
