@@ -1,40 +1,45 @@
-// import { functions } from 'lodash';
-import { openCloseModal } from './create-modal';
 import { TastyAPI } from './tasty-api';
 import svg from '../images/sprite.svg';
-// import { localStorageFavourite, onBtnFavouriteClick } from './dishes_list';
-// import alternativepic from '../images/alternativepic.jpg';
-
+import { localStorageFavourite, onBtnFavouriteClick } from './dishes_list';
+// import { alternativeImg } from '../images/alternativepic.jpg';
 const refs = {
-  closeBtnModal: document.querySelector('.js-modal-close'),
-  addToFavoriteBtn: document.querySelector('.favorite-btn'),
-  ratingBtn: document.querySelector('.rating-btn'),
   markupRecipe: document.querySelector('.recipe-markup'),
   videoRecipe: document.querySelector('.recipe-video'),
 };
 const tastyApi = new TastyAPI();
 
 export async function markupRecipe(idRecipe) {
-  const data = await tastyApi.getRecipeById(idRecipe).then(data => {
-    refs.markupRecipe.innerHTML = createMarkupRecipe(data);
-    const btnFavourite = document.querySelector('.favorite-btn');
-    localStorageFavourite();
-    btnFavourite.addEventListener('click', onBtnFavouriteClick);
-    const btnRating = document.querySelector('.rating-btn');
-    // btnRating.addEventListener('click', openCloseModal('[data-modal-rating]'));
-  });
+  await tastyApi
+    .getRecipeById(idRecipe)
+    .then(recipe => {
+      refs.markupRecipe.innerHTML = createMarkupRecipe(recipe);
+      const btnFavourite = document.querySelector('.favorite-btn');
+      localStorageFavourite();
+      btnFavourite.addEventListener('click', onBtnFavouriteClick);
+    })
+    .catch(() => {
+      Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    });
 }
 
 function createMarkupRecipe(recipe) {
-  const { _id, title, instructions, time, youtube, tags, ingredients, rating } =
-    recipe;
+  const {
+    _id,
+    title,
+    category,
+    instructions,
+    time,
+    youtube,
+    tags,
+    ingredients,
+    rating,
+  } = recipe;
   const activeStarMarkup = `<svg class="star-active">
-      <use href="${svg}}#icon-star"></use>
+      <use href="${svg}#icon-star"></use>
     </svg>`;
   const inactiveStarMarkup = `<svg class="star-notActive">
-      <use href="${svg}}#icon-star"></use>
+      <use href="${svg}#icon-star"></use>
     </svg>`;
-
   function generateStars(rating) {
     let stars = '';
     let roundedRating = Math.round(rating);
@@ -44,8 +49,6 @@ function createMarkupRecipe(recipe) {
     return stars;
   }
 
-  // const videoPhotoRecipe = `
-  // src="https://img.youtube.com/vi/${youtube}/sddefault.jpg"`;
   const ingredientList = ingredients
     .map(
       ({ name, measure }) =>
@@ -70,8 +73,7 @@ function createMarkupRecipe(recipe) {
  <div class="recipe-main-info">
     <iframe
     class="recipe-video"
-    src="${youtube.replace('watch?v=', 'embed/')}"
-     
+    src="${youtube.replace('watch?v=', 'embed/')}" 
     title="YouTube video player"
     frameborder="0"
     allow="accelerometer; autoplay;
@@ -81,7 +83,6 @@ function createMarkupRecipe(recipe) {
     picture-in-picture;
      web-share" allowfullscreen>
      </iframe> 
-     
 
      <h2 class="recipe-title">${title}</h2>
  </div>
@@ -103,10 +104,8 @@ function createMarkupRecipe(recipe) {
   <p class="recipe-text">${instructions}</p>
   
    <div class="modal-btn">
-    <button type="button" class="favorite-btn btn" data-id="${_id}">Add to favorite</button>
-    <button type="button" class="rating-btn btn" data-modal-recipe-open>Give a rating</button>
+    <button type="button" class="favorite-btn btn" data-id="${_id}" data-category="${category}">Add to favorite</button>
+    <button type="button" class="rating-btn btn" data-open="rating">Give a rating</button>
    </div>
     `;
 }
-//  <img src="${alternativepic}" alt="" class="recipe-alternative-img"/>
-//  <a href="https://img.${youtube}/sddefault.jpg"></a>
