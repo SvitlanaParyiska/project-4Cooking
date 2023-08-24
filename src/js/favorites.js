@@ -173,10 +173,12 @@ function onCheckboxChange(evt) {
   const checkbox = evt.target;
   const checkboxId = checkbox.id;
   console.log(checkboxId);
-  const checkboxCategory = checkbox.dataset.category;
 
   if (checkbox.checked) {
-    index = arrFavorites.findIndex(cardHeart => cardHeart.id == checkboxId);
+    const index = arrFavorites.findIndex(
+      cardHeart => cardHeart.id == checkboxId
+    );
+    console.log(index);
     arrFavorites.splice(index, 1);
 
     localStorage.setItem(KEY_FAVOURITE, JSON.stringify(arrFavorites));
