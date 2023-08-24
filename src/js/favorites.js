@@ -2,6 +2,9 @@ import axios from 'axios';
 import svg from '../images/sprite.svg';
 import { createPlugFavoriteMarkup } from './plug';
 import { save, load, remove } from './localStorageJSON';
+import { TastyAPI } from './tasty-api';
+import { markupRecipe } from './recipe';
+import { openCloseModal } from './create-modal';
 
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-category-list'),
@@ -9,41 +12,45 @@ const refs = {
   emptyStorage: document.querySelector('.empty-storage-js'),
 };
 
+const TastyApi = new TastyAPI();
+
 const KEY_FAVOURITE = 'favourite';
 let favCatArrObj = [];
+
+const arrFavorites = load(KEY_FAVOURITE) ?? [];
 
 refs.favoritesCategoriesList.addEventListener(
   'click',
   filterFavRecipeByCategory
 );
+refs.favoritesRecipesList.addEventListener('click', onClickByRecipe);
 
 checkArrFavoritesId();
 
 async function checkArrFavoritesId() {
-  const arrFavoritesId = load(KEY_FAVOURITE);
-
+  const arrFavoritesId = arrFavorites.map(local => local.id);
   if (!arrFavoritesId || arrFavoritesId.length === 0) {
     const markStr = createPlugFavoriteMarkup();
     refs.emptyStorage.innerHTML = markStr;
   } else {
     try {
-      const recipesList = await fetchUsers(arrFavoritesId);
+      const recipesList = await fetchRecipes(arrFavoritesId);
       favCatArrObj = createFavCatArrObj(recipesList);
       MarkUpFavSearch(favCatArrObj);
       MarkUpRecipes(favCatArrObj);
+      addHearFavoritesListeners();
+      openCloseModal();
     } catch (error) {
       console.log(error.message);
     }
   }
 }
 
-async function fetchUsers(arrId) {
-  const BASE_URL_RECIPES =
-    'https://tasty-treats-backend.p.goit.global/api/recipes/';
+async function fetchRecipes(arrId) {
   try {
     const arrOfPromises = arrId.map(async itemId => {
-      const response = await fetch(`${BASE_URL_RECIPES}${itemId}`);
-      return response.json();
+      const response = TastyApi.getRecipeById(itemId);
+      return response;
     });
     const recipes = await Promise.allSettled(arrOfPromises);
     return recipes.map(recipe => recipe.value);
@@ -84,11 +91,13 @@ function filterFavRecipeByCategory(event) {
 
   if (selectedCategory === 'All categories') {
     MarkUpRecipes(favCatArrObj);
+    addHearFavoritesListeners();
   } else {
     const selectedCategoryObj = favCatArrObj.find(
       obj => obj.categ === selectedCategory
     );
     MarkUpRecipes([selectedCategoryObj]);
+    addHearFavoritesListeners();
   }
 }
 
@@ -111,14 +120,27 @@ function MarkUpRecipes(arr) {
         }
         return stars;
       }
-      return `<li class=" dishes-list-item-fav" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
-                      background-size: cover;">
-        <button type="button" aria-label="Favorite Button" class="heart-btn js-favourite" data-heart="heart">
-        <svg class="dishes-list-heart-icon">
-        <use href="${svg}#icon-heart">
-        </use>
-    </svg>
-</button>
+      const heartIconOff = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+  <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M10.9938 4.70783C9.16102 2.5652 6.10481 1.98884 3.80851 3.95085C1.51221 5.91285 1.18893 9.19323 2.99222 11.5137C4.49154 13.443 9.029 17.5121 10.5161 18.8291C10.6825 18.9764 10.7657 19.0501 10.8627 19.0791C10.9474 19.1043 11.0401 19.1043 11.1248 19.0791C11.2218 19.0501 11.305 18.9764 11.4714 18.8291C12.9585 17.5121 17.496 13.443 18.9953 11.5137C20.7986 9.19323 20.5148 5.89221 18.179 3.95085C15.8432 2.00948 12.8265 2.5652 10.9938 4.70783Z" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+      const heartIconOn = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9937 4.70783C9.16096 2.5652 6.10475 1.98884 3.80845 3.95085C1.51215 5.91285 1.18887 9.19323 2.99216 11.5137C4.49148 13.443 9.02894 17.5121 10.5161 18.8291C10.6825 18.9764 10.7656 19.0501 10.8627 19.0791C10.9474 19.1043 11.04 19.1043 11.1247 19.0791C11.2218 19.0501 11.305 18.9764 11.4713 18.8291C12.9585 17.5121 17.4959 13.443 18.9952 11.5137C20.7985 9.19323 20.5147 5.89221 18.179 3.95085C15.8432 2.00948 12.8264 2.5652 10.9937 4.70783Z" fill="#F8F8F8"/>
+</svg>`;
+
+      function generateHeart(id, category) {
+        return `
+    <div class="heart-wraper" id="${id}">
+      <input type="checkbox" class="heart-checkbox" id="${id}" data-category="${category}" />
+      <label for="${id}" class="heart-checkbox-label">
+        <span class="heartOff fav">${heartIconOn}</span>
+        <span class="heartOn">${heartIconOff}</span>
+      </label>
+    </div>`;
+      }
+
+      return `<li class="dishes-list-item" data-id="${_id}" data-category="${category}" style="background: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${preview}); background-position: center;
+                      background-size: cover;" loading="lazy">
+         ${generateHeart(_id, category)}
             
             <div class="dishes-list-item-wrapper-fav">
                 <h3 class="dishes-list-item-title">${title}</h3>
@@ -132,7 +154,7 @@ function MarkUpRecipes(arr) {
                             ${generateStars(rating)}
                         </div>
                     </div>
-                    <button type="button" data-id="${_id}" data-recipe-btn="click" class="see-recipe-btn js-see-recipe js-recipe">See recipe</button>
+                    <button type="button" data-id="${_id}" data-open='recipe' data-recipe-btn="click" class="see-recipe-btn js-see-recipe js-recipe">See recipe</button>
                 </div>
             </div>
         </li>`;
@@ -142,63 +164,34 @@ function MarkUpRecipes(arr) {
   refs.favoritesRecipesList.innerHTML = favorArr.join('');
 }
 
-// console.log(favCatArrObj);
+function addHearFavoritesListeners() {
+  const allHeartCheckBox = document.querySelectorAll('.heart-checkbox');
 
-// function filterFavRecipeByCategory(event) {
-//   let favSortArr = [];
-//   const selectedCategory = event.target.textContent;
-//   favCatArrObj.forEach(obj => {
-//     if (obj.categ[0] === selectedCategory) {
-//       favSortArr.push(...obj.id);
-//     }
-//   });
-//   console.log(favSortArr);
-//   getArrPromiseFilterById(favSortArr);
-// }
+  allHeartCheckBox.forEach(checkbox => {
+    checkbox.addEventListener('change', onCheckboxChange);
+  });
+}
 
-// async function getArrPromiseFilterById(catArr) {
-//   // if (!catArr || catArr.length === 0) {
-//   //   return;
-//   // }
+function onCheckboxChange(evt) {
+  const checkbox = evt.target;
+  const checkboxId = checkbox.id;
 
-//   try {
-//     const recipesListByCategory = await fetchUsers(catArr);
-//     MarkUpRecipes(recipesListByCategory);
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// }
+  if (checkbox.checked) {
+    const index = arrFavorites.findIndex(
+      cardHeart => cardHeart.id == checkboxId
+    );
+    arrFavorites.splice(index, 1);
 
-// function filterFavoriteCard() {
-//   const cardsLisCategory = document.querySelectorAll('.fav-search-button');
-//   console.log(cardsLisCategory);
-//   cardsLisCategory.forEach(button => {
-//     button.addEventListener('click', event => {
-//       const selectedCategory = event.target.textContent;
-//       console.log(selectedCategory);
-//       save('category', selectedCategory);
-//       save('page', 1);
+    localStorage.setItem(KEY_FAVOURITE, JSON.stringify(arrFavorites));
+    checkArrFavoritesId();
+  }
 
-//       favSortArr = [];
+  return;
+}
 
-//       favCatArrObj.forEach(obj => {
-//         if (obj.categ[0] === selectedCategory) {
-//           favSortArr.push(...obj.id);
-//         }
-//         console.log(favSortArr);
-//       });
-
-//       rend();
-//       pagination.reset(favSortArr.length);
-//     });
-//   });
-// }
-
-// function rend() {
-//   const recipesList = favSortArr.map(recipeId => {
-//     return recipes.find(recipe => recipe._id === recipeId);
-//   });
-
-//   MarkUpRecipes(recipesList);
-// }
-// filterFavoriteCard();
+function onClickByRecipe(event) {
+  //event.preventDefault();
+  const itemElement = event.target.closest('.see-recipe-btn');
+  let idRecipe = itemElement.dataset.id;
+  markupRecipe(idRecipe);
+}
