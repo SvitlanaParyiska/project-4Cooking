@@ -5,6 +5,7 @@ import { save, load, remove } from './localStorageJSON';
 import { TastyAPI } from './tasty-api';
 import { markupRecipe } from './recipe';
 import { openCloseModal } from './create-modal';
+import { modalRating } from './modal-rating';
 
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-category-list'),
@@ -194,4 +195,5 @@ function onClickByRecipe(event) {
   const itemElement = event.target.closest('.see-recipe-btn');
   let idRecipe = itemElement.dataset.id;
   markupRecipe(idRecipe);
+  modalRating(idRecipe);
 }

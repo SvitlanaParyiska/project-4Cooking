@@ -1,6 +1,7 @@
 import svg from '../images/sprite.svg';
 import { openCloseModal } from './create-modal';
 import { markupRecipe } from './recipe';
+import { modalRating } from './modal-rating';
 
 const elements = {
   dishesList: document.querySelector('.dishes-list-wrap'),
@@ -22,6 +23,7 @@ export function onRenderMarkup(searchValue) {
 function onListClick(event) {
   const btnSeeRecipeID = event.target.dataset.id;
   markupRecipe(btnSeeRecipeID);
+  modalRating(btnSeeRecipeID);
 }
 
 // то також потрібне

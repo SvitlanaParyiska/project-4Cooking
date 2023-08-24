@@ -4,8 +4,6 @@ import { RatingAPI } from './rating_api';
 
 const RatingAdd = new RatingAPI();
 
-console.log(RatingAdd);
-
 export function modalRating(idRecipe) {
   const refs = {
     starInputs: document.querySelectorAll('.star-input'),
@@ -14,7 +12,7 @@ export function modalRating(idRecipe) {
 
     ratingModalBackdrop: document.querySelector('.js-modal-backdrop-rating'),
   };
-  console.log(idRecipe);
+  
   refs.allRatingForm.addEventListener('submit', onRatingFormSubmit);
   refs.allRatingForm.addEventListener(
     'input',
@@ -54,15 +52,14 @@ export function modalRating(idRecipe) {
     formRatingValue['id'] = idRecipe;
 
     formRatingValue[event.target.name] = event.target.value;
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(formRatingValue));
-    console.log(formRatingValue);
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(formRatingValue));  
   }
 
   function populateValueInput(params) {
     const savedMessage = localStorage.getItem(LOCAL_KEY);
     const parsedDataRating = JSON.parse(localStorage.getItem(LOCAL_KEY));
     const { rate, email } = refs.allRatingForm.elements;
-    console.log(refs.allRatingForm.elements);
+    
     if (savedMessage) {
       rate.value = parsedDataRating.rate || '';
       email.value = parsedDataRating.email || '';
