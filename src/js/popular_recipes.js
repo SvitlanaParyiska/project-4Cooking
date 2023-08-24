@@ -3,6 +3,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { TastyAPI } from './tasty-api';
 import { markupRecipe } from './recipe';
 import { openCloseModal } from './create-modal';
+import { modalRating } from './modal-rating';
 
 const popularRecipesList = document.querySelector('.popular-list');
 const TastyApi = new TastyAPI();
@@ -49,4 +50,5 @@ function onClickByPopularRecipe(event) {
   const itemElement = event.target.closest('.popular-link');
   let idRecipe = itemElement.dataset.id;
   markupRecipe(idRecipe);
+  modalRating(idRecipe);
 }
