@@ -2,7 +2,6 @@ import axios from 'axios';
 import svg from '../images/sprite.svg';
 import { createPlugFavoriteMarkup } from './plug';
 import { save, load, remove } from './localStorageJSON';
-import {} from './dishes_list';
 
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-category-list'),
