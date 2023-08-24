@@ -2,7 +2,7 @@ import Notiflix from 'notiflix';
 import { tastyApi } from './pagination';
 import { onRenderMarkup, clearRecipeCardsContent } from './dishes_list';
 import { pagination } from './pagination';
-
+import { createPlugMarkup } from './plug';
 
 const categoriesContainer = document.querySelector('.categories-container');
 const categoryList = categoriesContainer.querySelector('.category-list');
