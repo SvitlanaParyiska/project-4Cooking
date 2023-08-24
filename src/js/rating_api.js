@@ -1,8 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-
-const ratingBackdrop = document.querySelector('.rating-backdrop');
 export class RatingAPI {
   constructor() {
     this.id = '';
@@ -20,27 +18,11 @@ export class RatingAPI {
       };
 
       const responseFromRating = await axios.patch(URL, obj);
-      // return responseFromRating;
-      // console.log(responseFromRating);
-
-      Notiflix.Report.success(
-        'Your rating was successfully added,please enter a new Email '
-      );
-    
     } catch (err) {
-      if (err.response.status === 409) {
-        Notiflix.Notify.failure(
-          'You have already rated this recipe',
-          err.message
-        );
-      }
-      if (err.response.status === 400) {
-        Notiflix.Notify.failure(
-          'An error occurred, please try again',
-          err.message
-        );
-      }
-      ratingBackdrop.classList.remove('visible');
+      Notiflix.Notify.failure(
+        'We`re sorry, but ыomething went wrong!',
+        err.message
+      );
     }
   }
 
@@ -54,4 +36,4 @@ export class RatingAPI {
   setId(id) {
     this.id = id;
   }
-};
+}
