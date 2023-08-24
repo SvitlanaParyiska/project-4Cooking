@@ -42,7 +42,9 @@ export class TastyAPI {
     // const url = `${
     //   this.#BASE_URL
     // }/recipes?category=${category}&page=${page}&limit=${limit}&time=${time}&area=${area}&ingredients=${ingredients}`;
-    return axios.get(`${this.#BASE_URL}/recipes?${searchParams}`).then(resp => resp.data);
+    return axios
+      .get(`${this.#BASE_URL}/recipes?${searchParams}`)
+      .then(resp => resp.data);
   }
 
   // GET  POPULAR RECIPES
@@ -55,6 +57,16 @@ export class TastyAPI {
   getRecipeById(id) {
     const url = `${this.#BASE_URL}/recipes/${id}`;
     return axios.get(url).then(resp => resp.data);
+  }
+
+  async getRecipeByIdAsync(id) {
+    const url = `${this.#BASE_URL}/recipes/${id}`;
+    try {
+      return axios.get(url).then(resp => resp.data);
+    } catch (error) {
+      console.warn(`${error}`);
+      //Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    }
   }
 
   //ADD RECIPE RATING
