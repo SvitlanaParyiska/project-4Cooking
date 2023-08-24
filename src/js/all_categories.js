@@ -1,8 +1,8 @@
+import Notiflix from 'notiflix';
 import { tastyApi } from './pagination';
 import { onRenderMarkup, clearRecipeCardsContent } from './dishes_list';
 import { pagination } from './pagination';
 
-// export const tastyApi = new TastyAPI();
 
 const categoriesContainer = document.querySelector('.categories-container');
 const categoryList = categoriesContainer.querySelector('.category-list');
@@ -63,6 +63,10 @@ fetchAndRenderCategories();
 
 function getCategoriesFilters() {
   tastyApi.getRecipeByFilter().then(data => {
+    if (data.results.length === 0) {
+            Notiflix.Notify.failure('Sorry, but nothing was found for your search');
+            dishesList.innerHTML = createPlugMarkup();
+    };
     pagination.reset(Number(data.perPage) * Number(data.totalPages));
     onRenderMarkup(data);
   });
@@ -79,7 +83,6 @@ let lastClickedBtn = null;
 
 function onBtnCLick(event) {
   const Btn = event.target;
-  tastyApi.category = '';
   clearRecipeCardsContent();
 
   if (Btn.nodeName !== 'BUTTON') {
