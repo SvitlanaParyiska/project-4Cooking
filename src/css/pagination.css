@@ -1,10 +1,14 @@
+#tui-pagination-container {
+  height: 40px;
+}
+
 #tui-pagination-container .tui-page-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   font-size: 18px;
   font-weight: 600;
   border: 1px solid rgba(5, 5, 5, 0.3);
@@ -16,7 +20,7 @@
 
 .tui-pagination {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   justify-content: center;
 }
 
@@ -40,8 +44,32 @@
 .tui-next,
 .tui-last {
   background-color: #9bb537;
+  margin: 0;
 }
 
 .tui-is-disabled {
   background-color: #050505;
+}
+
+@media screen and (max-width: 767px) {
+  #tui-pagination-container .tui-page-btn.tui-prev-is-ellip {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #tui-pagination-container .tui-page-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  #tui-pagination-container {
+    height: 44px;
+  }
+
+  .tui-pagination {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
 }
