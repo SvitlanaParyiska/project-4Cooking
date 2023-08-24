@@ -1,6 +1,7 @@
 import { TastyAPI } from './tasty-api';
 import svg from '../images/sprite.svg';
 import { localStorageFavourite, onBtnFavouriteClick } from './dishes_list';
+import { openCloseModal } from './create-modal';
 // import { alternativeImg } from '../images/alternativepic.jpg';
 const refs = {
   markupRecipe: document.querySelector('.recipe-markup'),
@@ -13,6 +14,7 @@ export async function markupRecipe(idRecipe) {
     .getRecipeById(idRecipe)
     .then(recipe => {
       refs.markupRecipe.innerHTML = createMarkupRecipe(recipe);
+      openCloseModal();
       const btnFavourite = document.querySelector('.favorite-btn');
       localStorageFavourite();
       btnFavourite.addEventListener('click', onBtnFavouriteClick);

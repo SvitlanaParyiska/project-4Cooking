@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { TastyAPI } from './tasty-api';
 import { markupRecipe } from './recipe';
 import { openCloseModal } from './create-modal';
 import { modalRating } from './modal-rating';
+
 
 const popularRecipesList = document.querySelector('.popular-list');
 const TastyApi = new TastyAPI();
@@ -25,6 +25,7 @@ function renderPopularRecipes(popularRecipes) {
       <li class="popular-item" data-open='recipe' >
         <a href="#" class="popular-link"  data-id="${_id}" >
         <img 
+          loading="lazy"
           src="${preview}"
           alt="${title}"
           class="popular-item-img"

@@ -2,6 +2,7 @@ import svg from '../images/sprite.svg';
 import { openCloseModal } from './create-modal';
 import { markupRecipe } from './recipe';
 import { modalRating } from './modal-rating';
+import { tastyApi } from './pagination';
 
 const elements = {
   dishesList: document.querySelector('.dishes-list-wrap'),
@@ -13,17 +14,59 @@ let favouriteArrLocalStor =
 // обов'язкове
 export function onRenderMarkup(searchValue) {
   createMarkup(searchValue);
-  addToFavorites();
+  checkAndReadStorage();
   openCloseModal();
   const btnsSeeRecipeArray = document.querySelectorAll('.see-recipe-btn');
+  const allHeartCheckBox = document.querySelectorAll('.heart-checkbox');
   btnsSeeRecipeArray.forEach(btnSeeRecipe => {
-    btnSeeRecipe.addEventListener('click', onListClick);
+    btnSeeRecipe.addEventListener('click', onSeeRecipe);
+  });
+  allHeartCheckBox.forEach(checkbox => {
+    checkbox.addEventListener('change', onCheckboxChange);
   });
 }
-function onListClick(event) {
+
+function onSeeRecipe(event) {
   const btnSeeRecipeID = event.target.dataset.id;
   markupRecipe(btnSeeRecipeID);
   modalRating(btnSeeRecipeID);
+}
+
+function onCheckboxChange(evt) {
+  const checkbox = evt.target;
+  const checkboxId = checkbox.id;
+  const checkboxCategory = checkbox.dataset.category;
+
+  if (checkbox.checked) {
+    favouriteArrLocalStor.push({
+      id: checkboxId,
+      category: checkboxCategory,
+    });
+  } else {
+    const index = favouriteArrLocalStor.findIndex(
+      cardHeart => cardHeart.id == checkboxId
+    );
+    favouriteArrLocalStor.splice(index, 1);
+  }
+  const heartCheckBoxElLocalStorage = JSON.stringify(favouriteArrLocalStor);
+  localStorage.setItem('favourite', heartCheckBoxElLocalStorage);
+}
+
+function checkAndReadStorage() {
+  const allHeartCheckBox = document.querySelectorAll('.heart-checkbox');
+  const storedData = localStorage.getItem('favourite');
+  if (storedData) {
+    favouriteArrLocalStor = JSON.parse(storedData);
+    allHeartCheckBox.forEach(checkbox => {
+      const checkboxId = checkbox.id;
+
+      favouriteArrLocalStor.forEach(favoriteId => {
+        if (checkboxId === favoriteId.id) {
+          checkbox.checked = true;
+        }
+      });
+    });
+  }
 }
 
 // то також потрібне
@@ -99,17 +142,14 @@ export function resizePage() {
 
   if (screenWidth >= 1280) {
     tastyApi.limit = 9;
-    //  return 'per_page=9&limit=9';
   }
 
   if (screenWidth >= 768 && screenWidth < 1280) {
-    // return 'per_page=8&limit=8';
     tastyApi.limit = 8;
   }
 
   if (screenWidth < 768) {
     tastyApi.limit = 6;
-    // return 'per_page=6&limit=6';
   }
 }
 
@@ -160,51 +200,5 @@ export function onBtnFavouriteClick() {
     favouriteArrLocalStor.push(btnFavouriteCard);
     const favouriteArrLocalStorString = JSON.stringify(favouriteArrLocalStor);
     localStorage.setItem('favourite', favouriteArrLocalStorString);
-  }
-}
-
-// =======================
-export function addToFavorites() {
-  const allHeartCheckBox = document.querySelectorAll('.heart-checkbox');
-
-  allHeartCheckBox.forEach(checkbox => {
-    checkbox.addEventListener('change', onCheckboxChange);
-  });
-
-  // let favouriteArrLocalStor = []; // from local storage
-  checkAndReadStorage();
-  function onCheckboxChange(evt) {
-    const checkbox = evt.target;
-    const checkboxId = checkbox.id;
-    const checkboxCategory = checkbox.dataset.category;
-
-    if (checkbox.checked) {
-      favouriteArrLocalStor.push({
-        id: checkboxId,
-        category: checkboxCategory,
-      });
-    } else {
-      const index = favouriteArrLocalStor.findIndex(
-        cardHeart => cardHeart.id == checkboxId
-      );
-      favouriteArrLocalStor.splice(index, 1);
-    }
-    const heartCheckBoxElLocalStorage = JSON.stringify(favouriteArrLocalStor);
-    localStorage.setItem('favourite', heartCheckBoxElLocalStorage);
-  }
-  function checkAndReadStorage() {
-    const storedData = localStorage.getItem('favourite');
-    if (storedData) {
-      favouriteArrLocalStor = JSON.parse(storedData);
-      allHeartCheckBox.forEach(checkbox => {
-        const checkboxId = checkbox.id;
-
-        favouriteArrLocalStor.forEach(favoriteId => {
-          if (checkboxId === favoriteId.id) {
-            checkbox.checked = true;
-          }
-        });
-      });
-    }
   }
 }

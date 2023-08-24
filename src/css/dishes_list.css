@@ -10,7 +10,6 @@
 }
 
 .dishes-list-item {
-  /* margin-bottom: 24px; */
   position: relative;
   width: 335px;
   height: 335px;
@@ -19,25 +18,16 @@
 }
 
 .heart-btn {
-  /* z-index: 1000; */
   background: 0, 0;
   position: absolute;
   border: none;
   top: 16px;
   right: 16px;
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
   width: 30px;
   height: 30px;
 }
 
 .dishes-list-heart-icon {
-  /* position: absolute; */
-  /* z-index: 3; */
-  /* top: 50%; */
-  /* left: 50%; */
-  /* transform: translate(-50%, -50%); */
   width: 22px;
   height: 22px;
   opacity: 0.5;
@@ -47,7 +37,6 @@
 
 .heart-btn.is-active-heart .dishes-list-heart-icon {
   opacity: 1;
-  /* z-index: 2; */
   fill: #f8f8f8;
 }
 
@@ -57,7 +46,6 @@
 }
 
 .heart-btn .dishes-list-heart-icon {
-  /* z-index: 2; */
   fill: none;
   stroke: var(--white-text-color);
 }
@@ -65,7 +53,6 @@
 .heart-btn:focus .dishes-list-heart-icon {
   stroke: black;
   stroke-width: 10px;
-  /* scale: 1.5; */
 }
 /* =============heart style */
 .heart-wraper {
@@ -85,7 +72,6 @@
   cursor: pointer;
 }
 
-/* // label - heart-checkbox-label */
 .heart-checkbox-label .heartOff,
 .heart-checkbox:checked ~ .heart-checkbox-label .heartOn {
   display: inline;
@@ -96,24 +82,10 @@
   display: none;
 }
 /* ===================== */
-/* .dishes-list-heart-icon:hover,
-.dishes-list-heart-icon:focus {
-  stroke: black;
-  stroke-width: 10px;
-  transform: scale(2);
-  transition: stroke var(--main-transition), transform var(--main-transition);
-} */
-
 .is-active-heart {
   opacity: 1;
   fill: #f8f8f8;
 }
-
-/* .dishes-list-image {
-  position: absolute;
-  z-index: -22;
-  border-radius: 8px;
-} */
 
 .dishes-list-item-wrapper {
   width: 303px;
@@ -164,11 +136,6 @@
   line-height: calc(18 / 14);
 }
 
-/* .dishes-list-item-wrapper-rating-star-list {
-  display: flex;
-  align-items: center;
-} */
-
 .dishes-list-item-wrapper-rating-star-5 {
   display: flex;
 }
@@ -207,7 +174,7 @@
   .dishes-list-wrap {
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 496px;
+    width: 496px;
     gap: 16px;
     margin-bottom: 64px;
   }
@@ -215,51 +182,22 @@
     width: 240px;
     height: 264px;
   }
-
   .dishes-list-item-wrapper {
     width: 208px;
   }
-  /* .dishes-list-item-title {
-  } */
-
-  /* .dishes-list-item-text {
-    
-  } */
-
-  /* .dishes-list-item-wrapper-rating {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  } */
-
   .dishes-list-item-wrapper-rating-star {
     gap: 2px;
   }
-  /* .dishes-list-item-wrapper-rating-text {
-
-  } */
-
-  /* .dishes-list-item-wrapper-rating-star-list {
-  display: flex;
-  align-items: center;
-} */
-
-  /* .dishes-list-item-wrapper-rating-star-5 {
-    display: flex;
-  } */
   .dishes-list-star-icon {
     width: 16px;
     height: 16px;
   }
-
-  /* .see-recipe-btn {
-  } */
 }
 
 /* =====================desctop==================== */
 @media screen and (min-width: 1280px) {
   .dishes-list-wrap {
-    max-width: 782px;
+    width: 782px;
   }
 
   .dishes-list-item {
@@ -270,10 +208,6 @@
   .dishes-list-item-wrapper {
     width: 218px;
   }
-
-  /* .dishes-list-item-title {
-  } */
-
   .dishes-list-item-text {
     margin-bottom: 16px;
     max-height: 32px;
@@ -287,28 +221,15 @@
     font-weight: 400;
     line-height: calc(16 / 12);
   }
-
-  /* .dishes-list-item-wrapper-rating {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  } */
-
   .dishes-list-item-wrapper-rating-star {
     gap: 4px;
   }
-
   .dishes-list-item-wrapper-rating-text {
     color: var(--white-text-color);
     font-size: 14px;
     font-weight: 500;
     line-height: calc(18 / 14);
   }
-
-  /* .dishes-list-item-wrapper-rating-star-list {
-  display: flex;
-  align-items: center;
-} */
 
   .dishes-list-item-wrapper-rating-star-5 {
     display: flex;
