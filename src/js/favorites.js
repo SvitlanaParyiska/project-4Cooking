@@ -2,12 +2,17 @@ import axios from 'axios';
 import svg from '../images/sprite.svg';
 import { createPlugFavoriteMarkup } from './plug';
 import { save, load, remove } from './localStorageJSON';
+import { TastyAPI } from './tasty-api';
+import { markupRecipe } from './recipe';
+import { openCloseModal } from './create-modal';
 
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-category-list'),
   favoritesRecipesList: document.querySelector('.favorites-recipes-list'),
   emptyStorage: document.querySelector('.empty-storage-js'),
 };
+
+const TastyApi = new TastyAPI();
 
 const KEY_FAVOURITE = 'favourite';
 let favCatArrObj = [];
@@ -18,36 +23,34 @@ refs.favoritesCategoriesList.addEventListener(
   'click',
   filterFavRecipeByCategory
 );
+refs.favoritesRecipesList.addEventListener('click', onClickByRecipe);
 
 checkArrFavoritesId();
 
 async function checkArrFavoritesId() {
   const arrFavoritesId = arrFavorites.map(local => local.id);
-  console.log(arrFavoritesId);
   if (!arrFavoritesId || arrFavoritesId.length === 0) {
     const markStr = createPlugFavoriteMarkup();
     refs.emptyStorage.innerHTML = markStr;
   } else {
     try {
-      const recipesList = await fetchUsers(arrFavoritesId);
-      console.log(recipesList);
+      const recipesList = await fetchRecipes(arrFavoritesId);
       favCatArrObj = createFavCatArrObj(recipesList);
       MarkUpFavSearch(favCatArrObj);
       MarkUpRecipes(favCatArrObj);
       addHearFavoritesListeners();
+      openCloseModal();
     } catch (error) {
       console.log(error.message);
     }
   }
 }
 
-async function fetchUsers(arrId) {
-  const BASE_URL_RECIPES =
-    'https://tasty-treats-backend.p.goit.global/api/recipes/';
+async function fetchRecipes(arrId) {
   try {
     const arrOfPromises = arrId.map(async itemId => {
-      const response = await fetch(`${BASE_URL_RECIPES}${itemId}`);
-      return response.json();
+      const response = TastyApi.getRecipeById(itemId);
+      return response;
     });
     const recipes = await Promise.allSettled(arrOfPromises);
     return recipes.map(recipe => recipe.value);
@@ -151,7 +154,7 @@ function MarkUpRecipes(arr) {
                             ${generateStars(rating)}
                         </div>
                     </div>
-                    <button type="button" data-id="${_id}" data-recipe-btn="click" class="see-recipe-btn js-see-recipe js-recipe">See recipe</button>
+                    <button type="button" data-id="${_id}" data-open='recipe' data-recipe-btn="click" class="see-recipe-btn js-see-recipe js-recipe">See recipe</button>
                 </div>
             </div>
         </li>`;
@@ -172,13 +175,11 @@ function addHearFavoritesListeners() {
 function onCheckboxChange(evt) {
   const checkbox = evt.target;
   const checkboxId = checkbox.id;
-  console.log(checkboxId);
 
   if (checkbox.checked) {
     const index = arrFavorites.findIndex(
       cardHeart => cardHeart.id == checkboxId
     );
-    console.log(index);
     arrFavorites.splice(index, 1);
 
     localStorage.setItem(KEY_FAVOURITE, JSON.stringify(arrFavorites));
@@ -186,4 +187,11 @@ function onCheckboxChange(evt) {
   }
 
   return;
+}
+
+function onClickByRecipe(event) {
+  //event.preventDefault();
+  const itemElement = event.target.closest('.see-recipe-btn');
+  let idRecipe = itemElement.dataset.id;
+  markupRecipe(idRecipe);
 }
