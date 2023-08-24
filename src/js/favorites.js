@@ -195,7 +195,7 @@ function MarkUpRecipes(arr) {
       <use href="${svg}#icon-star"></use>
     </svg>`;
       const inactiveStarMarkup = `<svg class="dishes-list-star-icon">
-      <use href="${svg}}#icon-star"></use>
+      <use href="${svg}#icon-star"></use>
     </svg>`;
 
       function generateStars(rating) {
@@ -206,7 +206,6 @@ function MarkUpRecipes(arr) {
         }
         return stars;
       }
-
       const heartIconOff = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
   <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M10.9938 4.70783C9.16102 2.5652 6.10481 1.98884 3.80851 3.95085C1.51221 5.91285 1.18893 9.19323 2.99222 11.5137C4.49154 13.443 9.029 17.5121 10.5161 18.8291C10.6825 18.9764 10.7657 19.0501 10.8627 19.0791C10.9474 19.1043 11.0401 19.1043 11.1248 19.0791C11.2218 19.0501 11.305 18.9764 11.4714 18.8291C12.9585 17.5121 17.496 13.443 18.9953 11.5137C20.7986 9.19323 20.5148 5.89221 18.179 3.95085C15.8432 2.00948 12.8265 2.5652 10.9938 4.70783Z" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
@@ -215,7 +214,8 @@ function MarkUpRecipes(arr) {
 </svg>`;
 
       function generateHeart(id, category) {
-        return `<div class="heart-wraper" id="${id}">
+        return `
+    <div class="heart-wraper" id="${id}">
       <input type="checkbox" class="heart-checkbox" id="${id}" data-category="${category}" />
       <label for="${id}" class="heart-checkbox-label">
         <span class="heartOff fav">${heartIconOn}</span>
@@ -248,29 +248,4 @@ function MarkUpRecipes(arr) {
   );
 
   refs.favoritesRecipesList.innerHTML = favorArr.join('');
-}
-
-function addHearFavoritesListeners() {
-  const allHeartCheckBox = document.querySelectorAll('.heart-checkbox');
-
-  allHeartCheckBox.forEach(checkbox => {
-    checkbox.addEventListener('change', onCheckboxChange);
-  });
-}
-
-function onCheckboxChange(evt) {
-  const checkbox = evt.target;
-  const checkboxId = checkbox.id;
-  console.log(checkboxId);
-  const checkboxCategory = checkbox.dataset.category;
-
-  if (checkbox.checked) {
-    index = arrFavorites.findIndex(cardHeart => cardHeart.id == checkboxId);
-    arrFavorites.splice(index, 1);
-
-    localStorage.setItem(KEY_FAVOURITE, JSON.stringify(arrFavorites));
-    checkArrFavoritesId();
-  }
-
-  return;
 }
