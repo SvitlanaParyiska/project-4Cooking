@@ -38,7 +38,6 @@ export function openCloseModal() {
   }
 
   function onBackdropCloseModal(event) {
-    event.preventDefault();
     if (event.currentTarget === event.target) {
       onCloseModal();
     }
