@@ -1,6 +1,6 @@
 .rating-modal-container {
   border-radius: 15px;
-  background-color: #fff;
+  background-color:var(--primary-bg-modal);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -25,7 +25,7 @@
 
 .block-star-txt {
   margin-bottom: 4px;
-  color: var(--primary-text-color-light-theme);
+  color: var(--close-button-modal);
   font-size: 14px;
   font-family: 'Inter';
   font-weight: 600;
@@ -44,7 +44,7 @@
   min-width: 295px;
   padding: 14px 18px;
   color: var(--search-text-color);
-  border: 1px solid rgba(5, 5, 5, 0.2);
+  border: 1px solid var(--border-button-color);
   border-radius: 15px;
   margin-bottom: 14px;
   font-size: 14px;
