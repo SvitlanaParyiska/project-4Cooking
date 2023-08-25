@@ -1,9 +1,8 @@
-import { pagination } from './pagination';
-import { onRenderMarkup, clearRecipeCardsContent } from './dishes_list';
+import { pagination, tastyApi } from './pagination';
+import { onRenderMarkup, clearRecipeCardsContent, resizePage } from './dishes_list';
 import Notiflix from 'notiflix';
 import debounce from 'lodash.debounce';
 import { createPlugMarkup } from './plug';
-import { tastyApi } from './pagination';
 
 const filtersContainer = document.querySelector('.filters-container');
 const searchInput = document.querySelector('.search-query');
@@ -94,6 +93,8 @@ function getFiltersInput(evt) {
 
 function getFiltersData() {
     clearRecipeCardsContent();
+    resizePage();
+    tastyApi.page = 1;
     loaderEl.classList.remove('visually-hidden');
     tastyApi.getRecipeByFilter().then(data => {
         pagination.reset(Number(data.perPage) * Number(data.totalPages));
