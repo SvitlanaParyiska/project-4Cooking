@@ -95,6 +95,7 @@ function onBtnCLick(event) {
   if (Btn.textContent === 'All categories') {
     tastyApi.category = '';
     getCategoriesFilters();
+    removeActiveClassFromAllButtons();
     return;
   }
   tastyApi.category = Btn.textContent;

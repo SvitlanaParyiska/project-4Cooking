@@ -20,7 +20,8 @@
 }
 
 .all-category-button:hover,
-.all-category-button:focus {
+.all-category-button:focus,
+.all-category-button.active {
     background-color: var(--accent--text-color);
     color: var(--white-text-color);
     border: 1px solid var(--accent--text-color);
