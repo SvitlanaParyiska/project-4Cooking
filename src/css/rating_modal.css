@@ -105,7 +105,7 @@
 .star-rating {
   width: 24px;
   height: 24px;
-  fill: #d9d9d9;
+  fill: var(--rating-star);
 }
 
 .star-rating.active-modal-stars {
