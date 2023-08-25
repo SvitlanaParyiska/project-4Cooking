@@ -43,7 +43,7 @@
 
 /* =======NEW - OLD STYLE========== */
 
-.dishes-list-item-fav {
+.favorites-recipes-list .dishes-list-item {
   position: relative;
   width: 335px;
   height: 335px;
@@ -104,7 +104,7 @@
     /* justify-content: center; */
   }
 
-  .dishes-list-item-fav {
+  .favorites-recipes-list .dishes-list-item {
     width: 224px;
     height: 244px;
   }
@@ -124,7 +124,7 @@
     flex-wrap: wrap;
   }
 
-  .dishes-list-item-fav {
+  .favorites-recipes-list .dishes-list-item {
     width: 258px;
     height: 287px;
   }
