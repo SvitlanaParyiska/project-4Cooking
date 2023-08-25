@@ -87,7 +87,7 @@ function createMarkupRecipe(recipe) {
 
 <div class="recipe-details-info">
     <div class="recipe-rating-time">
-      <div  class="rating">${rating}
+      <div  class="rating">${rating.toFixed(1)}
      <div class="test-tumb">${generateStars(rating)}</div>
           </div>
       <p class="time-cooking">${time}min</p>
