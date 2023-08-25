@@ -8,7 +8,7 @@ import './js/dishes_list';
 import './js/pagination';
 import './js/rating';
 import './js/recipe';
+import './js/footer';
 import './js/create_order';
-//import './js/test';
 import './js/rating_api';
 import './js/modal-rating';
