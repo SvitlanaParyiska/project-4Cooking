@@ -1,5 +1,3 @@
-import { changeColor } from './modal-rating';
-
 export function openCloseModal() {
   const modalBackdrop = document.querySelector('.modal-backdrop');
   const openBtnsModal = document.querySelectorAll('[data-open]');
@@ -33,6 +31,11 @@ export function openCloseModal() {
     modals.forEach(modal => {
       if (!modal.classList.contains('modal-is-hidden')) {
         modal.classList.add('modal-is-hidden');
+        const video = document.querySelector('.recipe-video');
+        video.contentWindow.postMessage(
+          '{"event":"command","func":"stopVideo","args":""}',
+          '*'
+        );
       }
     });
   }

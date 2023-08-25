@@ -2,7 +2,6 @@ import { TastyAPI } from './tasty-api';
 import svg from '../images/sprite.svg';
 import { localStorageFavourite, onBtnFavouriteClick } from './dishes_list';
 import { openCloseModal } from './create-modal';
-// import { alternativeImg } from '../images/alternativepic.jpg';
 const refs = {
   markupRecipe: document.querySelector('.recipe-markup'),
   videoRecipe: document.querySelector('.recipe-video'),
@@ -75,15 +74,12 @@ function createMarkupRecipe(recipe) {
  <div class="recipe-main-info">
     <iframe
     class="recipe-video"
-    src="${youtube.replace('watch?v=', 'embed/')}" 
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay;
-    clipboard-write;
-    encrypted-media;
-    gyroscope;
-    picture-in-picture;
-     web-share" allowfullscreen>
+    width="100%" height="100%" src="https://www.youtube.com/embed/${youtube.slice(
+      youtube.lastIndexOf('=') + 1
+    )}?enablejsapi=1" title="YouTube video player" 
+    frameborder="0" allow="accelerometer; autoplay;
+     clipboard-write; encrypted-media; gyroscope; picture-in-picture;
+      web-share" allowfullscreen id='v1'>
      </iframe> 
 
      <h2 class="recipe-title">${title}</h2>
