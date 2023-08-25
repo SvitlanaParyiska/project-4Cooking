@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import svg from '../images/sprite.svg';
 import { createPlugFavoriteMarkup } from './plug';
 import { save, load, remove } from './localStorageJSON';
@@ -125,7 +126,7 @@ function MarkUpRecipes(arr) {
       <use href="${svg}#icon-star"></use>
     </svg>`;
       const inactiveStarMarkup = `<svg class="dishes-list-star-icon">
-      <use href="${svg}}#icon-star"></use>
+      <use href="${svg}#icon-star"></use>
     </svg>`;
 
       function generateStars(rating) {
