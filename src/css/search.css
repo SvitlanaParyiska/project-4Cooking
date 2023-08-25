@@ -34,7 +34,7 @@
     border-bottom-color: transparent;
     border-radius: 50%;
     display: block;
-    margin: 200 auto;
+    margin: 200px auto;
     animation: rotation 0.5s linear infinite;
 }
 

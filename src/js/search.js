@@ -92,11 +92,11 @@ function getFiltersInput(evt) {
 }
 
 function getFiltersData() {
-    clearRecipeCardsContent();
     resizePage();
     tastyApi.page = 1;
     loaderEl.classList.remove('visually-hidden');
     tastyApi.getRecipeByFilter().then(data => {
+        clearRecipeCardsContent();
         pagination.reset(Number(data.perPage) * Number(data.totalPages));
         if (data.results.length === 0) {
             Notiflix.Notify.failure('Sorry, but nothing was found for your search');

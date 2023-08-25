@@ -28,7 +28,7 @@
   stroke: var(--primary-text-color-light-theme);
 }
 .recipe-video {
-  width: 100%;
+  width: 295px;
   height: 295px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -192,7 +192,9 @@
     display: flex;
     flex-direction: column-reverse;
   }
+
   .recipe-video {
+    width: 100%;
     height: 250px;
     margin-bottom: 16px;
   }

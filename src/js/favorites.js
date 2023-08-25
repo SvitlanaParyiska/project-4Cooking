@@ -37,7 +37,7 @@ async function checkArrFavoritesId() {
     try {
       const recipesList = await fetchRecipes(arrFavoritesId);
       favCatArrObj = createFavCatArrObj(recipesList);
-      MarkUpFavSearch(favCatArrObj);
+      MarkUpFavSearch(createSortFavCat());
       MarkUpRecipes(favCatArrObj);
       addHearFavoritesListeners();
       openCloseModal();
@@ -45,6 +45,15 @@ async function checkArrFavoritesId() {
       console.log(error.message);
     }
   }
+}
+
+function createSortFavCat() {
+  const newArr = [];
+  arrFavorites.forEach(item => newArr.push(item.category));
+  const arrMark = newArr
+    .filter((course, index, array) => array.indexOf(course) === index)
+    .sort((a, b) => a.localeCompare(b));
+  return arrMark;
 }
 
 async function fetchRecipes(arrId) {
@@ -78,12 +87,12 @@ function createFavCatArrObj(recipesList) {
 
 function MarkUpFavSearch(arr) {
   const favSearchArr = arr.map(
-    ({ categ }) => ` <li class="fav-search-item">
-          <button type="button" class="fav-search-button">${categ}</button>
+    categ => ` <li class="fav-search-item">
+          <button type="button" class="fav-search-button ">${categ}</button>
         </li>`
   );
   refs.favoritesCategoriesList.innerHTML = `<li class="fav-search-item">
-          <button type="button" class="fav-search-button all-category-btn">All categories</button>
+          <button type="button" class="fav-search-button all-category-btn active-button">All categories</button>
         </li>${favSearchArr.join('')}`;
 }
 
@@ -100,6 +109,12 @@ function filterFavRecipeByCategory(event) {
     MarkUpRecipes([selectedCategoryObj]);
     addHearFavoritesListeners();
   }
+  const cardsLisCategory = document.querySelectorAll('.fav-search-button');
+  cardsLisCategory.forEach(button => {
+    button.classList.remove('active-button');
+  });
+
+  event.target.classList.add('active-button');
 }
 
 function MarkUpRecipes(arr) {
@@ -197,3 +212,32 @@ function onClickByRecipe(event) {
   markupRecipe(idRecipe);
   modalRating(idRecipe);
 }
+
+/**SCROLL */
+const scrollBtn = document.querySelector('.scroll-btn-show');
+
+window.onload = () => {
+  window.onscroll = function (e) {
+    let winY = window.scrollY;
+    if (winY > 300) {
+      progressBar();
+
+      scrollAnimation();
+
+      winY = null;
+    }
+  };
+
+  window.onscroll = () => {
+    if (window.scrollY > 500) {
+      scrollBtn.classList.remove('scroll-top-hide');
+    } else if (window.scrollY < 500) {
+      scrollBtn.classList.add('scroll-top-hide');
+    }
+  };
+
+  scrollBtn.addEventListener('mousedown', onScrlBtnClick);
+  function onScrlBtnClick(e) {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }
+};
