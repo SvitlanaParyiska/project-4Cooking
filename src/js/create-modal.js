@@ -16,7 +16,6 @@ export function openCloseModal() {
 
   function onOpenModal(event) {
     const dataAttribute = event.currentTarget.getAttribute('data-open');
-    console.log(dataAttribute);
     zIndexModal += 1;
     modalBackdrop.computedStyleMap.zIndex = zIndexModal;
     document.body.classList.add('modal-is-open');
