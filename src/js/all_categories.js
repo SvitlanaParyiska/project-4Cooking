@@ -1,12 +1,13 @@
 import Notiflix from 'notiflix';
 import { tastyApi } from './pagination';
-import { onRenderMarkup, clearRecipeCardsContent } from './dishes_list';
+import { onRenderMarkup, clearRecipeCardsContent, resizePage } from './dishes_list';
 import { pagination } from './pagination';
 import { createPlugMarkup } from './plug';
 
 const categoriesContainer = document.querySelector('.categories-container');
 const categoryList = categoriesContainer.querySelector('.category-list');
 const allCategoryButton = document.querySelector('.all-category-button');
+const dishesList = document.querySelector('.dishes-list-wrap');
 
 let sort = '';
 let loadPage = 1;
@@ -62,6 +63,9 @@ function renderCategoriesMarkup(categories) {
 fetchAndRenderCategories();
 
 function getCategoriesFilters() {
+  clearRecipeCardsContent();
+  resizePage();
+  tastyApi.page = 1;
   tastyApi.getRecipeByFilter().then(data => {
     if (data.results.length === 0) {
             Notiflix.Notify.failure('Sorry, but nothing was found for your search');
@@ -83,7 +87,6 @@ let lastClickedBtn = null;
 
 function onBtnCLick(event) {
   const Btn = event.target;
-  clearRecipeCardsContent();
 
   if (Btn.nodeName !== 'BUTTON') {
     return;
