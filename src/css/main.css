@@ -70,7 +70,8 @@
   --categories-text-color-dark-theme: rgba(5, 5, 5, 0.5);
   --search-text-color-dark-theme: rgba(255, 255, 255, 0.5);
   --recipe-text-color-dark-theme: rgba(255, 255, 255, 0.8);
-  --close-button-modal: #050505;
+  --not-active-star-recipe: rgba(255, 255, 255, 0.10);
+  --close-button-modal: #050505;  
   --close-button-modal-hover: #fff;
   --accent--text-color: #9bb537;
   --hero-text-color: rgba(248, 248, 248, 0.6);
