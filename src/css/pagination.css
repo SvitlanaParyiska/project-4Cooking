@@ -1,5 +1,6 @@
 #tui-pagination-container {
   height: 40px;
+  margin-top: 64px;
 }
 
 #tui-pagination-container .tui-page-btn {
