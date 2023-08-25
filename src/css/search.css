@@ -7,7 +7,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(5, 5, 5, 0.10);
+    background-color: var(--border-button-color);
     border-radius: 20px;
     border: 6px solid transparent;
     background-clip: content-box;
