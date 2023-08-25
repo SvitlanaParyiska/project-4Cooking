@@ -75,6 +75,8 @@
   --accent--text-color: #9bb537;
   --hero-text-color: rgba(248, 248, 248, 0.6);
   --hero-secondary-text-color: rgba(248, 248, 248, 0.2);
+  --rating-star: #d9d9d9;
+
 
   color-scheme: light;
 }
@@ -95,6 +97,7 @@
 
   --border-button-color: rgba(255, 255, 255, 0.2);
   --active-page-mobile: #9bb537;
+  --rating-star: #3C3B3B;
 
   color-scheme: dark;
 }
