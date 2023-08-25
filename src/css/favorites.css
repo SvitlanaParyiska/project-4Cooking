@@ -101,6 +101,7 @@
   .favorites-recipes-list {
     flex-wrap: wrap;
     gap: 16px;
+    justify-content: center;
   }
 
   .dishes-list-item-fav {
