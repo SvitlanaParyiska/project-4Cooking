@@ -1,14 +1,14 @@
 .footer-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 25px;
-  padding-top: 50px;
+  margin-bottom: 15px;
+  padding-top: 30px;
 }
 
 .footer__logo {
   text-align: center;
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 15px;
 }
 .footer__logo-icon {
@@ -31,8 +31,8 @@
 }
 
 .footer__team {
-  /* display: flex; */
-  /* flex-direction: column;  */
+  display: flex;
+  flex-direction: column;
   text-align: center;
   gap: 8px;
   margin-bottom: 10px;
@@ -40,7 +40,7 @@
 
 .footer__text {
   text-align: center;
-  padding: 15px;
+  padding: 10px;
 }
 .footer__cooks-list {
   text-align: center;
@@ -58,13 +58,13 @@
     flex-direction: column;
   }
 
-  /* .footer__cooks-list {
+  .footer__cooks-list {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
     gap: 10px;
     width: 400px;
-  } */
+  }
 }
 
 @media screen and (min-width: 1280px) {
