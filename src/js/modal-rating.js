@@ -1,79 +1,40 @@
-import { Notify } from 'notiflix';
-import debounce from 'lodash.debounce';
-import { RatingAPI } from './rating_api';
+import { TastyAPI } from './tasty-api';
 
-const RatingAdd = new RatingAPI();
+const tastyApi = new TastyAPI();
 
 export function modalRating(idRecipe) {
+  let ratingToSent = 0;
+  let emailToSent = '';
   const refs = {
     starInputs: document.querySelectorAll('.star-input'),
     ratingEmailInput: document.querySelector('.rating-email-input'),
-    allRatingForm: document.querySelector('.form-rating'),
-
-    ratingModalBackdrop: document.querySelector('.js-modal-backdrop-rating'),
+    allRatingForm: document.querySelector('.form-rating'),   
   };
-  
+
   refs.allRatingForm.addEventListener('submit', onRatingFormSubmit);
-  refs.allRatingForm.addEventListener(
-    'input',
-    debounce(onRatingFormInput, 300)
-  );
-
-  let formRatingValue = {};
-  const LOCAL_KEY = 'form-rating';
-  // click on the stars
-  refs.starInputs.forEach(input => {
-    input.addEventListener('click', event => {
-      const star = event.target;
-
-      const ratingValue = star.value;
-      RatingAdd.setRatingValue(ratingValue);
-    });
+  refs.ratingEmailInput.addEventListener('input', onRatingFormEmailInput);
+  refs.starInputs.forEach(star => {
+    star.addEventListener('click', onStarsClick);
   });
-
-  populateValueInput();
 
   function onRatingFormSubmit(event) {
     event.preventDefault();
-
     changeColor(0);
-
-    RatingAdd.setId(idRecipe);
-
-    localStorage.removeItem(LOCAL_KEY);
-    Notify.success('Your rating has been accepted!');
-    formRatingValue = {};
     event.target.reset();
-
-    refs.ratingModalBackdrop.classList.add('modal-is-hidden');
+    const idPatch = String(idRecipe);
+    tastyApi.addRecipeById(idPatch, ratingToSent, emailToSent);
   }
 
-  function onRatingFormInput(event) {
-    formRatingValue['id'] = idRecipe;
-
-    formRatingValue[event.target.name] = event.target.value;
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(formRatingValue));  
+  function onRatingFormEmailInput(event) {
+    emailToSent = event.target.value;
   }
 
-  function populateValueInput(params) {
-    const savedMessage = localStorage.getItem(LOCAL_KEY);
-    const parsedDataRating = JSON.parse(localStorage.getItem(LOCAL_KEY));
-    const { rate, email } = refs.allRatingForm.elements;
-    
-    if (savedMessage) {
-      rate.value = parsedDataRating.rate || '';
-      email.value = parsedDataRating.email || '';
-    }
-    formRatingValue = { ...parsedDataRating };
+  function onStarsClick(event) {
+    const star = event.target;
+    const ratingValue = star.value;
+    ratingToSent = ratingValue;
+    changeColor(ratingValue);
   }
-
-  const stars = document.querySelectorAll('.rating-star input[type="radio"]');
-  stars.forEach(star => {
-    star.addEventListener('click', () => {
-      const starCount = parseInt(star.value);
-      changeColor(starCount);
-    });
-  });
 }
 
 export function changeColor(starCount) {
@@ -88,12 +49,8 @@ export function changeColor(starCount) {
       starSVG.classList.remove('active-modal-stars');
     }
   }
-  ratingValue.textContent = starCount.toFixed(1);
+  ratingValue.textContent = starCount;
 }
-
-// викликаємо головну функцію
-
-modalRating();
 
 // Перевіряємо на валідність
 
