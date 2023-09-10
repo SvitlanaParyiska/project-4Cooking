@@ -1,10 +1,8 @@
-import axios from 'axios';
-
 import svg from '../images/sprite.svg';
 import { createPlugFavoriteMarkup } from './plug';
 import { save, load, remove } from './localStorageJSON';
 import { TastyAPI } from './tasty-api';
-import { markupRecipe } from './recipe';
+import { markupRecipeFav } from './recipeFav';
 import { openCloseModal } from './create-modal';
 import { modalRating } from './modal-rating';
 
@@ -15,21 +13,20 @@ const refs = {
 };
 
 const TastyApi = new TastyAPI();
-
 const KEY_FAVOURITE = 'favourite';
-let favCatArrObj = [];
 
-const arrFavorites = load(KEY_FAVOURITE) ?? [];
+let favCatArrObj = [];
 
 refs.favoritesCategoriesList.addEventListener(
   'click',
   filterFavRecipeByCategory
 );
-refs.favoritesRecipesList.addEventListener('click', onClickByRecipe);
+//refs.favoritesRecipesList.addEventListener('click', onClickByRecipe);
 
 checkArrFavoritesId();
 
 async function checkArrFavoritesId() {
+  const arrFavorites = load(KEY_FAVOURITE);
   const arrFavoritesId = arrFavorites.map(local => local.id);
   if (!arrFavoritesId || arrFavoritesId.length === 0) {
     const markStr = createPlugFavoriteMarkup();
@@ -38,9 +35,14 @@ async function checkArrFavoritesId() {
     try {
       const recipesList = await fetchRecipes(arrFavoritesId);
       favCatArrObj = createFavCatArrObj(recipesList);
-      MarkUpFavSearch(createSortFavCat());
+      MarkUpFavSearch(createSortFavCat(arrFavorites));
       MarkUpRecipes(favCatArrObj);
       addHearFavoritesListeners();
+      const btnSeeRecipeArray = document.querySelectorAll('.see-recipe-btn');
+      btnSeeRecipeArray.forEach(btnSeeRecipe => {
+        btnSeeRecipe.addEventListener('click', onClickByRecipe);
+      });
+
       openCloseModal();
     } catch (error) {
       console.log(error.message);
@@ -48,7 +50,7 @@ async function checkArrFavoritesId() {
   }
 }
 
-function createSortFavCat() {
+function createSortFavCat(arrFavorites) {
   const newArr = [];
   arrFavorites.forEach(item => newArr.push(item.category));
   const arrMark = newArr
@@ -149,8 +151,8 @@ function MarkUpRecipes(arr) {
     <div class="heart-wraper" id="${id}">
       <input type="checkbox" class="heart-checkbox" id="${id}" data-category="${category}" />
       <label for="${id}" class="heart-checkbox-label">
-        <span class="heartOff fav">${heartIconOn}</span>
-        <span class="heartOn">${heartIconOff}</span>
+        <span class="heartOff">${heartIconOff}</span>
+        <span class="heartOn">${heartIconOn}</span>
       </label>
     </div>`;
       }
@@ -185,33 +187,85 @@ function addHearFavoritesListeners() {
   const allHeartCheckBox = document.querySelectorAll('.heart-checkbox');
 
   allHeartCheckBox.forEach(checkbox => {
-    checkbox.addEventListener('change', onCheckboxChange);
+    checkbox.addEventListener('click', onCheckboxClick);
+    checkbox.checked = true;
   });
 }
 
-function onCheckboxChange(evt) {
+function onCheckboxClick(evt) {
+  const arrFavorites = load(KEY_FAVOURITE);
   const checkbox = evt.target;
   const checkboxId = checkbox.id;
+  const index = arrFavorites.findIndex(cardHeart => cardHeart.id == checkboxId);
+  arrFavorites.splice(index, 1);
 
-  if (checkbox.checked) {
-    const index = arrFavorites.findIndex(
-      cardHeart => cardHeart.id == checkboxId
-    );
-    arrFavorites.splice(index, 1);
-
-    localStorage.setItem(KEY_FAVOURITE, JSON.stringify(arrFavorites));
-    checkArrFavoritesId();
-  }
+  localStorage.setItem(KEY_FAVOURITE, JSON.stringify(arrFavorites));
+  checkArrFavoritesId();
 
   return;
 }
 
 function onClickByRecipe(event) {
+  const btnSeeRecipeID = event.target.dataset.id;
+  markupRecipeFav(btnSeeRecipeID);
+  modalRating(btnSeeRecipeID);
   //event.preventDefault();
-  const itemElement = event.target.closest('.see-recipe-btn');
-  let idRecipe = itemElement.dataset.id;
-  markupRecipe(idRecipe);
-  modalRating(idRecipe);
+  // const itemElement = event.target.closest('.see-recipe-btn');
+  // let idRecipe = itemElement.dataset.id;
+  // markupRecipeFav(idRecipe);
+  // modalRating(idRecipe);
+}
+
+export function localStorageFavourite() {
+  const storedData = localStorage.getItem('favourite');
+  if (storedData) {
+    favouriteArrLocalStor = JSON.parse(storedData);
+    const btnFavourite = document.querySelector('.favorite-btn');
+    const btnFavouriteID = btnFavourite.dataset.id;
+    favouriteArrLocalStor.forEach(FavoriteObj => {
+      if (btnFavouriteID === FavoriteObj.id) {
+        btnFavourite.textContent = 'Remove to favorite';
+      }
+    });
+  }
+}
+
+export function onBtnFavouriteClick() {
+  const arrFavorites = load(KEY_FAVOURITE);
+  const btnFavourite = document.querySelector('.favorite-btn');
+  const btnFavouriteCard = btnFavourite.dataset;
+  const checkbox = document.querySelectorAll('.heart-checkbox');
+  if (btnFavourite.textContent === 'Remove to favorite') {
+    btnFavourite.textContent = 'Add to favorite';
+    checkbox.forEach(heart => {
+      const heartId = heart.getAttribute('id');
+      if (heartId === btnFavouriteCard.id) {
+        heart.checked = false;
+      }
+    });
+    arrFavorites.map((value, index) => {
+      if (btnFavouriteCard.id === value.id) {
+        arrFavorites.splice(index, 1);
+      }
+    });
+    const favouriteArrLocalStorString = JSON.stringify(arrFavorites);
+    localStorage.setItem('favourite', favouriteArrLocalStorString);
+  } else {
+    checkbox.forEach(heart => {
+      const heartId = heart.getAttribute('id');
+      if (heartId === btnFavouriteCard.id) {
+        heart.checked = true;
+      }
+    });
+    btnFavourite.textContent = 'Remove to favorite';
+    if (arrFavorites.includes(btnFavouriteCard)) {
+      return;
+    }
+    arrFavorites.push(btnFavouriteCard);
+    const favouriteArrLocalStorString = JSON.stringify(arrFavorites);
+    localStorage.setItem('favourite', favouriteArrLocalStorString);
+  }
+  checkArrFavoritesId();
 }
 
 /**SCROLL */
