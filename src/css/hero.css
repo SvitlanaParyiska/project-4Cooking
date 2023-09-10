@@ -2,8 +2,7 @@
 
 /************************ SWIPER *************************/
 .swiper {
-    width: 496px;
-    overflow: scroll;
+    max-width: 496px;
 }
 .swiper-slide {
   display: flex !important;
@@ -146,7 +145,7 @@ opacity: 1;
 
 @media screen and (min-width: 768px) {
   .swiper {
-    width: 871px;
+    max-width: 871px;
   }
   .swiper-slide {
   gap: 16px;
