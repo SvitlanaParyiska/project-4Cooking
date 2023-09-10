@@ -4,60 +4,75 @@ import { openCloseModal } from './create-modal';
 import { localStorageFavourite, onBtnFavouriteClick } from './favorites';
 import Notiflix from 'notiflix';
 
-export async function markupRecipeFav(idRecipe) {
-  const refs = {
-    markupRecipe: document.querySelector('.recipe-markup'),
-    videoRecipe: document.querySelector('.recipe-video'),
-  };
-  const tastyApi = new TastyAPI();
-  function createMarkupRecipeFav(recipe) {
-    const {
-      _id,
-      title,
-      category,
-      instructions,
-      time,
-      youtube,
-      tags,
-      ingredients,
-      rating,
-    } = recipe;
-    const activeStarMarkup = `<svg class="star-active">
-      <use href="${svg}#icon-star"></use>
-    </svg>`;
-    const inactiveStarMarkup = `<svg class="star-notActive">
-      <use href="${svg}#icon-star"></use>
-    </svg>`;
-    function generateStars(rating) {
-      let stars = '';
-      let roundedRating = Math.round(rating);
-      for (let i = 0; i < 5; i++) {
-        stars += i < roundedRating ? activeStarMarkup : inactiveStarMarkup;
-      }
-      return stars;
-    }
+const refs = {
+  markupRecipe: document.querySelector('.recipe-markup'),
+  videoRecipe: document.querySelector('.recipe-video'),
+};
+const tastyApi = new TastyAPI();
 
-    const ingredientList = ingredients
-      .map(
-        ({ name, measure }) =>
-          `
+export async function markupRecipeFav(idRecipe) {
+  await tastyApi
+    .getRecipeById(idRecipe)
+    .then(recipe => {
+      refs.markupRecipe.innerHTML = createMarkupRecipe(recipe);
+      openCloseModal();
+      const btnFavourite = document.querySelector('.favorite-btn');
+      localStorageFavourite();
+      btnFavourite.addEventListener('click', onBtnFavouriteClick);
+    })
+    .catch(() => {
+      Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    });
+}
+
+function createMarkupRecipe(recipe) {
+  const {
+    _id,
+    title,
+    category,
+    instructions,
+    time,
+    youtube,
+    tags,
+    ingredients,
+    rating,
+  } = recipe;
+  const activeStarMarkup = `<svg class="star-active">
+      <use href="${svg}#icon-star"></use>
+    </svg>`;
+  const inactiveStarMarkup = `<svg class="star-notActive">
+      <use href="${svg}#icon-star"></use>
+    </svg>`;
+  function generateStars(rating) {
+    let stars = '';
+    let roundedRating = Math.round(rating);
+    for (let i = 0; i < 5; i++) {
+      stars += i < roundedRating ? activeStarMarkup : inactiveStarMarkup;
+    }
+    return stars;
+  }
+
+  const ingredientList = ingredients
+    .map(
+      ({ name, measure }) =>
+        `
     <li class="ingredients-item">
       <span class="ingredients-item-name">${name}</span>
       <span class="ingredients-item-measure">${measure}</span>
     </li>
     `
-      )
-      .join(' ');
+    )
+    .join(' ');
 
-    const tagsList = tags
-      .map(tag => {
-        return `
+  const tagsList = tags
+    .map(tag => {
+      return `
     <li class="tags-item">#${tag}</li>
     `;
-      })
-      .join(' ');
+    })
+    .join(' ');
 
-    return `
+  return `
  <div class="recipe-main-info">
     <iframe
     class="recipe-video"
@@ -93,18 +108,4 @@ export async function markupRecipeFav(idRecipe) {
     <button type="button" class="rating-btn btn" data-open="rating">Give a rating</button>
    </div>
     `;
-  }
-
-  try {
-    const recipe = await tastyApi.getRecipeById(idRecipe);
-    refs.markupRecipe.innerHTML = createMarkupRecipeFav(recipe);
-    openCloseModal();
-    const btnFavourite = document.querySelector('.favorite-btn');
-    localStorageFavourite();
-    btnFavourite.addEventListener('click', onBtnFavouriteClick);
-  } catch (error) {
-    Notiflix.Notify.failure(
-      'Oops! Something went wrong! Try reloading the page!'
-    );
-  }
 }
