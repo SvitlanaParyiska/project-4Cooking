@@ -2,6 +2,7 @@ import { TastyAPI } from './tasty-api';
 import svg from '../images/sprite.svg';
 import { openCloseModal } from './create-modal';
 import { localStorageFavourite, onBtnFavouriteClick } from './favorites';
+import Notiflix from 'notiflix';
 
 export async function markupRecipeFav(idRecipe) {
   const refs = {
@@ -102,6 +103,8 @@ export async function markupRecipeFav(idRecipe) {
     localStorageFavourite();
     btnFavourite.addEventListener('click', onBtnFavouriteClick);
   } catch (error) {
-    Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    Notiflix.Notify.failure(
+      'Oops! Something went wrong! Try reloading the page!'
+    );
   }
 }
