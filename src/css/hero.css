@@ -3,6 +3,7 @@
 /************************ SWIPER *************************/
 .swiper {
     width: 496px;
+    overflow: scroll;
 }
 .swiper-slide {
   display: flex !important;
