@@ -20,8 +20,8 @@ export async function markupRecipeFav(idRecipe) {
       localStorageFavourite();
       btnFavourite.addEventListener('click', onBtnFavouriteClick);
     })
-    .catch(() => {
-      Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    .catch(error => {
+      Notify.failure(error.message);
     });
 }
 
