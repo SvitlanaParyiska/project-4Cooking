@@ -21,7 +21,7 @@ export async function markupRecipeFav(idRecipe) {
       btnFavourite.addEventListener('click', onBtnFavouriteClick);
     })
     .catch(error => {
-      Notify.failure(error.message);
+      Notiflix.Notify.failure(error.message);
     });
 }
 
