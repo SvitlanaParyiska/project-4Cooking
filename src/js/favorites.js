@@ -219,7 +219,7 @@ function onClickByRecipe(event) {
 export function localStorageFavourite() {
   const storedData = localStorage.getItem('favourite');
   if (storedData) {
-    favouriteArrLocalStor = JSON.parse(storedData);
+    const favouriteArrLocalStor = JSON.parse(storedData);
     const btnFavourite = document.querySelector('.favorite-btn');
     const btnFavouriteID = btnFavourite.dataset.id;
     favouriteArrLocalStor.forEach(FavoriteObj => {
