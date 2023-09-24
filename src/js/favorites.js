@@ -5,51 +5,59 @@ import { TastyAPI } from './tasty-api';
 import { markupRecipeFav } from './recipeFav';
 import { openCloseModal } from './create-modal';
 import { modalRating } from './modal-rating';
+import { pagination } from './paginationFav';
 
 const refs = {
   favoritesCategoriesList: document.querySelector('.favorites-category-list'),
   favoritesRecipesList: document.querySelector('.favorites-recipes-list'),
   emptyStorage: document.querySelector('.empty-storage-js'),
+  paginationConteiner: document.getElementById('tui-pagination-container'),
 };
 
 const TastyApi = new TastyAPI();
 const KEY_FAVOURITE = 'favourite';
 
-let favCatArrObj = [];
+let recipesList = [];
 
 refs.favoritesCategoriesList.addEventListener(
   'click',
   filterFavRecipeByCategory
 );
-//refs.favoritesRecipesList.addEventListener('click', onClickByRecipe);
 
 checkArrFavoritesId();
 
-async function checkArrFavoritesId() {
+// main//
+export async function checkArrFavoritesId(page = 1, sort = false) {
   const arrFavorites = load(KEY_FAVOURITE);
+  const list = window.innerWidth < 768 ? 9 : 12;
   const arrFavoritesId = arrFavorites.map(local => local.id);
   if (!arrFavoritesId || arrFavoritesId.length === 0) {
     const markStr = createPlugFavoriteMarkup();
     refs.emptyStorage.innerHTML = markStr;
   } else {
     try {
-      const recipesList = await fetchRecipes(arrFavoritesId);
-      favCatArrObj = createFavCatArrObj(recipesList);
+      recipesList = await fetchRecipes(arrFavoritesId);
+      pagination.setTotalItems(recipesList.length);
       MarkUpFavSearch(createSortFavCat(arrFavorites));
-      MarkUpRecipes(favCatArrObj);
+      const paginationArr = recipesList.slice(list * (page - 1), list * page);
+      MarkUpRecipes(paginationArr);
       addHearFavoritesListeners();
       const btnSeeRecipeArray = document.querySelectorAll('.see-recipe-btn');
       btnSeeRecipeArray.forEach(btnSeeRecipe => {
         btnSeeRecipe.addEventListener('click', onClickByRecipe);
       });
-
       openCloseModal();
+      itemsPerPage();
+      if (!sort) {
+        pagination.reset(recipesList.length);
+      }
     } catch (error) {
       console.log(error.message);
     }
   }
 }
 
+//get sort list categories//
 function createSortFavCat(arrFavorites) {
   const newArr = [];
   arrFavorites.forEach(item => newArr.push(item.category));
@@ -59,6 +67,7 @@ function createSortFavCat(arrFavorites) {
   return arrMark;
 }
 
+//get cards of recipes from API
 async function fetchRecipes(arrId) {
   try {
     const arrOfPromises = arrId.map(async itemId => {
@@ -70,22 +79,6 @@ async function fetchRecipes(arrId) {
   } catch {
     throw new Error('ERROR');
   }
-}
-
-function createFavCatArrObj(recipesList) {
-  const favCatArr = [];
-  const uniqueCategories = [
-    ...new Set(recipesList.map(recipe => recipe.category)),
-  ];
-
-  uniqueCategories.forEach(category => {
-    const recipesInCategory = recipesList.filter(
-      recipe => recipe.category === category
-    );
-    favCatArr.push({ categ: category, recipes: recipesInCategory });
-  });
-
-  return favCatArr;
 }
 
 function MarkUpFavSearch(arr) {
@@ -103,14 +96,20 @@ function filterFavRecipeByCategory(event) {
   const selectedCategory = event.target.textContent;
 
   if (selectedCategory === 'All categories') {
-    MarkUpRecipes(favCatArrObj);
-    addHearFavoritesListeners();
+    checkArrFavoritesId();
   } else {
-    const selectedCategoryObj = favCatArrObj.find(
-      obj => obj.categ === selectedCategory
+    const selectedCategoryObj = recipesList.filter(
+      item => item.category === selectedCategory
     );
-    MarkUpRecipes([selectedCategoryObj]);
+    MarkUpRecipes(selectedCategoryObj);
     addHearFavoritesListeners();
+    const btnSeeRecipeArray = document.querySelectorAll('.see-recipe-btn');
+    btnSeeRecipeArray.forEach(btnSeeRecipe => {
+      btnSeeRecipe.addEventListener('click', onClickByRecipe);
+    });
+    openCloseModal();
+    itemsPerPage();
+    pagination.reset(selectedCategoryObj.length);
   }
   const cardsLisCategory = document.querySelectorAll('.fav-search-button');
   cardsLisCategory.forEach(button => {
@@ -120,10 +119,10 @@ function filterFavRecipeByCategory(event) {
   event.target.classList.add('active-button');
 }
 
-function MarkUpRecipes(arr) {
+export function MarkUpRecipes(arr) {
   refs.favoritesRecipesList.innerHTML = '';
-  const favorArr = arr.flatMap(({ recipes }) =>
-    recipes.map(({ _id, title, category, description, preview, rating }) => {
+  const favorArr = arr.map(
+    ({ _id, title, category, description, preview, rating }) => {
       const activeStarMarkup = `<svg class="is-active-star">
       <use href="${svg}#icon-star"></use>
     </svg>`;
@@ -177,7 +176,7 @@ function MarkUpRecipes(arr) {
                 </div>
             </div>
         </li>`;
-    })
+    }
   );
 
   refs.favoritesRecipesList.innerHTML = favorArr.join('');
@@ -209,11 +208,6 @@ function onClickByRecipe(event) {
   const btnSeeRecipeID = event.target.dataset.id;
   markupRecipeFav(btnSeeRecipeID);
   modalRating(btnSeeRecipeID);
-  //event.preventDefault();
-  // const itemElement = event.target.closest('.see-recipe-btn');
-  // let idRecipe = itemElement.dataset.id;
-  // markupRecipeFav(idRecipe);
-  // modalRating(idRecipe);
 }
 
 export function localStorageFavourite() {
@@ -296,3 +290,15 @@ window.onload = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }
 };
+
+// Pagination//
+
+function itemsPerPage() {
+  if (window.innerWidth <= 768) {
+    pagination.setItemsPerPage(9);
+    return 9;
+  } else {
+    pagination.setItemsPerPage(12);
+    return 12;
+  }
+}

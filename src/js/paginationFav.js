@@ -1,42 +1,25 @@
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
-
-function resizeVisPageFav() {
-  const screenWidth = window.innerWidth;
-
-  if (screenWidth < 768) {
-    return 3;
-  }
-
-  if (screenWidth >= 768) {
-    return 4;
-  }
-}
-
-function resizePageItemPaginationFav() {
-  const screenWidth = window.innerWidth;
-
-  if (screenWidth >= 1280) {
-    return 12;
-  }
-
-  if (screenWidth >= 768 && screenWidth < 1280) {
-    return 12;
-  }
-
-  if (screenWidth < 768) {
-    return 9;
-  }
-}
+import { save, load, remove } from './localStorageJSON';
+import { checkArrFavoritesId } from './favorites';
 
 const container = document.getElementById('tui-pagination-container');
-const listEl = document.querySelector('.favorites - recipes - list');
+const KEY_FAVOURITE = 'favourite';
+
+let storedData = load(KEY_FAVOURITE);
+let length = 0;
+if (storedData) {
+  length = storedData.length;
+}
 
 const optionsFav = {
-  totalItems: 0,
-  itemsPerPage: resizePageItemPaginationFav(),
-  visiblePages: resizeVisPageFav(),
+  totalItems: length,
+  itemsPerPage: window.innerWidth < 768 ? 9 : 12,
+  visiblePages: window.innerWidth < 768 ? 2 : 3,
   page: 1,
+  centerAlign: true,
+  firstItemClassName: 'tui-first-child',
+  lastItemClassName: 'tui-last-child',
   template: {
     page: '<a href="#" class="tui-page-btn">{{page}}</a>',
     currentPage:
@@ -56,19 +39,12 @@ const optionsFav = {
   },
 };
 
-export const paginationFav = new Pagination(container, options);
+export const pagination = new Pagination(container, optionsFav);
 
-const pageFav = paginationFav.getCurrentPage();
-
-paginationFav.on('afterMove', getAll);
+pagination.on('afterMove', getAll);
 
 function getAll(event) {
   const currentPage = event.page;
-  // tastyApi.page = currentPage;
-  //resizePage();
-
-  //tastyApi.getRecipeByFilter().then(data => {
-  //clearRecipeCardsContent();
-  // onRenderMarkup(data);
-  // });
+  checkArrFavoritesId(currentPage, true);
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 }
