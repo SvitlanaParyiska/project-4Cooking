@@ -1,12 +1,10 @@
 import './js/header';
 import './js/sliderHero';
-import './js/hero';
 import './js/all_categories';
 import './js/popular_recipes';
 import './js/search';
 import './js/dishes_list';
 import './js/pagination';
 import './js/recipe';
-import './js/footer';
 import './js/create_order';
 import './js/modal-rating';
